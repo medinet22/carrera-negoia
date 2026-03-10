@@ -1,0 +1,40 @@
+# Carrera IA - Robots.txt
+User-agent: *
+Allow: /
+Disallow: /dashboard
+Disallow: /api/dashboard
+Disallow: /api/admin-reset
+
+# Sitemaps
+Sitemap: https://carrera.negoia.com/sitemap.xml
+
+# AI Crawlers - Welcome (except private routes above)
+User-agent: GPTBot
+Allow: /
+Disallow: /dashboard
+Disallow: /api/dashboard
+
+User-agent: ChatGPT-User
+Allow: /
+Disallow: /dashboard
+Disallow: /api/dashboard
+
+User-agent: Claude-Web
+Allow: /
+Disallow: /dashboard
+Disallow: /api/dashboard
+
+User-agent: Perplexity-AI
+Allow: /
+Disallow: /dashboard
+Disallow: /api/dashboard
+
+User-agent: Anthropic-AI
+Allow: /
+Disallow: /dashboard
+Disallow: /api/dashboard
+
+User-agent: Google-Extended
+Allow: /
+Disallow: /dashboard
+Disallow: /api/dashboard
