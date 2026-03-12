@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Script from 'next/script'
 
 export const metadata = {
   title: 'Cambio de Carrera Profesional a los 30, 40 o 50 años | Guía Completa',
@@ -15,9 +16,45 @@ export const metadata = {
   },
 }
 
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: '¿Es tarde para cambiar de carrera después de los 40?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'No. A los 40 todavía te quedan más de 20 años de carrera. La clave es enfocar la transición en habilidades transferibles y un rol puente con demanda real.'
+      }
+    },
+    {
+      '@type': 'Question',
+      name: '¿Tengo que empezar de cero para cambiar de carrera?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'No. Un cambio exitoso se apoya en traducir tu experiencia previa al nuevo contexto. Mantienes habilidades de comunicación, gestión, análisis y ejecución.'
+      }
+    },
+    {
+      '@type': 'Question',
+      name: '¿Cuánto tarda un cambio de carrera bien ejecutado?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Normalmente entre 3 y 6 meses para pasar de claridad a entrevistas reales, dependiendo de los gaps técnicos y de la activación de red.'
+      }
+    }
+  ]
+}
+
 export default function CambioCarreraProfesional() {
   return (
     <article className="article-page">
+      <Script
+        id="faq-schema-cambio-carrera"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
       <div className="article-container">
         <nav className="breadcrumb">
           <Link href="/">Inicio</Link> → <span>Cambio de Carrera Profesional</span>
@@ -221,6 +258,23 @@ export default function CambioCarreraProfesional() {
             a un proyecto open source, y hecho shadowing con PMs de mi red para entender el día a día.&quot;
           </blockquote>
 
+          <h2>Plan de 72 horas para destrabar tu cambio de carrera</h2>
+
+          <p>
+            Si llevas meses bloqueado, no necesitas más teoría: necesitas una secuencia corta que te dé claridad.
+            Aquí tienes un sprint de 72 horas para pasar de la duda a un plan accionable.
+          </p>
+
+          <ol>
+            <li><strong>Día 1 (60-90 min):</strong> Lista 20 tareas que has hecho bien en los últimos 3 años y etiqueta cada una por nivel de energía (alta/media/baja).</li>
+            <li><strong>Día 2 (45 min):</strong> Elige 3 roles objetivo y compáralos contra tus tareas de energía alta para detectar encaje real.</li>
+            <li><strong>Día 3 (45 min):</strong> Redacta una narrativa de transición en 6 líneas y compártela con 2 contactos para feedback.</li>
+          </ol>
+
+          <p>
+            Con esto tendrás un mapa inicial de habilidades + dirección concreta. Evita seguir consumiendo contenido sin ejecutar.
+          </p>
+
           <h2>Recursos para el Cambio de Carrera</h2>
           
           <ul>
@@ -234,7 +288,7 @@ export default function CambioCarreraProfesional() {
           <div className="cta-box">
             <h3>¿Listo para explorar tu siguiente carrera?</h3>
             <p>Descubre qué roles encajan con tus habilidades actuales. Sin tests genéricos, basado en tu experiencia real.</p>
-            <Link href="/" className="btn btn-primary">Ver mis opciones de carrera →</Link>
+            <Link href="/?utm_source=seo&utm_medium=blog&utm_campaign=cta_cambio_carrera_72h_b" className="btn btn-primary">Quiero descubrir mis habilidades en 15 minutos →</Link>
           </div>
         </div>
       </div>

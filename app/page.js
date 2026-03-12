@@ -1,5 +1,6 @@
 'use client'
 import { useState } from 'react'
+import Link from 'next/link'
 
 export default function Home() {
   const [submitted, setSubmitted] = useState(false)
@@ -120,6 +121,15 @@ export default function Home() {
               </p>
             </div>
             <SignupForm />
+            <div style={{ marginTop: '10px', marginBottom: '10px', textAlign: 'center' }}>
+              <Link
+                href="/encuesta?utm_source=landing&utm_medium=cro_cta&utm_campaign=sprint_trafico_dia1&utm_content=hero_90s"
+                className="btn btn-secondary"
+                style={{ display: 'inline-block', textDecoration: 'none' }}
+              >
+                Prefiero empezar con la encuesta (90 segundos) →
+              </Link>
+            </div>
             <div className="form-footer">
               🔒 Tus datos están seguros. No los compartimos con nadie.
             </div>
@@ -395,6 +405,7 @@ export default function Home() {
           <a href="/como-identificar-habilidades" style={{marginRight: '10px'}}>Cómo identificar habilidades</a>
           <a href="/cambio-carrera-profesional" style={{marginRight: '10px'}}>Cambio de carrera</a>
           <a href="/test-habilidades-profesionales" style={{marginRight: '10px'}}>Test habilidades</a>
+          <a href="/orientacion-laboral-gratis-online" style={{marginRight: '10px'}}>Orientación laboral gratis</a>
           <a href="/encuesta">Encuesta</a>
         </div>
         <p>© 2026 NegoIA · Hecho para profesionales que merecen más</p>

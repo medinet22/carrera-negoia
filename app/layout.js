@@ -57,6 +57,43 @@ export default function RootLayout({ children }) {
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
         <link rel="icon" href="/favicon.ico" sizes="any" />
+
+        {/* Clarity */}
+        <script dangerouslySetInnerHTML={{__html: `
+          (function(c,l,a,r,i,t,y){
+            c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+            t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+          })(window, document, "clarity", "script", "vulopprnt8");
+        `}} />
+
+        {/* PostHog */}
+        <script dangerouslySetInnerHTML={{__html: `
+          !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="init capture register register_once unregister unregister_once identify alias set_config reset opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing start_session_recording stop_session_recording onFeatureFlags getFeatureFlag onSessionId".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+          posthog.init('phc_bZhqMaBL4KBVzbNmdBbVcoWmOo4Dh9mysScZYPRirqT', {
+            api_host: 'https://us.i.posthog.com',
+            autocapture: true,
+            capture_pageview: true,
+            capture_pageleave: true,
+            person_profiles: 'identified_only'
+          });
+          posthog.register({ site: 'carrera' });
+
+          (function setupAnalytics() {
+            var UTM_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'];
+            var params = new URLSearchParams(window.location.search);
+            var freshUtm = {};
+            UTM_KEYS.forEach(function(k){ if(params.get(k)) freshUtm[k] = params.get(k); });
+            if (Object.keys(freshUtm).length) {
+              var stored = {};
+              try { stored = JSON.parse(sessionStorage.getItem('utms')||'{}'); } catch(e){}
+              var merged = Object.assign({}, stored, freshUtm);
+              sessionStorage.setItem('utms', JSON.stringify(merged));
+              posthog.register(merged);
+              posthog.capture('utm_captured', merged);
+            }
+          })();
+        `}} />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
