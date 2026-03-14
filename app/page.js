@@ -84,7 +84,7 @@ export default function Home() {
         <div className="hero-content">
           <span className="badge">
             <span className="badge-dot"></span>
-            🔥 Beta gratuita — Solo hasta fin de marzo
+            🔥 Beta gratuita — Últimos 12 días (cierra 26 marzo)
           </span>
           
           <h1>
