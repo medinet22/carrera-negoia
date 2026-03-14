@@ -22,6 +22,8 @@ export default function sitemap() {
     '/como-cambiar-de-trabajo-a-los-40',
     '/como-saber-que-trabajo-te-gusta',
     '/orientacion-laboral-gratis-online',
+    '/crisis-40-anos-profesional',
+    '/no-me-gusta-mi-trabajo-pero-paga-bien',
   ]
 
   return routes.map((route) => ({
