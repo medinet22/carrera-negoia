@@ -24,6 +24,7 @@ export default function sitemap() {
     '/orientacion-laboral-gratis-online',
     '/crisis-40-anos-profesional',
     '/no-me-gusta-mi-trabajo-pero-paga-bien',
+    '/miedo-a-dejar-trabajo-seguro',
   ]
 
   return routes.map((route) => ({
