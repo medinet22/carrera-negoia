@@ -25,6 +25,8 @@ export default function sitemap() {
     '/crisis-40-anos-profesional',
     '/no-me-gusta-mi-trabajo-pero-paga-bien',
     '/miedo-a-dejar-trabajo-seguro',
+    '/sindrome-impostor-trabajo',
+    '/como-saber-si-cambiar-de-trabajo',
   ]
 
   return routes.map((route) => ({
