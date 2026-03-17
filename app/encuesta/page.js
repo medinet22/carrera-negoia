@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import styles from './encuesta.module.css'
+import { track } from '../lib/analytics'
 
 export default function Encuesta() {
   const [step, setStep] = useState(1)
@@ -51,6 +52,7 @@ export default function Encuesta() {
       return
     }
 
+    track('signup_start', { source: 'encuesta', step })
     setLoading(true)
     try {
       await fetch('/api/discovery', {
@@ -67,8 +69,10 @@ export default function Encuesta() {
           notes: `Objetivo: ${answers.goal}`
         })
       })
+      track('signup_complete', { source: 'encuesta' })
       setSubmitted(true)
     } catch (err) {
+      track('signup_error', { source: 'encuesta' })
       console.error(err)
     }
     setLoading(false)
@@ -136,7 +140,7 @@ export default function Encuesta() {
                 ))}
               </div>
 
-              <button type="button" className={`${styles.btn} ${styles.btnNext}`} onClick={() => setStep(2)} disabled={!answers.situation || !answers.frustration}>
+              <button type="button" className={`${styles.btn} ${styles.btnNext}`} onClick={() => { track('cta_click', { cta_id: 'encuesta_step1_next' }); setStep(2) }} disabled={!answers.situation || !answers.frustration}>
                 Siguiente →
               </button>
             </>
@@ -169,8 +173,8 @@ export default function Encuesta() {
               </div>
 
               <div className={styles.btnGroup}>
-                <button type="button" className={`${styles.btn} ${styles.btnBack}`} onClick={() => setStep(1)}>← Atrás</button>
-                <button type="button" className={`${styles.btn} ${styles.btnNext}`} onClick={() => setStep(3)} disabled={!answers.urgency}>
+                <button type="button" className={`${styles.btn} ${styles.btnBack}`} onClick={() => { track('cta_click', { cta_id: 'encuesta_step2_back' }); setStep(1) }}>← Atrás</button>
+                <button type="button" className={`${styles.btn} ${styles.btnNext}`} onClick={() => { track('cta_click', { cta_id: 'encuesta_step2_next' }); setStep(3) }} disabled={!answers.urgency}>
                   Siguiente →
                 </button>
               </div>
@@ -232,8 +236,8 @@ export default function Encuesta() {
               )}
 
               <div className={styles.btnGroup}>
-                <button type="button" className={`${styles.btn} ${styles.btnBack}`} onClick={() => setStep(2)}>← Atrás</button>
-                <button type="button" className={`${styles.btn} ${styles.btnSubmit}`} onClick={handleSubmit} disabled={loading || !answers.would_pay || !answers.goal || !answers.email}>
+                <button type="button" className={`${styles.btn} ${styles.btnBack}`} onClick={() => { track('cta_click', { cta_id: 'encuesta_step3_back' }); setStep(2) }}>← Atrás</button>
+                <button type="button" className={`${styles.btn} ${styles.btnSubmit}`} onClick={() => { track('cta_click', { cta_id: 'encuesta_submit' }); handleSubmit() }} disabled={loading || !answers.would_pay || !answers.goal || !answers.email}>
                   {loading ? 'Enviando...' : 'Enviar respuestas'}
                 </button>
               </div>

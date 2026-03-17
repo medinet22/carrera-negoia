@@ -1,6 +1,7 @@
 'use client'
 import { useState } from 'react'
 import Link from 'next/link'
+import { track } from './lib/analytics'
 
 export default function Home() {
   const [submitted, setSubmitted] = useState(false)
@@ -8,6 +9,7 @@ export default function Home() {
 
   const handleSubmit = async (emailValue) => {
     if (!emailValue) return
+    track('signup_start', { source: 'home_form' })
     setLoading(true)
 
     try {
@@ -16,8 +18,10 @@ export default function Home() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: emailValue })
       })
+      track('signup_complete', { source: 'home_form' })
       setSubmitted(true)
     } catch (err) {
+      track('signup_error', { source: 'home_form' })
       console.error(err)
     }
     setLoading(false)
@@ -126,6 +130,7 @@ export default function Home() {
                 href="/encuesta?utm_source=landing&utm_medium=cro_cta&utm_campaign=sprint_trafico_dia1&utm_content=hero_90s"
                 className="btn btn-secondary"
                 style={{ display: 'inline-block', textDecoration: 'none' }}
+                onClick={() => track('cta_click', { cta_id: 'hero_encuesta', destination: '/encuesta' })}
               >
                 Prefiero empezar con la encuesta (90 segundos) →
               </Link>
@@ -249,7 +254,7 @@ export default function Home() {
                 <li>Resumen compartible en redes</li>
                 <li>Descarga en PDF</li>
               </ul>
-              <button className="btn btn-secondary" onClick={() => document.querySelector('.form-card input[type="email"]').focus()}>
+              <button className="btn btn-secondary" onClick={() => { track('cta_click', { cta_id: 'focus_signup_email' }); document.querySelector('.form-card input[type="email"]').focus() }}>
                 Empezar gratis →
               </button>
             </div>
@@ -269,7 +274,7 @@ export default function Home() {
                 <li>Rangos salariales por país</li>
                 <li>Links a ofertas reales de cada rol</li>
               </ul>
-              <button className="btn btn-primary" onClick={() => document.querySelector('.form-card input[type="email"]').focus()}>
+              <button className="btn btn-primary" onClick={() => { track('cta_click', { cta_id: 'focus_signup_email' }); document.querySelector('.form-card input[type="email"]').focus() }}>
                 Reservar mi lugar →
               </button>
             </div>
@@ -288,7 +293,7 @@ export default function Home() {
                 <li>Guía de entrevista por rol</li>
                 <li>30 días de actualizaciones</li>
               </ul>
-              <button className="btn btn-secondary" onClick={() => document.querySelector('.form-card input[type="email"]').focus()}>
+              <button className="btn btn-secondary" onClick={() => { track('cta_click', { cta_id: 'focus_signup_email' }); document.querySelector('.form-card input[type="email"]').focus() }}>
                 Reservar mi lugar →
               </button>
             </div>

@@ -1,4 +1,5 @@
 import './globals.css'
+import AnalyticsTracker from './components/AnalyticsTracker'
 
 export const metadata = {
   metadataBase: new URL('https://carrera.negoia.com'),
@@ -73,9 +74,20 @@ export default function RootLayout({ children }) {
           posthog.init('phc_bZhqMaBL4KBVzbNmdBbVcoWmOo4Dh9mysScZYPRirqT', {
             api_host: 'https://us.i.posthog.com',
             autocapture: true,
-            capture_pageview: true,
+            capture_pageview: false,
             capture_pageleave: true,
-            person_profiles: 'identified_only'
+            person_profiles: 'identified_only',
+            before_send: function(event) {
+              event.properties = event.properties || {};
+              if (!event.properties.site) event.properties.site = 'carrera';
+              if (!event.properties.traffic_type) {
+                var ua = (navigator.userAgent || '').toLowerCase();
+                var isTechnical = !!(navigator.webdriver || /(bot|spider|crawler|headless|lighthouse|slurp|facebookexternalhit|preview)/i.test(ua));
+                event.properties.traffic_type = isTechnical ? 'technical' : 'human';
+                event.properties.is_technical_session = isTechnical;
+              }
+              return event;
+            }
           });
           posthog.register({ site: 'carrera' });
 
@@ -121,7 +133,10 @@ export default function RootLayout({ children }) {
           }}
         />
       </head>
-      <body>{children}</body>
+      <body>
+        <AnalyticsTracker />
+        {children}
+      </body>
     </html>
   )
 }
