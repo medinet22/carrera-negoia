@@ -1,10 +1,10 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, Suspense } from 'react'
 import { usePathname, useSearchParams } from 'next/navigation'
 import { isTechnicalSession, track } from '../lib/analytics'
 
-export default function AnalyticsTracker() {
+function TrackerInner() {
   const pathname = usePathname()
   const searchParams = useSearchParams()
 
@@ -26,4 +26,12 @@ export default function AnalyticsTracker() {
   }, [pathname, searchParams])
 
   return null
+}
+
+export default function AnalyticsTracker() {
+  return (
+    <Suspense fallback={null}>
+      <TrackerInner />
+    </Suspense>
+  )
 }
