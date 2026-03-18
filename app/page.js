@@ -121,7 +121,7 @@ export default function Home() {
             <div className="form-header">
               <h2 className="form-title">Accede gratis al Mapa de Habilidades</h2>
               <p className="form-subtitle">
-                Te avisamos cuando esté listo. Sin spam, solo cosas útiles.
+                Te mandamos acceso beta + primer paso recomendado en menos de 3 minutos. Sin spam.
               </p>
             </div>
             <SignupForm />

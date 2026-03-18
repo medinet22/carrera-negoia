@@ -27,6 +27,7 @@ export default function sitemap() {
     '/miedo-a-dejar-trabajo-seguro',
     '/sindrome-impostor-trabajo',
     '/como-saber-si-cambiar-de-trabajo',
+    '/trabajo-sin-sentido-que-hacer',
   ]
 
   return routes.map((route) => ({
