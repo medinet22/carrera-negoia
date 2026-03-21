@@ -28,6 +28,9 @@ export default function sitemap() {
     '/sindrome-impostor-trabajo',
     '/como-saber-si-cambiar-de-trabajo',
     '/trabajo-sin-sentido-que-hacer',
+    '/cuando-odias-tu-trabajo',
+    '/dejar-trabajo-toxico',
+    '/reinventarse-profesionalmente',
   ]
 
   return routes.map((route) => ({
