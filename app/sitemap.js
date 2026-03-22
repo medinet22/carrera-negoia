@@ -31,6 +31,7 @@ export default function sitemap() {
     '/cuando-odias-tu-trabajo',
     '/dejar-trabajo-toxico',
     '/reinventarse-profesionalmente',
+    '/que-hacer-cuando-no-te-ascienden',
   ]
 
   return routes.map((route) => ({
