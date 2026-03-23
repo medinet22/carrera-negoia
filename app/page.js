@@ -83,60 +83,64 @@ export default function Home() {
 
   return (
     <>
-      {/* ========== HERO ========== */}
+      {/* ========== HERO (AIDA Framework) ========== */}
       <section className="hero">
         <div className="hero-content">
           <span className="badge">
             <span className="badge-dot"></span>
-            🔥 Beta gratuita — Últimos 3 días (cierra 26 marzo)
+            🎯 Primeros 100 accesos gratis — Análisis personalizado
           </span>
           
+          {/* ATENCIÓN: Gancho que conecta con el dolor inmediato */}
           <h1>
-            15 años trabajando y{' '}
-            <span className="highlight">no sabes para qué eres bueno</span>
+            Llevas años trabajando y{' '}
+            <span className="highlight">no sabes qué poner en el CV</span>
           </h1>
           
+          {/* INTERÉS: Reformular el problema y crear curiosidad */}
           <p className="subtitle">
-            Descubre las habilidades que llevas años usando sin saberlo. 
-            Encuentra roles donde brillarías. Consigue el trabajo que mereces. 
-            Sin tests genéricos. Sin coaches caros. Sin humo.
+            El problema no es que no tengas habilidades. Es que las que más vales 
+            <strong> no sabes nombrarlas</strong>. Están ahí, las usas cada día, 
+            pero cuando alguien te pregunta "¿en qué eres bueno?" te quedas en blanco.
           </p>
 
+          {/* DESEO: Promesa concreta y creíble */}
           <div className="hero-stats">
             <div className="stat">
-              <div className="stat-number">47</div>
-              <div className="stat-label">habilidades promedio</div>
+              <div className="stat-number">30-50</div>
+              <div className="stat-label">habilidades que ya tienes</div>
             </div>
             <div className="stat">
-              <div className="stat-number">15 min</div>
-              <div className="stat-label">para tu mapa</div>
+              <div className="stat-number">2 min</div>
+              <div className="stat-label">para ver tus 10 top</div>
             </div>
             <div className="stat">
-              <div className="stat-number">12</div>
-              <div className="stat-label">roles que encajan</div>
+              <div className="stat-number">€0</div>
+              <div className="stat-label">sin crear cuenta</div>
             </div>
           </div>
 
+          {/* ACCIÓN: CTA claro con valor inmediato */}
           <div className="form-card">
             <div className="form-header">
-              <h2 className="form-title">Accede gratis al Mapa de Habilidades</h2>
+              <h2 className="form-title">Descubre tus habilidades invisibles</h2>
               <p className="form-subtitle">
-                Te mandamos acceso beta + primer paso recomendado en menos de 3 minutos. Sin spam.
+                Responde 5 preguntas rápidas → recibe tu Mini-Mapa de Habilidades personalizado en tu email. Sin spam. Sin tarjeta.
               </p>
             </div>
-            <SignupForm />
+            <SignupForm buttonText="Ver mis habilidades ocultas →" />
             <div style={{ marginTop: '10px', marginBottom: '10px', textAlign: 'center' }}>
               <Link
-                href="/encuesta?utm_source=landing&utm_medium=cro_cta&utm_campaign=sprint_trafico_dia1&utm_content=hero_90s"
+                href="/encuesta?utm_source=landing&utm_medium=cro_cta&utm_campaign=aida_hero&utm_content=encuesta_rapida"
                 className="btn btn-secondary"
                 style={{ display: 'inline-block', textDecoration: 'none' }}
                 onClick={() => track('cta_click', { cta_id: 'hero_encuesta', destination: '/encuesta' })}
               >
-                Prefiero empezar con la encuesta (90 segundos) →
+                Empezar con la encuesta rápida (90 seg) →
               </Link>
             </div>
             <div className="form-footer">
-              🔒 Tus datos están seguros. No los compartimos con nadie.
+              🔒 Tus datos están seguros. Borrado en 1 clic.
             </div>
           </div>
         </div>
