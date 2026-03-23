@@ -32,6 +32,7 @@ export default function sitemap() {
     '/dejar-trabajo-toxico',
     '/reinventarse-profesionalmente',
     '/que-hacer-cuando-no-te-ascienden',
+    '/primer-trabajo-despues-de-los-40',
   ]
 
   return routes.map((route) => ({
