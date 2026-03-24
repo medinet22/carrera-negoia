@@ -18,33 +18,89 @@
       "Horarios pueden extenderse si gestionas cuentas en múltiples zonas horarias"
     ],
     "required_hard_skills": [
-      {"skill": "CRM (HubSpot, Salesforce)", "level": 4},
-      {"skill": "Análisis de datos de uso", "level": 3},
-      {"skill": "Conocimiento de producto SaaS", "level": 4},
-      {"skill": "Herramientas CS (Gainsight, ChurnZero)", "level": 3}
+      {
+        "skill": "CRM (HubSpot, Salesforce)",
+        "level": 4
+      },
+      {
+        "skill": "Análisis de datos de uso",
+        "level": 3
+      },
+      {
+        "skill": "Conocimiento de producto SaaS",
+        "level": 4
+      },
+      {
+        "skill": "Herramientas CS (Gainsight, ChurnZero)",
+        "level": 3
+      }
     ],
     "required_soft_skills": [
-      {"skill": "Comunicación", "level": 5},
-      {"skill": "Empatía", "level": 5},
-      {"skill": "Resolución de problemas", "level": 4},
-      {"skill": "Gestión de relaciones", "level": 5}
+      {
+        "skill": "Comunicación",
+        "level": 5
+      },
+      {
+        "skill": "Empatía",
+        "level": 5
+      },
+      {
+        "skill": "Resolución de problemas",
+        "level": 4
+      },
+      {
+        "skill": "Gestión de relaciones",
+        "level": 5
+      }
     ],
     "salary_ranges": {
-      "ES": {"min": 32000, "max": 55000, "currency": "EUR"},
-      "MX": {"min": 30000, "max": 55000, "currency": "MXN/mes"},
-      "CO": {"min": 5000000, "max": 10000000, "currency": "COP/mes"},
-      "AR": {"min": 800000, "max": 1800000, "currency": "ARS/mes"},
-      "remote": {"min": 50000, "max": 90000, "currency": "USD"}
+      "ES": {
+        "min": 32000,
+        "max": 55000,
+        "currency": "EUR"
+      },
+      "MX": {
+        "min": 30000,
+        "max": 55000,
+        "currency": "MXN/mes"
+      },
+      "CO": {
+        "min": 5000000,
+        "max": 10000000,
+        "currency": "COP/mes"
+      },
+      "AR": {
+        "min": 800000,
+        "max": 1800000,
+        "currency": "ARS/mes"
+      },
+      "remote": {
+        "min": 50000,
+        "max": 90000,
+        "currency": "USD"
+      }
     },
     "demand_level": "alta",
     "growth_trend": "growing",
     "growth_percentage": 23,
     "remote_friendly": true,
-    "companies_hiring": ["HubSpot", "Salesforce", "Typeform", "Factorial", "Stripe", "Notion"],
+    "companies_hiring": [
+      "HubSpot",
+      "Salesforce",
+      "Typeform",
+      "Factorial",
+      "Stripe",
+      "Notion"
+    ],
     "linkedin_search_template": "Customer Success Manager",
     "infojobs_search_template": "customer success",
     "indeed_search_template": "customer success manager",
-    "transition_from": ["Account Manager", "Sales", "Customer Support", "Project Manager"]
+    "transition_from": [
+      "Account Manager",
+      "Sales",
+      "Customer Support",
+      "Project Manager"
+    ]
   },
   {
     "id": "pm-001",
@@ -65,33 +121,90 @@
       "El burnout es común si no pones límites"
     ],
     "required_hard_skills": [
-      {"skill": "Análisis de datos (SQL básico)", "level": 3},
-      {"skill": "Herramientas de roadmap (Jira, Linear, Notion)", "level": 4},
-      {"skill": "Frameworks de priorización (RICE, ICE)", "level": 4},
-      {"skill": "User research basics", "level": 3}
+      {
+        "skill": "Análisis de datos (SQL básico)",
+        "level": 3
+      },
+      {
+        "skill": "Herramientas de roadmap (Jira, Linear, Notion)",
+        "level": 4
+      },
+      {
+        "skill": "Frameworks de priorización (RICE, ICE)",
+        "level": 4
+      },
+      {
+        "skill": "User research basics",
+        "level": 3
+      }
     ],
     "required_soft_skills": [
-      {"skill": "Comunicación", "level": 5},
-      {"skill": "Pensamiento estratégico", "level": 5},
-      {"skill": "Influencia sin autoridad", "level": 5},
-      {"skill": "Toma de decisiones", "level": 4}
+      {
+        "skill": "Comunicación",
+        "level": 5
+      },
+      {
+        "skill": "Pensamiento estratégico",
+        "level": 5
+      },
+      {
+        "skill": "Influencia sin autoridad",
+        "level": 5
+      },
+      {
+        "skill": "Toma de decisiones",
+        "level": 4
+      }
     ],
     "salary_ranges": {
-      "ES": {"min": 45000, "max": 80000, "currency": "EUR"},
-      "MX": {"min": 45000, "max": 85000, "currency": "MXN/mes"},
-      "CO": {"min": 8000000, "max": 18000000, "currency": "COP/mes"},
-      "AR": {"min": 1200000, "max": 3000000, "currency": "ARS/mes"},
-      "remote": {"min": 80000, "max": 180000, "currency": "USD"}
+      "ES": {
+        "min": 45000,
+        "max": 80000,
+        "currency": "EUR"
+      },
+      "MX": {
+        "min": 45000,
+        "max": 85000,
+        "currency": "MXN/mes"
+      },
+      "CO": {
+        "min": 8000000,
+        "max": 18000000,
+        "currency": "COP/mes"
+      },
+      "AR": {
+        "min": 1200000,
+        "max": 3000000,
+        "currency": "ARS/mes"
+      },
+      "remote": {
+        "min": 80000,
+        "max": 180000,
+        "currency": "USD"
+      }
     },
     "demand_level": "alta",
     "growth_trend": "growing",
     "growth_percentage": 18,
     "remote_friendly": true,
-    "companies_hiring": ["Spotify", "Glovo", "Cabify", "Revolut", "N26", "Delivery Hero"],
+    "companies_hiring": [
+      "Spotify",
+      "Glovo",
+      "Cabify",
+      "Revolut",
+      "N26",
+      "Delivery Hero"
+    ],
     "linkedin_search_template": "Product Manager",
     "infojobs_search_template": "product manager",
     "indeed_search_template": "product manager",
-    "transition_from": ["Business Analyst", "UX Designer", "Developer", "Consultant", "Project Manager"]
+    "transition_from": [
+      "Business Analyst",
+      "UX Designer",
+      "Developer",
+      "Consultant",
+      "Project Manager"
+    ]
   },
   {
     "id": "ops-001",
@@ -112,33 +225,89 @@
       "Gestionar equipos grandes puede ser agotador"
     ],
     "required_hard_skills": [
-      {"skill": "Excel/Google Sheets avanzado", "level": 5},
-      {"skill": "Herramientas de BI (Looker, Power BI)", "level": 3},
-      {"skill": "Gestión de proyectos (Asana, Monday)", "level": 4},
-      {"skill": "ERP basics (SAP, Oracle)", "level": 3}
+      {
+        "skill": "Excel/Google Sheets avanzado",
+        "level": 5
+      },
+      {
+        "skill": "Herramientas de BI (Looker, Power BI)",
+        "level": 3
+      },
+      {
+        "skill": "Gestión de proyectos (Asana, Monday)",
+        "level": 4
+      },
+      {
+        "skill": "ERP basics (SAP, Oracle)",
+        "level": 3
+      }
     ],
     "required_soft_skills": [
-      {"skill": "Liderazgo de equipos", "level": 5},
-      {"skill": "Resolución de problemas", "level": 5},
-      {"skill": "Pensamiento analítico", "level": 4},
-      {"skill": "Gestión del estrés", "level": 5}
+      {
+        "skill": "Liderazgo de equipos",
+        "level": 5
+      },
+      {
+        "skill": "Resolución de problemas",
+        "level": 5
+      },
+      {
+        "skill": "Pensamiento analítico",
+        "level": 4
+      },
+      {
+        "skill": "Gestión del estrés",
+        "level": 5
+      }
     ],
     "salary_ranges": {
-      "ES": {"min": 40000, "max": 75000, "currency": "EUR"},
-      "MX": {"min": 40000, "max": 80000, "currency": "MXN/mes"},
-      "CO": {"min": 7000000, "max": 15000000, "currency": "COP/mes"},
-      "AR": {"min": 1000000, "max": 2500000, "currency": "ARS/mes"},
-      "remote": {"min": 60000, "max": 120000, "currency": "USD"}
+      "ES": {
+        "min": 40000,
+        "max": 75000,
+        "currency": "EUR"
+      },
+      "MX": {
+        "min": 40000,
+        "max": 80000,
+        "currency": "MXN/mes"
+      },
+      "CO": {
+        "min": 7000000,
+        "max": 15000000,
+        "currency": "COP/mes"
+      },
+      "AR": {
+        "min": 1000000,
+        "max": 2500000,
+        "currency": "ARS/mes"
+      },
+      "remote": {
+        "min": 60000,
+        "max": 120000,
+        "currency": "USD"
+      }
     },
     "demand_level": "alta",
     "growth_trend": "stable",
     "growth_percentage": 8,
     "remote_friendly": false,
-    "companies_hiring": ["Amazon", "Glovo", "Rappi", "Mercado Libre", "Inditex", "DHL"],
+    "companies_hiring": [
+      "Amazon",
+      "Glovo",
+      "Rappi",
+      "Mercado Libre",
+      "Inditex",
+      "DHL"
+    ],
     "linkedin_search_template": "Operations Manager",
     "infojobs_search_template": "director operaciones",
     "indeed_search_template": "operations manager",
-    "transition_from": ["Project Manager", "Supply Chain", "Logistics Coordinator", "Store Manager"]
+    "transition_from": [
+      "Project Manager",
+      "Supply Chain",
+      "Logistics Coordinator",
+      "Store Manager"
+    ]
   },
   {
     "id": "bdr-001",
@@ -159,33 +328,89 @@
       "Rotación alta en el rol — muchos lo usan como trampolín"
     ],
     "required_hard_skills": [
-      {"skill": "CRM (Salesforce, HubSpot)", "level": 3},
-      {"skill": "Herramientas de prospección (LinkedIn, Apollo)", "level": 4},
-      {"skill": "Email outreach", "level": 4},
-      {"skill": "Cualificación de leads (BANT, MEDDIC)", "level": 3}
+      {
+        "skill": "CRM (Salesforce, HubSpot)",
+        "level": 3
+      },
+      {
+        "skill": "Herramientas de prospección (LinkedIn, Apollo)",
+        "level": 4
+      },
+      {
+        "skill": "Email outreach",
+        "level": 4
+      },
+      {
+        "skill": "Cualificación de leads (BANT, MEDDIC)",
+        "level": 3
+      }
     ],
     "required_soft_skills": [
-      {"skill": "Comunicación persuasiva", "level": 5},
-      {"skill": "Resiliencia", "level": 5},
-      {"skill": "Escucha activa", "level": 4},
-      {"skill": "Organización", "level": 4}
+      {
+        "skill": "Comunicación persuasiva",
+        "level": 5
+      },
+      {
+        "skill": "Resiliencia",
+        "level": 5
+      },
+      {
+        "skill": "Escucha activa",
+        "level": 4
+      },
+      {
+        "skill": "Organización",
+        "level": 4
+      }
     ],
     "salary_ranges": {
-      "ES": {"min": 24000, "max": 40000, "currency": "EUR"},
-      "MX": {"min": 20000, "max": 40000, "currency": "MXN/mes"},
-      "CO": {"min": 3500000, "max": 7000000, "currency": "COP/mes"},
-      "AR": {"min": 600000, "max": 1400000, "currency": "ARS/mes"},
-      "remote": {"min": 40000, "max": 70000, "currency": "USD"}
+      "ES": {
+        "min": 24000,
+        "max": 40000,
+        "currency": "EUR"
+      },
+      "MX": {
+        "min": 20000,
+        "max": 40000,
+        "currency": "MXN/mes"
+      },
+      "CO": {
+        "min": 3500000,
+        "max": 7000000,
+        "currency": "COP/mes"
+      },
+      "AR": {
+        "min": 600000,
+        "max": 1400000,
+        "currency": "ARS/mes"
+      },
+      "remote": {
+        "min": 40000,
+        "max": 70000,
+        "currency": "USD"
+      }
     },
     "demand_level": "alta",
     "growth_trend": "growing",
     "growth_percentage": 15,
     "remote_friendly": true,
-    "companies_hiring": ["Salesforce", "HubSpot", "Datadog", "Stripe", "monday.com", "Personio"],
+    "companies_hiring": [
+      "Salesforce",
+      "HubSpot",
+      "Datadog",
+      "Stripe",
+      "monday.com",
+      "Personio"
+    ],
     "linkedin_search_template": "Business Development Representative SDR",
     "infojobs_search_template": "BDR SDR ventas",
     "indeed_search_template": "business development representative",
-    "transition_from": ["Sales Retail", "Customer Support", "Telemarketing", "Account Manager junior"]
+    "transition_from": [
+      "Sales Retail",
+      "Customer Support",
+      "Telemarketing",
+      "Account Manager junior"
+    ]
   },
   {
     "id": "ux-001",
@@ -206,33 +431,89 @@
       "Portfolio es esencial — competencia alta para roles junior"
     ],
     "required_hard_skills": [
-      {"skill": "Figma", "level": 5},
-      {"skill": "Prototipado interactivo", "level": 4},
-      {"skill": "User Research", "level": 4},
-      {"skill": "Design Systems", "level": 3}
+      {
+        "skill": "Figma",
+        "level": 5
+      },
+      {
+        "skill": "Prototipado interactivo",
+        "level": 4
+      },
+      {
+        "skill": "User Research",
+        "level": 4
+      },
+      {
+        "skill": "Design Systems",
+        "level": 3
+      }
     ],
     "required_soft_skills": [
-      {"skill": "Empatía", "level": 5},
-      {"skill": "Pensamiento crítico", "level": 4},
-      {"skill": "Comunicación visual", "level": 5},
-      {"skill": "Colaboración", "level": 4}
+      {
+        "skill": "Empatía",
+        "level": 5
+      },
+      {
+        "skill": "Pensamiento crítico",
+        "level": 4
+      },
+      {
+        "skill": "Comunicación visual",
+        "level": 5
+      },
+      {
+        "skill": "Colaboración",
+        "level": 4
+      }
     ],
     "salary_ranges": {
-      "ES": {"min": 35000, "max": 60000, "currency": "EUR"},
-      "MX": {"min": 30000, "max": 60000, "currency": "MXN/mes"},
-      "CO": {"min": 5000000, "max": 12000000, "currency": "COP/mes"},
-      "AR": {"min": 800000, "max": 2000000, "currency": "ARS/mes"},
-      "remote": {"min": 60000, "max": 120000, "currency": "USD"}
+      "ES": {
+        "min": 35000,
+        "max": 60000,
+        "currency": "EUR"
+      },
+      "MX": {
+        "min": 30000,
+        "max": 60000,
+        "currency": "MXN/mes"
+      },
+      "CO": {
+        "min": 5000000,
+        "max": 12000000,
+        "currency": "COP/mes"
+      },
+      "AR": {
+        "min": 800000,
+        "max": 2000000,
+        "currency": "ARS/mes"
+      },
+      "remote": {
+        "min": 60000,
+        "max": 120000,
+        "currency": "USD"
+      }
     },
     "demand_level": "alta",
     "growth_trend": "growing",
     "growth_percentage": 16,
     "remote_friendly": true,
-    "companies_hiring": ["Spotify", "Figma", "Airbnb", "Revolut", "Cabify", "Typeform"],
+    "companies_hiring": [
+      "Spotify",
+      "Figma",
+      "Airbnb",
+      "Revolut",
+      "Cabify",
+      "Typeform"
+    ],
     "linkedin_search_template": "UX Designer",
     "infojobs_search_template": "diseñador UX",
     "indeed_search_template": "UX designer",
-    "transition_from": ["Graphic Designer", "Web Designer", "Product Designer", "UI Developer"]
+    "transition_from": [
+      "Graphic Designer",
+      "Web Designer",
+      "Product Designer",
+      "UI Developer"
+    ]
   },
   {
     "id": "da-001",
@@ -253,33 +534,89 @@
       "Herramientas y stack cambian constantemente"
     ],
     "required_hard_skills": [
-      {"skill": "SQL", "level": 5},
-      {"skill": "Excel avanzado", "level": 4},
-      {"skill": "Herramientas BI (Looker, Tableau, Power BI)", "level": 4},
-      {"skill": "Python o R básico", "level": 3}
+      {
+        "skill": "SQL",
+        "level": 5
+      },
+      {
+        "skill": "Excel avanzado",
+        "level": 4
+      },
+      {
+        "skill": "Herramientas BI (Looker, Tableau, Power BI)",
+        "level": 4
+      },
+      {
+        "skill": "Python o R básico",
+        "level": 3
+      }
     ],
     "required_soft_skills": [
-      {"skill": "Pensamiento analítico", "level": 5},
-      {"skill": "Storytelling con datos", "level": 4},
-      {"skill": "Atención al detalle", "level": 5},
-      {"skill": "Comunicación", "level": 4}
+      {
+        "skill": "Pensamiento analítico",
+        "level": 5
+      },
+      {
+        "skill": "Storytelling con datos",
+        "level": 4
+      },
+      {
+        "skill": "Atención al detalle",
+        "level": 5
+      },
+      {
+        "skill": "Comunicación",
+        "level": 4
+      }
     ],
     "salary_ranges": {
-      "ES": {"min": 30000, "max": 55000, "currency": "EUR"},
-      "MX": {"min": 28000, "max": 55000, "currency": "MXN/mes"},
-      "CO": {"min": 4500000, "max": 10000000, "currency": "COP/mes"},
-      "AR": {"min": 700000, "max": 1800000, "currency": "ARS/mes"},
-      "remote": {"min": 55000, "max": 100000, "currency": "USD"}
+      "ES": {
+        "min": 30000,
+        "max": 55000,
+        "currency": "EUR"
+      },
+      "MX": {
+        "min": 28000,
+        "max": 55000,
+        "currency": "MXN/mes"
+      },
+      "CO": {
+        "min": 4500000,
+        "max": 10000000,
+        "currency": "COP/mes"
+      },
+      "AR": {
+        "min": 700000,
+        "max": 1800000,
+        "currency": "ARS/mes"
+      },
+      "remote": {
+        "min": 55000,
+        "max": 100000,
+        "currency": "USD"
+      }
     },
     "demand_level": "alta",
     "growth_trend": "growing",
     "growth_percentage": 25,
     "remote_friendly": true,
-    "companies_hiring": ["Google", "Amazon", "Spotify", "Mercado Libre", "Rappi", "Glovo"],
+    "companies_hiring": [
+      "Google",
+      "Amazon",
+      "Spotify",
+      "Mercado Libre",
+      "Rappi",
+      "Glovo"
+    ],
     "linkedin_search_template": "Data Analyst",
     "infojobs_search_template": "analista de datos",
     "indeed_search_template": "data analyst",
-    "transition_from": ["Business Analyst", "Financial Analyst", "Marketing Analyst", "Excel power user"]
+    "transition_from": [
+      "Business Analyst",
+      "Financial Analyst",
+      "Marketing Analyst",
+      "Excel power user"
+    ]
   },
   {
     "id": "pjm-001",
@@ -300,33 +637,89 @@
       "Puede ser frustrante cuando los proyectos se retrasan"
     ],
     "required_hard_skills": [
-      {"skill": "Herramientas PM (Jira, Asana, MS Project)", "level": 4},
-      {"skill": "Excel/Sheets avanzado", "level": 4},
-      {"skill": "Metodologías (Agile, Waterfall)", "level": 4},
-      {"skill": "Gestión de presupuestos", "level": 3}
+      {
+        "skill": "Herramientas PM (Jira, Asana, MS Project)",
+        "level": 4
+      },
+      {
+        "skill": "Excel/Sheets avanzado",
+        "level": 4
+      },
+      {
+        "skill": "Metodologías (Agile, Waterfall)",
+        "level": 4
+      },
+      {
+        "skill": "Gestión de presupuestos",
+        "level": 3
+      }
     ],
     "required_soft_skills": [
-      {"skill": "Comunicación", "level": 5},
-      {"skill": "Organización", "level": 5},
-      {"skill": "Liderazgo", "level": 4},
-      {"skill": "Negociación", "level": 4}
+      {
+        "skill": "Comunicación",
+        "level": 5
+      },
+      {
+        "skill": "Organización",
+        "level": 5
+      },
+      {
+        "skill": "Liderazgo",
+        "level": 4
+      },
+      {
+        "skill": "Negociación",
+        "level": 4
+      }
     ],
     "salary_ranges": {
-      "ES": {"min": 35000, "max": 60000, "currency": "EUR"},
-      "MX": {"min": 30000, "max": 60000, "currency": "MXN/mes"},
-      "CO": {"min": 5000000, "max": 12000000, "currency": "COP/mes"},
-      "AR": {"min": 700000, "max": 1800000, "currency": "ARS/mes"},
-      "remote": {"min": 50000, "max": 100000, "currency": "USD"}
+      "ES": {
+        "min": 35000,
+        "max": 60000,
+        "currency": "EUR"
+      },
+      "MX": {
+        "min": 30000,
+        "max": 60000,
+        "currency": "MXN/mes"
+      },
+      "CO": {
+        "min": 5000000,
+        "max": 12000000,
+        "currency": "COP/mes"
+      },
+      "AR": {
+        "min": 700000,
+        "max": 1800000,
+        "currency": "ARS/mes"
+      },
+      "remote": {
+        "min": 50000,
+        "max": 100000,
+        "currency": "USD"
+      }
     },
     "demand_level": "alta",
     "growth_trend": "stable",
     "growth_percentage": 10,
     "remote_friendly": true,
-    "companies_hiring": ["Accenture", "Deloitte", "IBM", "Telefónica", "BBVA", "Santander"],
+    "companies_hiring": [
+      "Accenture",
+      "Deloitte",
+      "IBM",
+      "Telefónica",
+      "BBVA",
+      "Santander"
+    ],
     "linkedin_search_template": "Project Manager",
     "infojobs_search_template": "gestor de proyectos",
     "indeed_search_template": "project manager",
-    "transition_from": ["Team Lead", "Coordinator", "Business Analyst", "Scrum Master"]
+    "transition_from": [
+      "Team Lead",
+      "Coordinator",
+      "Business Analyst",
+      "Scrum Master"
+    ]
   },
   {
     "id": "hrbp-001",
@@ -347,33 +740,89 @@
       "Carga emocional cuando gestionas casos complejos"
     ],
     "required_hard_skills": [
-      {"skill": "HRIS (Workday, SAP HR)", "level": 3},
-      {"skill": "Legislación laboral local", "level": 4},
-      {"skill": "Analytics de RRHH", "level": 3},
-      {"skill": "Diseño de procesos de performance", "level": 4}
+      {
+        "skill": "HRIS (Workday, SAP HR)",
+        "level": 3
+      },
+      {
+        "skill": "Legislación laboral local",
+        "level": 4
+      },
+      {
+        "skill": "Analytics de RRHH",
+        "level": 3
+      },
+      {
+        "skill": "Diseño de procesos de performance",
+        "level": 4
+      }
     ],
     "required_soft_skills": [
-      {"skill": "Empatía", "level": 5},
-      {"skill": "Comunicación", "level": 5},
-      {"skill": "Pensamiento estratégico", "level": 4},
-      {"skill": "Confidencialidad", "level": 5}
+      {
+        "skill": "Empatía",
+        "level": 5
+      },
+      {
+        "skill": "Comunicación",
+        "level": 5
+      },
+      {
+        "skill": "Pensamiento estratégico",
+        "level": 4
+      },
+      {
+        "skill": "Confidencialidad",
+        "level": 5
+      }
     ],
     "salary_ranges": {
-      "ES": {"min": 40000, "max": 70000, "currency": "EUR"},
-      "MX": {"min": 35000, "max": 70000, "currency": "MXN/mes"},
-      "CO": {"min": 6000000, "max": 14000000, "currency": "COP/mes"},
-      "AR": {"min": 900000, "max": 2200000, "currency": "ARS/mes"},
-      "remote": {"min": 60000, "max": 110000, "currency": "USD"}
+      "ES": {
+        "min": 40000,
+        "max": 70000,
+        "currency": "EUR"
+      },
+      "MX": {
+        "min": 35000,
+        "max": 70000,
+        "currency": "MXN/mes"
+      },
+      "CO": {
+        "min": 6000000,
+        "max": 14000000,
+        "currency": "COP/mes"
+      },
+      "AR": {
+        "min": 900000,
+        "max": 2200000,
+        "currency": "ARS/mes"
+      },
+      "remote": {
+        "min": 60000,
+        "max": 110000,
+        "currency": "USD"
+      }
     },
     "demand_level": "media",
     "growth_trend": "growing",
     "growth_percentage": 12,
     "remote_friendly": false,
-    "companies_hiring": ["Google", "Microsoft", "Amazon", "Telefónica", "Santander", "Inditex"],
+    "companies_hiring": [
+      "Google",
+      "Microsoft",
+      "Amazon",
+      "Telefónica",
+      "Santander",
+      "Inditex"
+    ],
     "linkedin_search_template": "HR Business Partner",
     "infojobs_search_template": "HR business partner",
     "indeed_search_template": "HR business partner",
-    "transition_from": ["HR Generalist", "Recruiter Senior", "Learning & Development", "HR Manager"]
+    "transition_from": [
+      "HR Generalist",
+      "Recruiter Senior",
+      "Learning & Development",
+      "HR Manager"
+    ]
   },
   {
     "id": "cs-001",
@@ -394,33 +843,89 @@
       "El algoritmo de Google cambia y hay que adaptarse"
     ],
     "required_hard_skills": [
-      {"skill": "SEO y keyword research", "level": 4},
-      {"skill": "Herramientas analytics (GA4, Ahrefs)", "level": 4},
-      {"skill": "CMS (WordPress, Webflow)", "level": 3},
-      {"skill": "Copywriting", "level": 4}
+      {
+        "skill": "SEO y keyword research",
+        "level": 4
+      },
+      {
+        "skill": "Herramientas analytics (GA4, Ahrefs)",
+        "level": 4
+      },
+      {
+        "skill": "CMS (WordPress, Webflow)",
+        "level": 3
+      },
+      {
+        "skill": "Copywriting",
+        "level": 4
+      }
     ],
     "required_soft_skills": [
-      {"skill": "Creatividad", "level": 5},
-      {"skill": "Pensamiento estratégico", "level": 4},
-      {"skill": "Organización", "level": 4},
-      {"skill": "Comunicación", "level": 4}
+      {
+        "skill": "Creatividad",
+        "level": 5
+      },
+      {
+        "skill": "Pensamiento estratégico",
+        "level": 4
+      },
+      {
+        "skill": "Organización",
+        "level": 4
+      },
+      {
+        "skill": "Comunicación",
+        "level": 4
+      }
     ],
     "salary_ranges": {
-      "ES": {"min": 30000, "max": 50000, "currency": "EUR"},
-      "MX": {"min": 25000, "max": 50000, "currency": "MXN/mes"},
-      "CO": {"min": 4000000, "max": 9000000, "currency": "COP/mes"},
-      "AR": {"min": 600000, "max": 1500000, "currency": "ARS/mes"},
-      "remote": {"min": 50000, "max": 90000, "currency": "USD"}
+      "ES": {
+        "min": 30000,
+        "max": 50000,
+        "currency": "EUR"
+      },
+      "MX": {
+        "min": 25000,
+        "max": 50000,
+        "currency": "MXN/mes"
+      },
+      "CO": {
+        "min": 4000000,
+        "max": 9000000,
+        "currency": "COP/mes"
+      },
+      "AR": {
+        "min": 600000,
+        "max": 1500000,
+        "currency": "ARS/mes"
+      },
+      "remote": {
+        "min": 50000,
+        "max": 90000,
+        "currency": "USD"
+      }
     },
     "demand_level": "alta",
     "growth_trend": "growing",
     "growth_percentage": 20,
     "remote_friendly": true,
-    "companies_hiring": ["HubSpot", "Notion", "Buffer", "Mailchimp", "Semrush", "Ahrefs"],
+    "companies_hiring": [
+      "HubSpot",
+      "Notion",
+      "Buffer",
+      "Mailchimp",
+      "Semrush",
+      "Ahrefs"
+    ],
     "linkedin_search_template": "Content Strategist",
     "infojobs_search_template": "estratega contenidos",
     "indeed_search_template": "content strategist",
-    "transition_from": ["Copywriter", "SEO Specialist", "Content Writer", "Marketing Manager"]
+    "transition_from": [
+      "Copywriter",
+      "SEO Specialist",
+      "Content Writer",
+      "Marketing Manager"
+    ]
   },
   {
     "id": "gm-001",
@@ -441,33 +946,89 @@
       "Burnout común por la intensidad del rol"
     ],
     "required_hard_skills": [
-      {"skill": "Google/Meta Ads", "level": 5},
-      {"skill": "Analytics (GA4, Amplitude, Mixpanel)", "level": 4},
-      {"skill": "A/B testing", "level": 4},
-      {"skill": "SQL básico", "level": 3}
+      {
+        "skill": "Google/Meta Ads",
+        "level": 5
+      },
+      {
+        "skill": "Analytics (GA4, Amplitude, Mixpanel)",
+        "level": 4
+      },
+      {
+        "skill": "A/B testing",
+        "level": 4
+      },
+      {
+        "skill": "SQL básico",
+        "level": 3
+      }
     ],
     "required_soft_skills": [
-      {"skill": "Pensamiento analítico", "level": 5},
-      {"skill": "Creatividad", "level": 4},
-      {"skill": "Experimentación", "level": 5},
-      {"skill": "Comunicación", "level": 4}
+      {
+        "skill": "Pensamiento analítico",
+        "level": 5
+      },
+      {
+        "skill": "Creatividad",
+        "level": 4
+      },
+      {
+        "skill": "Experimentación",
+        "level": 5
+      },
+      {
+        "skill": "Comunicación",
+        "level": 4
+      }
     ],
     "salary_ranges": {
-      "ES": {"min": 35000, "max": 65000, "currency": "EUR"},
-      "MX": {"min": 30000, "max": 65000, "currency": "MXN/mes"},
-      "CO": {"min": 5000000, "max": 12000000, "currency": "COP/mes"},
-      "AR": {"min": 800000, "max": 2000000, "currency": "ARS/mes"},
-      "remote": {"min": 60000, "max": 130000, "currency": "USD"}
+      "ES": {
+        "min": 35000,
+        "max": 65000,
+        "currency": "EUR"
+      },
+      "MX": {
+        "min": 30000,
+        "max": 65000,
+        "currency": "MXN/mes"
+      },
+      "CO": {
+        "min": 5000000,
+        "max": 12000000,
+        "currency": "COP/mes"
+      },
+      "AR": {
+        "min": 800000,
+        "max": 2000000,
+        "currency": "ARS/mes"
+      },
+      "remote": {
+        "min": 60000,
+        "max": 130000,
+        "currency": "USD"
+      }
     },
     "demand_level": "alta",
     "growth_trend": "growing",
     "growth_percentage": 22,
     "remote_friendly": true,
-    "companies_hiring": ["Revolut", "N26", "Factorial", "Typeform", "monday.com", "Notion"],
+    "companies_hiring": [
+      "Revolut",
+      "N26",
+      "Factorial",
+      "Typeform",
+      "monday.com",
+      "Notion"
+    ],
     "linkedin_search_template": "Growth Marketer Growth Marketing",
     "infojobs_search_template": "growth marketing",
     "indeed_search_template": "growth marketer",
-    "transition_from": ["Performance Marketer", "Digital Marketing", "Product Marketing", "SEO Specialist"]
+    "transition_from": [
+      "Performance Marketer",
+      "Digital Marketing",
+      "Product Marketing",
+      "SEO Specialist"
+    ]
   },
   {
     "id": "sm-001",
@@ -488,33 +1049,89 @@
       "Impacto puede ser difícil de medir"
     ],
     "required_hard_skills": [
-      {"skill": "Metodología Scrum/Agile", "level": 5},
-      {"skill": "Jira/Linear", "level": 4},
-      {"skill": "Técnicas de facilitación", "level": 4},
-      {"skill": "Métricas Agile (velocity, burndown)", "level": 4}
+      {
+        "skill": "Metodología Scrum/Agile",
+        "level": 5
+      },
+      {
+        "skill": "Jira/Linear",
+        "level": 4
+      },
+      {
+        "skill": "Técnicas de facilitación",
+        "level": 4
+      },
+      {
+        "skill": "Métricas Agile (velocity, burndown)",
+        "level": 4
+      }
     ],
     "required_soft_skills": [
-      {"skill": "Facilitación", "level": 5},
-      {"skill": "Comunicación", "level": 5},
-      {"skill": "Coaching", "level": 4},
-      {"skill": "Resolución de conflictos", "level": 4}
+      {
+        "skill": "Facilitación",
+        "level": 5
+      },
+      {
+        "skill": "Comunicación",
+        "level": 5
+      },
+      {
+        "skill": "Coaching",
+        "level": 4
+      },
+      {
+        "skill": "Resolución de conflictos",
+        "level": 4
+      }
     ],
     "salary_ranges": {
-      "ES": {"min": 40000, "max": 65000, "currency": "EUR"},
-      "MX": {"min": 35000, "max": 65000, "currency": "MXN/mes"},
-      "CO": {"min": 6000000, "max": 13000000, "currency": "COP/mes"},
-      "AR": {"min": 900000, "max": 2000000, "currency": "ARS/mes"},
-      "remote": {"min": 60000, "max": 110000, "currency": "USD"}
+      "ES": {
+        "min": 40000,
+        "max": 65000,
+        "currency": "EUR"
+      },
+      "MX": {
+        "min": 35000,
+        "max": 65000,
+        "currency": "MXN/mes"
+      },
+      "CO": {
+        "min": 6000000,
+        "max": 13000000,
+        "currency": "COP/mes"
+      },
+      "AR": {
+        "min": 900000,
+        "max": 2000000,
+        "currency": "ARS/mes"
+      },
+      "remote": {
+        "min": 60000,
+        "max": 110000,
+        "currency": "USD"
+      }
     },
     "demand_level": "media",
     "growth_trend": "stable",
     "growth_percentage": 8,
     "remote_friendly": true,
-    "companies_hiring": ["Accenture", "Thoughtworks", "Globant", "BBVA", "Telefónica", "ING"],
+    "companies_hiring": [
+      "Accenture",
+      "Thoughtworks",
+      "Globant",
+      "BBVA",
+      "Telefónica",
+      "ING"
+    ],
     "linkedin_search_template": "Scrum Master",
     "infojobs_search_template": "scrum master",
     "indeed_search_template": "scrum master",
-    "transition_from": ["Project Manager", "Developer", "QA", "Business Analyst"]
+    "transition_from": [
+      "Project Manager",
+      "Developer",
+      "QA",
+      "Business Analyst"
+    ]
   },
   {
     "id": "am-001",
@@ -535,33 +1152,89 @@
       "Puede ser repetitivo si gestionas muchas cuentas similares"
     ],
     "required_hard_skills": [
-      {"skill": "CRM (Salesforce, HubSpot)", "level": 4},
-      {"skill": "Excel/Sheets", "level": 3},
-      {"skill": "Presentaciones ejecutivas", "level": 4},
-      {"skill": "Negociación de contratos", "level": 4}
+      {
+        "skill": "CRM (Salesforce, HubSpot)",
+        "level": 4
+      },
+      {
+        "skill": "Excel/Sheets",
+        "level": 3
+      },
+      {
+        "skill": "Presentaciones ejecutivas",
+        "level": 4
+      },
+      {
+        "skill": "Negociación de contratos",
+        "level": 4
+      }
     ],
     "required_soft_skills": [
-      {"skill": "Gestión de relaciones", "level": 5},
-      {"skill": "Comunicación", "level": 5},
-      {"skill": "Empatía", "level": 4},
-      {"skill": "Resolución de problemas", "level": 4}
+      {
+        "skill": "Gestión de relaciones",
+        "level": 5
+      },
+      {
+        "skill": "Comunicación",
+        "level": 5
+      },
+      {
+        "skill": "Empatía",
+        "level": 4
+      },
+      {
+        "skill": "Resolución de problemas",
+        "level": 4
+      }
     ],
     "salary_ranges": {
-      "ES": {"min": 30000, "max": 55000, "currency": "EUR"},
-      "MX": {"min": 28000, "max": 55000, "currency": "MXN/mes"},
-      "CO": {"min": 4500000, "max": 10000000, "currency": "COP/mes"},
-      "AR": {"min": 700000, "max": 1700000, "currency": "ARS/mes"},
-      "remote": {"min": 50000, "max": 90000, "currency": "USD"}
+      "ES": {
+        "min": 30000,
+        "max": 55000,
+        "currency": "EUR"
+      },
+      "MX": {
+        "min": 28000,
+        "max": 55000,
+        "currency": "MXN/mes"
+      },
+      "CO": {
+        "min": 4500000,
+        "max": 10000000,
+        "currency": "COP/mes"
+      },
+      "AR": {
+        "min": 700000,
+        "max": 1700000,
+        "currency": "ARS/mes"
+      },
+      "remote": {
+        "min": 50000,
+        "max": 90000,
+        "currency": "USD"
+      }
     },
     "demand_level": "alta",
     "growth_trend": "stable",
     "growth_percentage": 10,
     "remote_friendly": true,
-    "companies_hiring": ["Google", "Meta", "LinkedIn", "HubSpot", "Salesforce", "SAP"],
+    "companies_hiring": [
+      "Google",
+      "Meta",
+      "LinkedIn",
+      "HubSpot",
+      "Salesforce",
+      "SAP"
+    ],
     "linkedin_search_template": "Account Manager",
     "infojobs_search_template": "account manager",
     "indeed_search_template": "account manager",
-    "transition_from": ["Sales Rep", "Customer Success", "Business Development", "Customer Support"]
+    "transition_from": [
+      "Sales Rep",
+      "Customer Success",
+      "Business Development",
+      "Customer Support"
+    ]
   },
   {
     "id": "ba-001",
@@ -582,33 +1255,89 @@
       "Puede ser difícil medir tu impacto directo"
     ],
     "required_hard_skills": [
-      {"skill": "Documentación de requerimientos", "level": 5},
-      {"skill": "SQL básico", "level": 3},
-      {"skill": "Diagramas de procesos (BPMN, Visio)", "level": 4},
-      {"skill": "Excel avanzado", "level": 4}
+      {
+        "skill": "Documentación de requerimientos",
+        "level": 5
+      },
+      {
+        "skill": "SQL básico",
+        "level": 3
+      },
+      {
+        "skill": "Diagramas de procesos (BPMN, Visio)",
+        "level": 4
+      },
+      {
+        "skill": "Excel avanzado",
+        "level": 4
+      }
     ],
     "required_soft_skills": [
-      {"skill": "Comunicación", "level": 5},
-      {"skill": "Pensamiento analítico", "level": 5},
-      {"skill": "Atención al detalle", "level": 5},
-      {"skill": "Stakeholder management", "level": 4}
+      {
+        "skill": "Comunicación",
+        "level": 5
+      },
+      {
+        "skill": "Pensamiento analítico",
+        "level": 5
+      },
+      {
+        "skill": "Atención al detalle",
+        "level": 5
+      },
+      {
+        "skill": "Stakeholder management",
+        "level": 4
+      }
     ],
     "salary_ranges": {
-      "ES": {"min": 32000, "max": 55000, "currency": "EUR"},
-      "MX": {"min": 28000, "max": 55000, "currency": "MXN/mes"},
-      "CO": {"min": 4500000, "max": 10000000, "currency": "COP/mes"},
-      "AR": {"min": 700000, "max": 1700000, "currency": "ARS/mes"},
-      "remote": {"min": 50000, "max": 95000, "currency": "USD"}
+      "ES": {
+        "min": 32000,
+        "max": 55000,
+        "currency": "EUR"
+      },
+      "MX": {
+        "min": 28000,
+        "max": 55000,
+        "currency": "MXN/mes"
+      },
+      "CO": {
+        "min": 4500000,
+        "max": 10000000,
+        "currency": "COP/mes"
+      },
+      "AR": {
+        "min": 700000,
+        "max": 1700000,
+        "currency": "ARS/mes"
+      },
+      "remote": {
+        "min": 50000,
+        "max": 95000,
+        "currency": "USD"
+      }
     },
     "demand_level": "alta",
     "growth_trend": "stable",
     "growth_percentage": 12,
     "remote_friendly": true,
-    "companies_hiring": ["Accenture", "Deloitte", "KPMG", "EY", "Capgemini", "Banco Santander"],
+    "companies_hiring": [
+      "Accenture",
+      "Deloitte",
+      "KPMG",
+      "EY",
+      "Capgemini",
+      "Banco Santander"
+    ],
     "linkedin_search_template": "Business Analyst",
     "infojobs_search_template": "analista de negocio",
     "indeed_search_template": "business analyst",
-    "transition_from": ["Project Coordinator", "Financial Analyst", "Operations Analyst", "Data Analyst"]
+    "transition_from": [
+      "Project Coordinator",
+      "Financial Analyst",
+      "Operations Analyst",
+      "Data Analyst"
+    ]
   },
   {
     "id": "chm-001",
@@ -629,33 +1358,89 @@
       "Difícil medir tu impacto vs otros factores"
     ],
     "required_hard_skills": [
-      {"skill": "Metodologías de change (ADKAR, Kotter)", "level": 5},
-      {"skill": "Diseño de formación", "level": 4},
-      {"skill": "Comunicación interna", "level": 4},
-      {"skill": "Project management básico", "level": 3}
+      {
+        "skill": "Metodologías de change (ADKAR, Kotter)",
+        "level": 5
+      },
+      {
+        "skill": "Diseño de formación",
+        "level": 4
+      },
+      {
+        "skill": "Comunicación interna",
+        "level": 4
+      },
+      {
+        "skill": "Project management básico",
+        "level": 3
+      }
     ],
     "required_soft_skills": [
-      {"skill": "Empatía", "level": 5},
-      {"skill": "Influencia", "level": 5},
-      {"skill": "Comunicación", "level": 5},
-      {"skill": "Paciencia", "level": 4}
+      {
+        "skill": "Empatía",
+        "level": 5
+      },
+      {
+        "skill": "Influencia",
+        "level": 5
+      },
+      {
+        "skill": "Comunicación",
+        "level": 5
+      },
+      {
+        "skill": "Paciencia",
+        "level": 4
+      }
     ],
     "salary_ranges": {
-      "ES": {"min": 40000, "max": 70000, "currency": "EUR"},
-      "MX": {"min": 35000, "max": 70000, "currency": "MXN/mes"},
-      "CO": {"min": 6000000, "max": 14000000, "currency": "COP/mes"},
-      "AR": {"min": 900000, "max": 2100000, "currency": "ARS/mes"},
-      "remote": {"min": 60000, "max": 120000, "currency": "USD"}
+      "ES": {
+        "min": 40000,
+        "max": 70000,
+        "currency": "EUR"
+      },
+      "MX": {
+        "min": 35000,
+        "max": 70000,
+        "currency": "MXN/mes"
+      },
+      "CO": {
+        "min": 6000000,
+        "max": 14000000,
+        "currency": "COP/mes"
+      },
+      "AR": {
+        "min": 900000,
+        "max": 2100000,
+        "currency": "ARS/mes"
+      },
+      "remote": {
+        "min": 60000,
+        "max": 120000,
+        "currency": "USD"
+      }
     },
     "demand_level": "media",
     "growth_trend": "growing",
     "growth_percentage": 15,
     "remote_friendly": false,
-    "companies_hiring": ["McKinsey", "Deloitte", "Accenture", "PwC", "KPMG", "Prosci partners"],
+    "companies_hiring": [
+      "McKinsey",
+      "Deloitte",
+      "Accenture",
+      "PwC",
+      "KPMG",
+      "Prosci partners"
+    ],
     "linkedin_search_template": "Change Management",
     "infojobs_search_template": "change management",
     "indeed_search_template": "change management specialist",
-    "transition_from": ["HR Business Partner", "Project Manager", "Internal Communications", "Training Manager"]
+    "transition_from": [
+      "HR Business Partner",
+      "Project Manager",
+      "Internal Communications",
+      "Training Manager"
+    ]
   },
   {
     "id": "ld-001",
@@ -676,33 +1461,89 @@
       "Puede ser repetitivo si haces siempre los mismos temas"
     ],
     "required_hard_skills": [
-      {"skill": "Diseño instruccional", "level": 5},
-      {"skill": "Herramientas elearning (Articulate, Canva)", "level": 4},
-      {"skill": "LMS (Moodle, Workday Learning)", "level": 4},
-      {"skill": "Facilitación de workshops", "level": 4}
+      {
+        "skill": "Diseño instruccional",
+        "level": 5
+      },
+      {
+        "skill": "Herramientas elearning (Articulate, Canva)",
+        "level": 4
+      },
+      {
+        "skill": "LMS (Moodle, Workday Learning)",
+        "level": 4
+      },
+      {
+        "skill": "Facilitación de workshops",
+        "level": 4
+      }
     ],
     "required_soft_skills": [
-      {"skill": "Comunicación", "level": 5},
-      {"skill": "Creatividad", "level": 4},
-      {"skill": "Empatía", "level": 5},
-      {"skill": "Organización", "level": 4}
+      {
+        "skill": "Comunicación",
+        "level": 5
+      },
+      {
+        "skill": "Creatividad",
+        "level": 4
+      },
+      {
+        "skill": "Empatía",
+        "level": 5
+      },
+      {
+        "skill": "Organización",
+        "level": 4
+      }
     ],
     "salary_ranges": {
-      "ES": {"min": 30000, "max": 50000, "currency": "EUR"},
-      "MX": {"min": 25000, "max": 50000, "currency": "MXN/mes"},
-      "CO": {"min": 4000000, "max": 9000000, "currency": "COP/mes"},
-      "AR": {"min": 600000, "max": 1500000, "currency": "ARS/mes"},
-      "remote": {"min": 45000, "max": 85000, "currency": "USD"}
+      "ES": {
+        "min": 30000,
+        "max": 50000,
+        "currency": "EUR"
+      },
+      "MX": {
+        "min": 25000,
+        "max": 50000,
+        "currency": "MXN/mes"
+      },
+      "CO": {
+        "min": 4000000,
+        "max": 9000000,
+        "currency": "COP/mes"
+      },
+      "AR": {
+        "min": 600000,
+        "max": 1500000,
+        "currency": "ARS/mes"
+      },
+      "remote": {
+        "min": 45000,
+        "max": 85000,
+        "currency": "USD"
+      }
     },
     "demand_level": "media",
     "growth_trend": "growing",
     "growth_percentage": 18,
     "remote_friendly": true,
-    "companies_hiring": ["LinkedIn Learning", "Coursera", "Udemy Business", "McKinsey Academy", "Google", "Amazon"],
+    "companies_hiring": [
+      "LinkedIn Learning",
+      "Coursera",
+      "Udemy Business",
+      "McKinsey Academy",
+      "Google",
+      "Amazon"
+    ],
     "linkedin_search_template": "Learning Development Specialist",
     "infojobs_search_template": "formación y desarrollo",
     "indeed_search_template": "learning development specialist",
-    "transition_from": ["Teacher", "Trainer", "HR Generalist", "Content Creator"]
+    "transition_from": [
+      "Teacher",
+      "Trainer",
+      "HR Generalist",
+      "Content Creator"
+    ]
   },
   {
     "id": "cm-001",
@@ -723,33 +1564,87 @@
       "A veces eres el 'social media person' y te piden de todo"
     ],
     "required_hard_skills": [
-      {"skill": "Plataformas sociales (Instagram, TikTok, LinkedIn)", "level": 5},
-      {"skill": "Herramientas de scheduling (Buffer, Hootsuite)", "level": 4},
-      {"skill": "Copywriting", "level": 4},
-      {"skill": "Canva/edición básica de imagen", "level": 3}
+      {
+        "skill": "Plataformas sociales (Instagram, TikTok, LinkedIn)",
+        "level": 5
+      },
+      {
+        "skill": "Herramientas de scheduling (Buffer, Hootsuite)",
+        "level": 4
+      },
+      {
+        "skill": "Copywriting",
+        "level": 4
+      },
+      {
+        "skill": "Canva/edición básica de imagen",
+        "level": 3
+      }
     ],
     "required_soft_skills": [
-      {"skill": "Creatividad", "level": 5},
-      {"skill": "Comunicación", "level": 5},
-      {"skill": "Empatía", "level": 4},
-      {"skill": "Gestión del estrés", "level": 4}
+      {
+        "skill": "Creatividad",
+        "level": 5
+      },
+      {
+        "skill": "Comunicación",
+        "level": 5
+      },
+      {
+        "skill": "Empatía",
+        "level": 4
+      },
+      {
+        "skill": "Gestión del estrés",
+        "level": 4
+      }
     ],
     "salary_ranges": {
-      "ES": {"min": 22000, "max": 38000, "currency": "EUR"},
-      "MX": {"min": 18000, "max": 35000, "currency": "MXN/mes"},
-      "CO": {"min": 3000000, "max": 6000000, "currency": "COP/mes"},
-      "AR": {"min": 500000, "max": 1200000, "currency": "ARS/mes"},
-      "remote": {"min": 35000, "max": 60000, "currency": "USD"}
+      "ES": {
+        "min": 22000,
+        "max": 38000,
+        "currency": "EUR"
+      },
+      "MX": {
+        "min": 18000,
+        "max": 35000,
+        "currency": "MXN/mes"
+      },
+      "CO": {
+        "min": 3000000,
+        "max": 6000000,
+        "currency": "COP/mes"
+      },
+      "AR": {
+        "min": 500000,
+        "max": 1200000,
+        "currency": "ARS/mes"
+      },
+      "remote": {
+        "min": 35000,
+        "max": 60000,
+        "currency": "USD"
+      }
     },
     "demand_level": "alta",
     "growth_trend": "stable",
     "growth_percentage": 8,
     "remote_friendly": true,
-    "companies_hiring": ["Agencias", "Startups", "Marcas DTC", "Medios de comunicación"],
+    "companies_hiring": [
+      "Agencias",
+      "Startups",
+      "Marcas DTC",
+      "Medios de comunicación"
+    ],
     "linkedin_search_template": "Community Manager",
     "infojobs_search_template": "community manager",
     "indeed_search_template": "community manager",
-    "transition_from": ["Social Media Intern", "Content Creator", "Customer Support", "Marketing Assistant"]
+    "transition_from": [
+      "Social Media Intern",
+      "Content Creator",
+      "Customer Support",
+      "Marketing Assistant"
+    ]
   },
   {
     "id": "revops-001",
@@ -770,33 +1665,89 @@
       "Presión por forecasts precisos"
     ],
     "required_hard_skills": [
-      {"skill": "CRM avanzado (Salesforce, HubSpot)", "level": 5},
-      {"skill": "SQL y analytics", "level": 4},
-      {"skill": "Herramientas de automatización (Zapier, Make)", "level": 4},
-      {"skill": "Forecasting y modelado", "level": 4}
+      {
+        "skill": "CRM avanzado (Salesforce, HubSpot)",
+        "level": 5
+      },
+      {
+        "skill": "SQL y analytics",
+        "level": 4
+      },
+      {
+        "skill": "Herramientas de automatización (Zapier, Make)",
+        "level": 4
+      },
+      {
+        "skill": "Forecasting y modelado",
+        "level": 4
+      }
     ],
     "required_soft_skills": [
-      {"skill": "Pensamiento analítico", "level": 5},
-      {"skill": "Comunicación", "level": 4},
-      {"skill": "Gestión de stakeholders", "level": 4},
-      {"skill": "Orientación a resultados", "level": 5}
+      {
+        "skill": "Pensamiento analítico",
+        "level": 5
+      },
+      {
+        "skill": "Comunicación",
+        "level": 4
+      },
+      {
+        "skill": "Gestión de stakeholders",
+        "level": 4
+      },
+      {
+        "skill": "Orientación a resultados",
+        "level": 5
+      }
     ],
     "salary_ranges": {
-      "ES": {"min": 45000, "max": 80000, "currency": "EUR"},
-      "MX": {"min": 40000, "max": 80000, "currency": "MXN/mes"},
-      "CO": {"min": 7000000, "max": 16000000, "currency": "COP/mes"},
-      "AR": {"min": 1000000, "max": 2500000, "currency": "ARS/mes"},
-      "remote": {"min": 70000, "max": 140000, "currency": "USD"}
+      "ES": {
+        "min": 45000,
+        "max": 80000,
+        "currency": "EUR"
+      },
+      "MX": {
+        "min": 40000,
+        "max": 80000,
+        "currency": "MXN/mes"
+      },
+      "CO": {
+        "min": 7000000,
+        "max": 16000000,
+        "currency": "COP/mes"
+      },
+      "AR": {
+        "min": 1000000,
+        "max": 2500000,
+        "currency": "ARS/mes"
+      },
+      "remote": {
+        "min": 70000,
+        "max": 140000,
+        "currency": "USD"
+      }
     },
     "demand_level": "alta",
     "growth_trend": "growing",
     "growth_percentage": 35,
     "remote_friendly": true,
-    "companies_hiring": ["Salesforce", "HubSpot", "Gong", "Outreach", "monday.com", "Notion"],
+    "companies_hiring": [
+      "Salesforce",
+      "HubSpot",
+      "Gong",
+      "Outreach",
+      "monday.com",
+      "Notion"
+    ],
     "linkedin_search_template": "Revenue Operations RevOps",
     "infojobs_search_template": "revenue operations",
     "indeed_search_template": "revenue operations",
-    "transition_from": ["Sales Operations", "Marketing Operations", "Business Analyst", "CRM Admin"]
+    "transition_from": [
+      "Sales Operations",
+      "Marketing Operations",
+      "Business Analyst",
+      "CRM Admin"
+    ]
   },
   {
     "id": "cxd-001",
@@ -817,33 +1768,89 @@
       "Puede ser frustrante cuando silos impiden cambios"
     ],
     "required_hard_skills": [
-      {"skill": "Journey mapping", "level": 5},
-      {"skill": "Herramientas CX (Miro, Figma)", "level": 4},
-      {"skill": "Analytics de CX (Qualtrics, Medallia)", "level": 4},
-      {"skill": "Service design", "level": 4}
+      {
+        "skill": "Journey mapping",
+        "level": 5
+      },
+      {
+        "skill": "Herramientas CX (Miro, Figma)",
+        "level": 4
+      },
+      {
+        "skill": "Analytics de CX (Qualtrics, Medallia)",
+        "level": 4
+      },
+      {
+        "skill": "Service design",
+        "level": 4
+      }
     ],
     "required_soft_skills": [
-      {"skill": "Empatía", "level": 5},
-      {"skill": "Pensamiento sistémico", "level": 5},
-      {"skill": "Facilitación", "level": 4},
-      {"skill": "Comunicación", "level": 5}
+      {
+        "skill": "Empatía",
+        "level": 5
+      },
+      {
+        "skill": "Pensamiento sistémico",
+        "level": 5
+      },
+      {
+        "skill": "Facilitación",
+        "level": 4
+      },
+      {
+        "skill": "Comunicación",
+        "level": 5
+      }
     ],
     "salary_ranges": {
-      "ES": {"min": 40000, "max": 65000, "currency": "EUR"},
-      "MX": {"min": 35000, "max": 65000, "currency": "MXN/mes"},
-      "CO": {"min": 6000000, "max": 13000000, "currency": "COP/mes"},
-      "AR": {"min": 900000, "max": 2000000, "currency": "ARS/mes"},
-      "remote": {"min": 60000, "max": 110000, "currency": "USD"}
+      "ES": {
+        "min": 40000,
+        "max": 65000,
+        "currency": "EUR"
+      },
+      "MX": {
+        "min": 35000,
+        "max": 65000,
+        "currency": "MXN/mes"
+      },
+      "CO": {
+        "min": 6000000,
+        "max": 13000000,
+        "currency": "COP/mes"
+      },
+      "AR": {
+        "min": 900000,
+        "max": 2000000,
+        "currency": "ARS/mes"
+      },
+      "remote": {
+        "min": 60000,
+        "max": 110000,
+        "currency": "USD"
+      }
     },
     "demand_level": "media",
     "growth_trend": "growing",
     "growth_percentage": 20,
     "remote_friendly": true,
-    "companies_hiring": ["IDEO", "McKinsey", "Fjord/Accenture", "frog", "Banco Santander", "Telefónica"],
+    "companies_hiring": [
+      "IDEO",
+      "McKinsey",
+      "Fjord/Accenture",
+      "frog",
+      "Banco Santander",
+      "Telefónica"
+    ],
     "linkedin_search_template": "Customer Experience Designer CX",
     "infojobs_search_template": "customer experience",
     "indeed_search_template": "customer experience designer",
-    "transition_from": ["UX Designer", "Service Designer", "Customer Success", "Marketing Strategist"]
+    "transition_from": [
+      "UX Designer",
+      "Service Designer",
+      "Customer Success",
+      "Marketing Strategist"
+    ]
   },
   {
     "id": "se-001",
@@ -864,33 +1871,89 @@
       "Requiere mantener skills técnicas actualizadas"
     ],
     "required_hard_skills": [
-      {"skill": "Conocimiento técnico del producto", "level": 5},
-      {"skill": "APIs y integraciones", "level": 4},
-      {"skill": "SQL y scripting básico", "level": 3},
-      {"skill": "Presentaciones técnicas", "level": 5}
+      {
+        "skill": "Conocimiento técnico del producto",
+        "level": 5
+      },
+      {
+        "skill": "APIs y integraciones",
+        "level": 4
+      },
+      {
+        "skill": "SQL y scripting básico",
+        "level": 3
+      },
+      {
+        "skill": "Presentaciones técnicas",
+        "level": 5
+      }
     ],
     "required_soft_skills": [
-      {"skill": "Comunicación técnica", "level": 5},
-      {"skill": "Escucha activa", "level": 5},
-      {"skill": "Resolución de problemas", "level": 5},
-      {"skill": "Adaptabilidad", "level": 4}
+      {
+        "skill": "Comunicación técnica",
+        "level": 5
+      },
+      {
+        "skill": "Escucha activa",
+        "level": 5
+      },
+      {
+        "skill": "Resolución de problemas",
+        "level": 5
+      },
+      {
+        "skill": "Adaptabilidad",
+        "level": 4
+      }
     ],
     "salary_ranges": {
-      "ES": {"min": 45000, "max": 80000, "currency": "EUR"},
-      "MX": {"min": 40000, "max": 80000, "currency": "MXN/mes"},
-      "CO": {"min": 7000000, "max": 16000000, "currency": "COP/mes"},
-      "AR": {"min": 1000000, "max": 2500000, "currency": "ARS/mes"},
-      "remote": {"min": 80000, "max": 160000, "currency": "USD"}
+      "ES": {
+        "min": 45000,
+        "max": 80000,
+        "currency": "EUR"
+      },
+      "MX": {
+        "min": 40000,
+        "max": 80000,
+        "currency": "MXN/mes"
+      },
+      "CO": {
+        "min": 7000000,
+        "max": 16000000,
+        "currency": "COP/mes"
+      },
+      "AR": {
+        "min": 1000000,
+        "max": 2500000,
+        "currency": "ARS/mes"
+      },
+      "remote": {
+        "min": 80000,
+        "max": 160000,
+        "currency": "USD"
+      }
     },
     "demand_level": "alta",
     "growth_trend": "growing",
     "growth_percentage": 18,
     "remote_friendly": true,
-    "companies_hiring": ["Salesforce", "Google Cloud", "AWS", "Datadog", "Snowflake", "Stripe"],
+    "companies_hiring": [
+      "Salesforce",
+      "Google Cloud",
+      "AWS",
+      "Datadog",
+      "Snowflake",
+      "Stripe"
+    ],
     "linkedin_search_template": "Solutions Engineer Pre-sales",
     "infojobs_search_template": "solutions engineer",
     "indeed_search_template": "solutions engineer",
-    "transition_from": ["Developer", "Technical Support", "Implementation Consultant", "Product Specialist"]
+    "transition_from": [
+      "Developer",
+      "Technical Support",
+      "Implementation Consultant",
+      "Product Specialist"
+    ]
   },
   {
     "id": "ta-001",
@@ -911,33 +1974,89 @@
       "En recesiones, recruiting es lo primero en recortarse"
     ],
     "required_hard_skills": [
-      {"skill": "LinkedIn Recruiter", "level": 5},
-      {"skill": "ATS (Greenhouse, Lever, Workday)", "level": 4},
-      {"skill": "Boolean search", "level": 4},
-      {"skill": "Técnicas de entrevista", "level": 4}
+      {
+        "skill": "LinkedIn Recruiter",
+        "level": 5
+      },
+      {
+        "skill": "ATS (Greenhouse, Lever, Workday)",
+        "level": 4
+      },
+      {
+        "skill": "Boolean search",
+        "level": 4
+      },
+      {
+        "skill": "Técnicas de entrevista",
+        "level": 4
+      }
     ],
     "required_soft_skills": [
-      {"skill": "Comunicación", "level": 5},
-      {"skill": "Evaluación de personas", "level": 5},
-      {"skill": "Organización", "level": 5},
-      {"skill": "Persuasión", "level": 4}
+      {
+        "skill": "Comunicación",
+        "level": 5
+      },
+      {
+        "skill": "Evaluación de personas",
+        "level": 5
+      },
+      {
+        "skill": "Organización",
+        "level": 5
+      },
+      {
+        "skill": "Persuasión",
+        "level": 4
+      }
     ],
     "salary_ranges": {
-      "ES": {"min": 28000, "max": 50000, "currency": "EUR"},
-      "MX": {"min": 25000, "max": 50000, "currency": "MXN/mes"},
-      "CO": {"min": 4000000, "max": 9000000, "currency": "COP/mes"},
-      "AR": {"min": 600000, "max": 1500000, "currency": "ARS/mes"},
-      "remote": {"min": 45000, "max": 85000, "currency": "USD"}
+      "ES": {
+        "min": 28000,
+        "max": 50000,
+        "currency": "EUR"
+      },
+      "MX": {
+        "min": 25000,
+        "max": 50000,
+        "currency": "MXN/mes"
+      },
+      "CO": {
+        "min": 4000000,
+        "max": 9000000,
+        "currency": "COP/mes"
+      },
+      "AR": {
+        "min": 600000,
+        "max": 1500000,
+        "currency": "ARS/mes"
+      },
+      "remote": {
+        "min": 45000,
+        "max": 85000,
+        "currency": "USD"
+      }
     },
     "demand_level": "alta",
     "growth_trend": "stable",
     "growth_percentage": 10,
     "remote_friendly": true,
-    "companies_hiring": ["LinkedIn", "Meta", "Google", "Amazon", "Agencias de recruiting", "Startups"],
+    "companies_hiring": [
+      "LinkedIn",
+      "Meta",
+      "Google",
+      "Amazon",
+      "Agencias de recruiting",
+      "Startups"
+    ],
     "linkedin_search_template": "Talent Acquisition Recruiter",
     "infojobs_search_template": "talent acquisition recruiter",
     "indeed_search_template": "talent acquisition specialist",
-    "transition_from": ["HR Generalist", "Sales", "Customer Service", "Headhunter"]
+    "transition_from": [
+      "HR Generalist",
+      "Sales",
+      "Customer Service",
+      "Headhunter"
+    ]
   },
   {
     "id": "tpm-001",
@@ -958,33 +2077,90 @@
       "Requiere entender profundamente sistemas técnicos sin construirlos"
     ],
     "required_hard_skills": [
-      {"skill": "Herramientas PM (Jira, Asana, Linear)", "level": 5},
-      {"skill": "Comprensión de arquitectura de software", "level": 4},
-      {"skill": "Gestión de dependencias y riesgos", "level": 5},
-      {"skill": "Comunicación técnica escrita", "level": 5}
+      {
+        "skill": "Herramientas PM (Jira, Asana, Linear)",
+        "level": 5
+      },
+      {
+        "skill": "Comprensión de arquitectura de software",
+        "level": 4
+      },
+      {
+        "skill": "Gestión de dependencias y riesgos",
+        "level": 5
+      },
+      {
+        "skill": "Comunicación técnica escrita",
+        "level": 5
+      }
     ],
     "required_soft_skills": [
-      {"skill": "Comunicación", "level": 5},
-      {"skill": "Influencia sin autoridad", "level": 5},
-      {"skill": "Pensamiento sistémico", "level": 5},
-      {"skill": "Gestión de stakeholders", "level": 5}
+      {
+        "skill": "Comunicación",
+        "level": 5
+      },
+      {
+        "skill": "Influencia sin autoridad",
+        "level": 5
+      },
+      {
+        "skill": "Pensamiento sistémico",
+        "level": 5
+      },
+      {
+        "skill": "Gestión de stakeholders",
+        "level": 5
+      }
     ],
     "salary_ranges": {
-      "ES": {"min": 50000, "max": 90000, "currency": "EUR"},
-      "MX": {"min": 50000, "max": 100000, "currency": "MXN/mes"},
-      "CO": {"min": 10000000, "max": 22000000, "currency": "COP/mes"},
-      "AR": {"min": 1500000, "max": 3500000, "currency": "ARS/mes"},
-      "remote": {"min": 100000, "max": 200000, "currency": "USD"}
+      "ES": {
+        "min": 50000,
+        "max": 90000,
+        "currency": "EUR"
+      },
+      "MX": {
+        "min": 50000,
+        "max": 100000,
+        "currency": "MXN/mes"
+      },
+      "CO": {
+        "min": 10000000,
+        "max": 22000000,
+        "currency": "COP/mes"
+      },
+      "AR": {
+        "min": 1500000,
+        "max": 3500000,
+        "currency": "ARS/mes"
+      },
+      "remote": {
+        "min": 100000,
+        "max": 200000,
+        "currency": "USD"
+      }
     },
     "demand_level": "alta",
     "growth_trend": "growing",
     "growth_percentage": 20,
     "remote_friendly": true,
-    "companies_hiring": ["Google", "Meta", "Amazon", "Microsoft", "Apple", "Stripe", "Databricks"],
+    "companies_hiring": [
+      "Google",
+      "Meta",
+      "Amazon",
+      "Microsoft",
+      "Apple",
+      "Stripe",
+      "Databricks"
+    ],
     "linkedin_search_template": "Technical Program Manager TPM",
     "infojobs_search_template": "technical program manager",
     "indeed_search_template": "technical program manager",
-    "transition_from": ["Project Manager IT", "Engineering Manager", "Scrum Master", "Solutions Architect"]
+    "transition_from": [
+      "Project Manager IT",
+      "Engineering Manager",
+      "Scrum Master",
+      "Solutions Architect"
+    ]
   },
   {
     "id": "ic-001",
@@ -1005,32 +2181,513 @@
       "Burnout común por gestionar múltiples implementaciones simultáneas"
     ],
     "required_hard_skills": [
-      {"skill": "Conocimiento del producto/plataforma", "level": 5},
-      {"skill": "Configuración y customización", "level": 4},
-      {"skill": "Gestión de proyectos", "level": 4},
-      {"skill": "Migración de datos", "level": 3}
+      {
+        "skill": "Conocimiento del producto/plataforma",
+        "level": 5
+      },
+      {
+        "skill": "Configuración y customización",
+        "level": 4
+      },
+      {
+        "skill": "Gestión de proyectos",
+        "level": 4
+      },
+      {
+        "skill": "Migración de datos",
+        "level": 3
+      }
     ],
     "required_soft_skills": [
-      {"skill": "Comunicación", "level": 5},
-      {"skill": "Resolución de problemas", "level": 5},
-      {"skill": "Paciencia", "level": 5},
-      {"skill": "Adaptabilidad", "level": 4}
+      {
+        "skill": "Comunicación",
+        "level": 5
+      },
+      {
+        "skill": "Resolución de problemas",
+        "level": 5
+      },
+      {
+        "skill": "Paciencia",
+        "level": 5
+      },
+      {
+        "skill": "Adaptabilidad",
+        "level": 4
+      }
     ],
     "salary_ranges": {
-      "ES": {"min": 38000, "max": 65000, "currency": "EUR"},
-      "MX": {"min": 35000, "max": 70000, "currency": "MXN/mes"},
-      "CO": {"min": 6000000, "max": 14000000, "currency": "COP/mes"},
-      "AR": {"min": 900000, "max": 2200000, "currency": "ARS/mes"},
-      "remote": {"min": 55000, "max": 110000, "currency": "USD"}
+      "ES": {
+        "min": 38000,
+        "max": 65000,
+        "currency": "EUR"
+      },
+      "MX": {
+        "min": 35000,
+        "max": 70000,
+        "currency": "MXN/mes"
+      },
+      "CO": {
+        "min": 6000000,
+        "max": 14000000,
+        "currency": "COP/mes"
+      },
+      "AR": {
+        "min": 900000,
+        "max": 2200000,
+        "currency": "ARS/mes"
+      },
+      "remote": {
+        "min": 55000,
+        "max": 110000,
+        "currency": "USD"
+      }
     },
     "demand_level": "alta",
     "growth_trend": "growing",
     "growth_percentage": 15,
     "remote_friendly": true,
-    "companies_hiring": ["Salesforce", "SAP", "Workday", "ServiceNow", "HubSpot", "Factorial"],
+    "companies_hiring": [
+      "Salesforce",
+      "SAP",
+      "Workday",
+      "ServiceNow",
+      "HubSpot",
+      "Factorial"
+    ],
     "linkedin_search_template": "Implementation Consultant",
     "infojobs_search_template": "consultor implementación",
     "indeed_search_template": "implementation consultant",
-    "transition_from": ["Project Manager", "Business Analyst", "Technical Support", "Customer Success"]
+    "transition_from": [
+      "Project Manager",
+      "Business Analyst",
+      "Technical Support",
+      "Customer Success"
+    ]
+  },
+  {
+    "id": "ncd-001",
+    "title": "No-Code Developer / Automation Specialist",
+    "title_es": "Desarrollador No-Code / Especialista en Automatización",
+    "category": "tech",
+    "day_to_day": "Tu día empieza revisando los flujos de automatización activos (Zapier, Make, n8n) y verificando que todo funciona. Recibes requests de diferentes equipos que necesitan automatizar procesos manuales: desde conectar el CRM con el email marketing, hasta crear dashboards que se actualizan solos. Diseñas soluciones en herramientas no-code como Bubble, Webflow, Airtable o Retool. Mucho tiempo en documentación porque eres el experto que otros consultan. Por la tarde, optimizas flujos existentes, reduces costes de APIs, y preparas demos para nuevos proyectos internos. El rol es ser el 'mago' que hace que las cosas funcionen sin escribir código tradicional.",
+    "pros": [
+      "Rol muy demandado en 2026 — las empresas quieren velocidad sin contratar devs",
+      "Puedes trabajar 100% remoto fácilmente",
+      "Curva de aprendizaje accesible si ya conoces herramientas no-code",
+      "Salarios creciendo rápido por escasez de talento especializado",
+      "Muy valorado en startups y scale-ups"
+    ],
+    "cons": [
+      "Las herramientas cambian constantemente — hay que estar actualizado",
+      "A veces te piden 'magia' con limitaciones técnicas reales",
+      "Dependencia de vendors externos (Zapier sube precios, APIs cambian)",
+      "Puede ser solitario — eres el único que entiende ciertos sistemas"
+    ],
+    "required_hard_skills": [
+      {
+        "skill": "Herramientas no-code (Bubble, Webflow, Airtable)",
+        "level": 4
+      },
+      {
+        "skill": "Automatización (Zapier, Make, n8n)",
+        "level": 5
+      },
+      {
+        "skill": "APIs y webhooks",
+        "level": 3
+      },
+      {
+        "skill": "SQL básico",
+        "level": 2
+      },
+      {
+        "skill": "Lógica de programación",
+        "level": 3
+      }
+    ],
+    "required_soft_skills": [
+      {
+        "skill": "Resolución de problemas",
+        "level": 5
+      },
+      {
+        "skill": "Pensamiento sistémico",
+        "level": 5
+      },
+      {
+        "skill": "Comunicación técnica",
+        "level": 4
+      },
+      {
+        "skill": "Documentación",
+        "level": 4
+      }
+    ],
+    "salary_ranges": {
+      "ES": {
+        "min": 35000,
+        "max": 60000,
+        "currency": "EUR"
+      },
+      "MX": {
+        "min": 30000,
+        "max": 60000,
+        "currency": "MXN/mes"
+      },
+      "CO": {
+        "min": 5000000,
+        "max": 11000000,
+        "currency": "COP/mes"
+      },
+      "AR": {
+        "min": 800000,
+        "max": 1800000,
+        "currency": "ARS/mes"
+      },
+      "remote": {
+        "min": 55000,
+        "max": 110000,
+        "currency": "USD"
+      }
+    },
+    "demand_level": "alta",
+    "growth_trend": "growing",
+    "growth_percentage": 40,
+    "remote_friendly": true,
+    "companies_hiring": [
+      "Zapier",
+      "Airtable",
+      "Notion",
+      "Startups VC-backed",
+      "Agencias digitales",
+      "Scale-ups"
+    ],
+    "linkedin_search_template": "No-Code Developer Automation Specialist",
+    "infojobs_search_template": "automatización no-code",
+    "indeed_search_template": "no-code developer automation",
+    "transition_from": [
+      "Founder tech-savvy",
+      "Operations Manager",
+      "Marketing Automation",
+      "Business Analyst",
+      "Project Manager técnico"
+    ]
+  },
+  {
+    "id": "gmgr-001",
+    "title": "Growth Manager",
+    "title_es": "Growth Manager",
+    "category": "business",
+    "day_to_day": "Tu día empieza con el dashboard de métricas: CAC, LTV, conversiones por canal, cohortes de retención. Tienes reuniones con producto para hablar de onboarding y activación, con marketing para campañas, y con data para análisis profundos. Diseñas y priorizas experimentos de growth usando frameworks como ICE o RICE. Por la tarde, analizas resultados de tests y decides qué escalar y qué matar. A diferencia del Growth Marketer (más táctico), el Growth Manager tiene visión más estratégica y suele liderar un equipo pequeño. Mucho Mixpanel, Amplitude, Google Analytics, y herramientas de experimentación.",
+    "pros": [
+      "Rol de alto impacto con visibilidad de C-level",
+      "Combina estrategia y ejecución — no te aburres",
+      "Muy demandado en startups y scale-ups B2C y B2B",
+      "Salarios competitivos, especialmente con equity",
+      "Evolución natural hacia VP Growth o CMO"
+    ],
+    "cons": [
+      "Alta presión por métricas — los números no mienten",
+      "Los canales de adquisición se saturan rápido",
+      "Mucha incertidumbre — muchos experimentos fallan",
+      "Requiere entender producto, marketing, y datos a la vez"
+    ],
+    "required_hard_skills": [
+      {
+        "skill": "Analytics (GA4, Amplitude, Mixpanel)",
+        "level": 5
+      },
+      {
+        "skill": "Paid Ads (Google, Meta)",
+        "level": 4
+      },
+      {
+        "skill": "Experimentación y A/B testing",
+        "level": 5
+      },
+      {
+        "skill": "SQL",
+        "level": 3
+      },
+      {
+        "skill": "Conocimiento de producto",
+        "level": 4
+      }
+    ],
+    "required_soft_skills": [
+      {
+        "skill": "Pensamiento analítico",
+        "level": 5
+      },
+      {
+        "skill": "Comunicación",
+        "level": 4
+      },
+      {
+        "skill": "Liderazgo",
+        "level": 4
+      },
+      {
+        "skill": "Toma de decisiones con datos",
+        "level": 5
+      }
+    ],
+    "salary_ranges": {
+      "ES": {
+        "min": 45000,
+        "max": 80000,
+        "currency": "EUR"
+      },
+      "MX": {
+        "min": 40000,
+        "max": 80000,
+        "currency": "MXN/mes"
+      },
+      "CO": {
+        "min": 7000000,
+        "max": 15000000,
+        "currency": "COP/mes"
+      },
+      "AR": {
+        "min": 1000000,
+        "max": 2500000,
+        "currency": "ARS/mes"
+      },
+      "remote": {
+        "min": 70000,
+        "max": 150000,
+        "currency": "USD"
+      }
+    },
+    "demand_level": "alta",
+    "growth_trend": "growing",
+    "growth_percentage": 28,
+    "remote_friendly": true,
+    "companies_hiring": [
+      "Revolut",
+      "N26",
+      "Rappi",
+      "Glovo",
+      "Factorial",
+      "Typeform",
+      "Startups Series A-C"
+    ],
+    "linkedin_search_template": "Growth Manager Head of Growth",
+    "infojobs_search_template": "growth manager",
+    "indeed_search_template": "growth manager",
+    "transition_from": [
+      "Growth Marketer",
+      "Product Manager",
+      "Founder",
+      "Performance Marketing Manager",
+      "Data Analyst"
+    ]
+  },
+  {
+    "id": "po-001",
+    "title": "Product Owner Junior / Associate PM",
+    "title_es": "Product Owner Junior / PM Asociado",
+    "category": "tech",
+    "day_to_day": "Tu día es una versión más táctica del Product Manager. Empiezas revisando el backlog y preparando los tickets para el próximo sprint. Tienes dailies con el equipo de desarrollo. Escribes user stories con criterios de aceptación claros. Priorizas bugs y features menores. Por la tarde, recoges feedback de usuarios (soporte, ventas, CS) y lo traduces en mejoras de producto. Participas en discovery con el PM senior. Es un rol de aprendizaje intensivo — estás absorbiendo cómo funciona producto mientras contribuyes en lo táctico.",
+    "pros": [
+      "Puerta de entrada al mundo de Product sin requerir años de experiencia",
+      "Aprendes de PMs seniors mientras contribuyes",
+      "Alta demanda en empresas que escalan equipos de producto",
+      "Evolución rápida si demuestras potencial"
+    ],
+    "cons": [
+      "Menos visión estratégica — ejecutas decisiones de otros",
+      "Puede sentirse como 'ticket manager' a veces",
+      "Salario inicial más bajo que PM senior",
+      "Requiere demostrar proactividad para crecer"
+    ],
+    "required_hard_skills": [
+      {
+        "skill": "Jira/Linear/Notion",
+        "level": 4
+      },
+      {
+        "skill": "Escribir user stories",
+        "level": 4
+      },
+      {
+        "skill": "Entender métricas de producto",
+        "level": 3
+      },
+      {
+        "skill": "Conocimiento técnico básico",
+        "level": 2
+      }
+    ],
+    "required_soft_skills": [
+      {
+        "skill": "Comunicación",
+        "level": 5
+      },
+      {
+        "skill": "Organización",
+        "level": 5
+      },
+      {
+        "skill": "Curiosidad",
+        "level": 5
+      },
+      {
+        "skill": "Trabajo en equipo",
+        "level": 5
+      }
+    ],
+    "salary_ranges": {
+      "ES": {
+        "min": 30000,
+        "max": 45000,
+        "currency": "EUR"
+      },
+      "MX": {
+        "min": 25000,
+        "max": 45000,
+        "currency": "MXN/mes"
+      },
+      "CO": {
+        "min": 4500000,
+        "max": 9000000,
+        "currency": "COP/mes"
+      },
+      "AR": {
+        "min": 700000,
+        "max": 1500000,
+        "currency": "ARS/mes"
+      },
+      "remote": {
+        "min": 45000,
+        "max": 80000,
+        "currency": "USD"
+      }
+    },
+    "demand_level": "alta",
+    "growth_trend": "growing",
+    "growth_percentage": 20,
+    "remote_friendly": true,
+    "companies_hiring": [
+      "Startups en crecimiento",
+      "Scale-ups",
+      "Consultoras tech",
+      "Producto digital B2B y B2C"
+    ],
+    "linkedin_search_template": "Product Owner Junior Associate Product Manager",
+    "infojobs_search_template": "product owner junior",
+    "indeed_search_template": "associate product manager",
+    "transition_from": [
+      "Founder",
+      "Business Analyst",
+      "UX Designer",
+      "Customer Success",
+      "QA",
+      "Scrum Master"
+    ]
+  },
+  {
+    "id": "cms-001",
+    "title": "Community Manager SaaS",
+    "title_es": "Community Manager SaaS / B2B",
+    "category": "creative",
+    "day_to_day": "Tu día es muy diferente al Community Manager tradicional de marca B2C. Empiezas moderando y participando en la comunidad de usuarios (Slack, Discord, Discourse). Respondes preguntas técnicas del producto, conectas usuarios entre sí, y escuchas feedback para pasarlo a producto. Creas contenido educativo: webinars, tutoriales, case studies. Por la tarde, analizas métricas de engagement de la comunidad y preparas reportes. Colaboras con CS para identificar power users y advocates. El rol es construir una comunidad que haga que los usuarios se queden y recomienden el producto.",
+    "pros": [
+      "Combina habilidades de comunicación y conocimiento técnico de producto",
+      "Impacto directo en retención y word-of-mouth",
+      "Trabajo muy humano — construyes relaciones reales",
+      "Demanda creciente en empresas product-led"
+    ],
+    "cons": [
+      "Menos reconocido que otros roles de marketing",
+      "Puede ser overwhelming si la comunidad crece mucho",
+      "Métricas de impacto a veces difíciles de atribuir",
+      "Horarios pueden extenderse si la comunidad es global"
+    ],
+    "required_hard_skills": [
+      {
+        "skill": "Plataformas de comunidad (Slack, Discord)",
+        "level": 4
+      },
+      {
+        "skill": "Conocimiento del producto SaaS",
+        "level": 4
+      },
+      {
+        "skill": "Copywriting",
+        "level": 4
+      },
+      {
+        "skill": "Analytics de comunidad",
+        "level": 3
+      }
+    ],
+    "required_soft_skills": [
+      {
+        "skill": "Comunicación",
+        "level": 5
+      },
+      {
+        "skill": "Empatía",
+        "level": 5
+      },
+      {
+        "skill": "Proactividad",
+        "level": 5
+      },
+      {
+        "skill": "Organización",
+        "level": 4
+      }
+    ],
+    "salary_ranges": {
+      "ES": {
+        "min": 28000,
+        "max": 45000,
+        "currency": "EUR"
+      },
+      "MX": {
+        "min": 22000,
+        "max": 42000,
+        "currency": "MXN/mes"
+      },
+      "CO": {
+        "min": 4000000,
+        "max": 8000000,
+        "currency": "COP/mes"
+      },
+      "AR": {
+        "min": 600000,
+        "max": 1400000,
+        "currency": "ARS/mes"
+      },
+      "remote": {
+        "min": 45000,
+        "max": 80000,
+        "currency": "USD"
+      }
+    },
+    "demand_level": "media",
+    "growth_trend": "growing",
+    "growth_percentage": 25,
+    "remote_friendly": true,
+    "companies_hiring": [
+      "Notion",
+      "Figma",
+      "Airtable",
+      "Webflow",
+      "Community-led startups"
+    ],
+    "linkedin_search_template": "Community Manager SaaS Developer Relations",
+    "infojobs_search_template": "community manager tech",
+    "indeed_search_template": "community manager saas",
+    "transition_from": [
+      "Community Manager B2C",
+      "Customer Success",
+      "Content Creator",
+      "Support especializado",
+      "Founder"
+    ]
   }
 ]

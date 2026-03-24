@@ -111,6 +111,169 @@ function ProfileContent() {
       alignItems: 'center',
       gap: '10px'
     },
+    // Superpower Card - Special styling
+    superpowerCard: {
+      background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(168, 85, 247, 0.15))',
+      borderRadius: '20px',
+      padding: '32px',
+      border: '1px solid rgba(99, 102, 241, 0.3)',
+      marginBottom: '24px',
+      position: 'relative',
+      overflow: 'hidden'
+    },
+    superpowerGlow: {
+      position: 'absolute',
+      top: '-50%',
+      right: '-20%',
+      width: '300px',
+      height: '300px',
+      background: 'radial-gradient(circle, rgba(99, 102, 241, 0.2) 0%, transparent 70%)',
+      pointerEvents: 'none'
+    },
+    superpowerTitle: {
+      fontSize: '28px',
+      fontWeight: '800',
+      marginBottom: '12px',
+      background: 'linear-gradient(135deg, #6366f1, #a855f7)',
+      WebkitBackgroundClip: 'text',
+      WebkitTextFillColor: 'transparent',
+      display: 'inline-block'
+    },
+    superpowerDescription: {
+      fontSize: '16px',
+      lineHeight: '1.7',
+      color: 'rgba(255,255,255,0.85)',
+      marginBottom: '16px'
+    },
+    superpowerSkills: {
+      display: 'flex',
+      flexWrap: 'wrap',
+      gap: '8px'
+    },
+    superpowerSkillChip: {
+      padding: '6px 14px',
+      borderRadius: '20px',
+      background: 'rgba(99, 102, 241, 0.2)',
+      border: '1px solid rgba(99, 102, 241, 0.4)',
+      fontSize: '13px',
+      fontWeight: '500'
+    },
+    // Employability Index Card
+    employabilityCard: {
+      background: 'rgba(255,255,255,0.03)',
+      borderRadius: '20px',
+      padding: '32px',
+      border: '1px solid rgba(255,255,255,0.05)',
+      marginBottom: '24px'
+    },
+    employabilityHeader: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      marginBottom: '24px'
+    },
+    employabilityScore: {
+      fontSize: '56px',
+      fontWeight: '800',
+      background: 'linear-gradient(135deg, #10b981, #06b6d4)',
+      WebkitBackgroundClip: 'text',
+      WebkitTextFillColor: 'transparent'
+    },
+    employabilityLabel: {
+      fontSize: '14px',
+      color: 'rgba(255,255,255,0.5)',
+      textTransform: 'uppercase',
+      letterSpacing: '1px'
+    },
+    employabilityBar: {
+      width: '100%',
+      height: '12px',
+      background: 'rgba(255,255,255,0.1)',
+      borderRadius: '6px',
+      overflow: 'hidden',
+      marginBottom: '24px'
+    },
+    employabilityBarFill: (score) => ({
+      width: `${score}%`,
+      height: '100%',
+      background: `linear-gradient(135deg, ${score >= 70 ? '#10b981' : score >= 50 ? '#f59e0b' : '#ef4444'}, ${score >= 70 ? '#06b6d4' : score >= 50 ? '#eab308' : '#f97316'})`,
+      borderRadius: '6px',
+      transition: 'width 1s ease-out'
+    }),
+    improvementsList: {
+      display: 'flex',
+      flexDirection: 'column',
+      gap: '12px'
+    },
+    improvementItem: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      padding: '12px 16px',
+      background: 'rgba(16, 185, 129, 0.1)',
+      borderRadius: '10px',
+      border: '1px solid rgba(16, 185, 129, 0.2)'
+    },
+    improvementAction: {
+      fontSize: '14px',
+      flex: 1
+    },
+    improvementPoints: {
+      fontSize: '14px',
+      fontWeight: '700',
+      color: '#10b981',
+      background: 'rgba(16, 185, 129, 0.2)',
+      padding: '4px 10px',
+      borderRadius: '6px'
+    },
+    // What others see
+    whatOthersSeeCard: {
+      background: 'rgba(251, 191, 36, 0.1)',
+      borderRadius: '20px',
+      padding: '32px',
+      border: '1px solid rgba(251, 191, 36, 0.3)',
+      marginBottom: '24px'
+    },
+    whatOthersSeeQuote: {
+      fontSize: '18px',
+      fontStyle: 'italic',
+      lineHeight: '1.7',
+      color: 'rgba(255,255,255,0.9)',
+      position: 'relative',
+      paddingLeft: '24px'
+    },
+    quoteIcon: {
+      position: 'absolute',
+      left: 0,
+      top: '-4px',
+      fontSize: '24px',
+      color: '#fbbf24',
+      opacity: 0.6
+    },
+    // Fear addressed card
+    fearCard: {
+      background: 'rgba(139, 92, 246, 0.1)',
+      borderRadius: '20px',
+      padding: '32px',
+      border: '1px solid rgba(139, 92, 246, 0.3)',
+      marginBottom: '24px'
+    },
+    fearTitle: {
+      fontSize: '16px',
+      color: 'rgba(255,255,255,0.6)',
+      marginBottom: '12px'
+    },
+    fearQuote: {
+      fontSize: '16px',
+      fontStyle: 'italic',
+      color: '#f472b6',
+      marginBottom: '16px'
+    },
+    fearReality: {
+      fontSize: '15px',
+      lineHeight: '1.7',
+      color: 'rgba(255,255,255,0.85)'
+    },
     radarContainer: {
       display: 'flex',
       justifyContent: 'center',
@@ -367,6 +530,12 @@ function ProfileContent() {
     ...(skillsMap?.soft_skills || []).map(s => ({ ...s, type: 'soft' }))
   ].sort((a, b) => b.level - a.level).slice(0, 8)
 
+  // Extract superpower, employability, and fear from skillsMap
+  const superpower = skillsMap?.superpower
+  const whatOthersSee = skillsMap?.what_others_see
+  const fearAddressed = skillsMap?.fear_addressed
+  const employabilityIndex = skillsMap?.employability_index
+
   return (
     <div style={styles.container}>
       <div style={styles.inner}>
@@ -381,6 +550,97 @@ function ProfileContent() {
         {/* One-liner */}
         {skillsMap?.summary_one_liner && (
           <p style={styles.oneLiner}>"{skillsMap.summary_one_liner}"</p>
+        )}
+
+        {/* SUPERPOWER SECTION - NEW */}
+        {superpower && (
+          <div style={styles.superpowerCard}>
+            <div style={styles.superpowerGlow} />
+            <h3 style={styles.cardTitle}>⚡ Tu Superpoder</h3>
+            <div style={styles.superpowerTitle}>
+              {superpower.title_es || superpower.title}
+            </div>
+            <p style={styles.superpowerDescription}>
+              {superpower.description_short || superpower.description}
+            </p>
+            {superpower.rare_combination && (
+              <div style={styles.superpowerSkills}>
+                {superpower.rare_combination.map((skill, i) => (
+                  <span key={i} style={styles.superpowerSkillChip}>
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* EMPLOYABILITY INDEX - NEW */}
+        {employabilityIndex && (
+          <div style={styles.employabilityCard}>
+            <div style={styles.employabilityHeader}>
+              <div>
+                <div style={styles.employabilityLabel}>Índice de Empleabilidad</div>
+                <div style={styles.employabilityScore}>{employabilityIndex.score}/100</div>
+              </div>
+              <div style={{ textAlign: 'right' }}>
+                <div style={{ fontSize: '14px', color: 'rgba(255,255,255,0.5)', marginBottom: '4px' }}>
+                  Para roles:
+                </div>
+                <div style={{ fontSize: '14px' }}>
+                  {employabilityIndex.target_roles?.slice(0, 3).join(', ')}
+                </div>
+              </div>
+            </div>
+            
+            <div style={styles.employabilityBar}>
+              <div style={styles.employabilityBarFill(employabilityIndex.score)} />
+            </div>
+
+            {employabilityIndex.improvements && employabilityIndex.improvements.length > 0 && (
+              <>
+                <h4 style={{ fontSize: '14px', color: 'rgba(255,255,255,0.6)', marginBottom: '12px' }}>
+                  Cómo mejorar tu score:
+                </h4>
+                <div style={styles.improvementsList}>
+                  {employabilityIndex.improvements.slice(0, 3).map((imp, i) => (
+                    <div key={i} style={styles.improvementItem}>
+                      <span style={styles.improvementAction}>{imp.action}</span>
+                      <span style={styles.improvementPoints}>+{imp.points} pts</span>
+                    </div>
+                  ))}
+                </div>
+              </>
+            )}
+          </div>
+        )}
+
+        {/* What Others See - NEW */}
+        {whatOthersSee && (
+          <div style={styles.whatOthersSeeCard}>
+            <h3 style={styles.cardTitle}>👁️ Lo que otros ven en ti</h3>
+            <p style={styles.whatOthersSeeQuote}>
+              <span style={styles.quoteIcon}>"</span>
+              {whatOthersSee}
+            </p>
+          </div>
+        )}
+
+        {/* Fear Addressed - NEW */}
+        {fearAddressed && fearAddressed.fear && (
+          <div style={styles.fearCard}>
+            <h3 style={styles.cardTitle}>💜 El miedo que tienes (y por qué es infundado)</h3>
+            <div style={styles.fearTitle}>Mencionaste:</div>
+            <p style={styles.fearQuote}>"{fearAddressed.fear}"</p>
+            <p style={styles.fearReality}>
+              <strong>La realidad:</strong> {fearAddressed.reality}
+            </p>
+            {fearAddressed.reframe && (
+              <p style={{ ...styles.fearReality, marginTop: '12px', color: '#a78bfa' }}>
+                {fearAddressed.reframe}
+              </p>
+            )}
+          </div>
         )}
 
         {/* Radar Chart */}
@@ -470,7 +730,7 @@ function ProfileContent() {
           <div style={styles.ctaSection}>
             <h3 style={styles.ctaTitle}>Desbloquea todos los roles</h3>
             <p style={styles.ctaSubtitle}>
-              Accede a {topRoles.length > 0 ? '20+' : 'todos los'} roles compatibles con tu perfil,
+              Accede a {topRoles.length > 0 ? '26+' : 'todos los'} roles compatibles con tu perfil,
               datos de salario por país, y plan de transición personalizado
             </p>
             <Link href={`/upgrade?userId=${userId}`} style={styles.ctaButton}>

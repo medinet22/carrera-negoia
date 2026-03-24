@@ -15,6 +15,7 @@ function DocumentsContent() {
   const [selectedRoles, setSelectedRoles] = useState([])
   const [expandedDoc, setExpandedDoc] = useState(null)
   const [copied, setCopied] = useState(null)
+  const [activeTab, setActiveTab] = useState('general')
 
   useEffect(() => {
     if (!userId) {
@@ -87,6 +88,100 @@ function DocumentsContent() {
     return labels[type] || type
   }
 
+  const getDocTypeIcon = (type) => {
+    const icons = {
+      cv_generic: '📄',
+      cv_specific: '📄',
+      cover_letter: '✉️',
+      linkedin_bullets: '💼',
+      elevator_pitch: '🎤'
+    }
+    return icons[type] || '📄'
+  }
+
+  // Parse CV content for premium display
+  const renderCVPreview = (content) => {
+    if (typeof content === 'string') {
+      return content
+    }
+    
+    // If it's structured JSON, render it nicely
+    if (content?.header || content?.full_text) {
+      return content.full_text || JSON.stringify(content, null, 2)
+    }
+    
+    return JSON.stringify(content, null, 2)
+  }
+
+  // Premium CV paper component
+  const CVPaperPreview = ({ doc }) => {
+    const content = doc.content_text || (typeof doc.content === 'string' ? doc.content : doc.content?.full_text) || JSON.stringify(doc.content, null, 2)
+    const header = doc.content?.header || {}
+    const keyAchievements = doc.content?.key_achievements || []
+    const experience = doc.content?.experience || []
+    
+    return (
+      <div style={styles.cvPaper}>
+        <div style={styles.cvPaperInner}>
+          {/* Header Section */}
+          {header.name && (
+            <div style={styles.cvHeader}>
+              <h1 style={styles.cvName}>{header.name}</h1>
+              {header.headline && (
+                <p style={styles.cvHeadline}>{header.headline}</p>
+              )}
+              <div style={styles.cvContact}>
+                {header.email && <span>{header.email}</span>}
+                {header.linkedin && <span> • {header.linkedin}</span>}
+                {header.location && <span> • {header.location}</span>}
+              </div>
+              <div style={styles.cvDivider} />
+            </div>
+          )}
+
+          {/* Key Achievements */}
+          {keyAchievements.length > 0 && (
+            <div style={styles.cvSection}>
+              <h2 style={styles.cvSectionTitle}>LOGROS CLAVE</h2>
+              <ul style={styles.cvList}>
+                {keyAchievements.map((achievement, i) => (
+                  <li key={i} style={styles.cvListItem}>• {achievement}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {/* If structured content is not available, show raw text */}
+          {(!header.name && !keyAchievements.length) && (
+            <pre style={styles.cvRawText}>{content}</pre>
+          )}
+
+          {/* Experience Preview (truncated) */}
+          {experience.length > 0 && (
+            <div style={styles.cvSection}>
+              <h2 style={styles.cvSectionTitle}>EXPERIENCIA</h2>
+              {experience.slice(0, 2).map((exp, i) => (
+                <div key={i} style={styles.cvExperience}>
+                  <div style={styles.cvExpHeader}>
+                    <strong>{exp.title}</strong>
+                    <span style={styles.cvExpDates}>{exp.dates}</span>
+                  </div>
+                  <div style={styles.cvExpCompany}>{exp.company}</div>
+                  {exp.bullets?.slice(0, 3).map((bullet, j) => (
+                    <div key={j} style={styles.cvExpBullet}>• {bullet}</div>
+                  ))}
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* Gradient fade at bottom */}
+        <div style={styles.cvPaperFade} />
+      </div>
+    )
+  }
+
   const styles = {
     container: {
       minHeight: '100vh',
@@ -95,7 +190,7 @@ function DocumentsContent() {
       padding: '20px'
     },
     inner: {
-      maxWidth: '900px',
+      maxWidth: '1000px',
       margin: '0 auto'
     },
     header: {
@@ -110,6 +205,24 @@ function DocumentsContent() {
       fontSize: '16px',
       color: 'rgba(255,255,255,0.6)'
     },
+    tabs: {
+      display: 'flex',
+      gap: '8px',
+      marginBottom: '24px',
+      borderBottom: '1px solid rgba(255,255,255,0.1)',
+      paddingBottom: '16px'
+    },
+    tab: (isActive) => ({
+      padding: '12px 24px',
+      borderRadius: '10px 10px 0 0',
+      border: 'none',
+      background: isActive ? 'linear-gradient(135deg, #6366f1, #4f46e5)' : 'rgba(255,255,255,0.05)',
+      color: '#fff',
+      fontSize: '14px',
+      fontWeight: '600',
+      cursor: 'pointer',
+      transition: 'all 0.2s'
+    }),
     generateBox: {
       textAlign: 'center',
       padding: '48px 32px',
@@ -185,20 +298,139 @@ function DocumentsContent() {
       gap: '6px'
     },
     copyBtn: (isCopied) => ({
-      padding: '8px 16px',
+      padding: '10px 20px',
       borderRadius: '8px',
       border: 'none',
       background: isCopied ? '#10b981' : 'linear-gradient(135deg, #6366f1, #4f46e5)',
       color: '#fff',
       fontSize: '13px',
+      fontWeight: '600',
+      cursor: 'pointer',
+      display: 'flex',
+      alignItems: 'center',
+      gap: '6px',
+      transition: 'all 0.2s'
+    }),
+    pdfBtn: {
+      padding: '10px 20px',
+      borderRadius: '8px',
+      border: '1px solid rgba(255,255,255,0.2)',
+      background: 'rgba(255,255,255,0.05)',
+      color: '#fff',
+      fontSize: '13px',
+      fontWeight: '600',
       cursor: 'pointer',
       display: 'flex',
       alignItems: 'center',
       gap: '6px'
-    }),
+    },
     docContent: {
       padding: '0 24px 24px',
       borderTop: '1px solid rgba(255,255,255,0.05)'
+    },
+    // Premium CV Paper Styles
+    cvPaper: {
+      background: '#fff',
+      borderRadius: '8px',
+      boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255,255,255,0.1)',
+      marginTop: '20px',
+      position: 'relative',
+      overflow: 'hidden',
+      maxHeight: '600px'
+    },
+    cvPaperInner: {
+      padding: '40px 48px',
+      color: '#1f2937',
+      fontFamily: 'system-ui, -apple-system, sans-serif',
+      fontSize: '14px',
+      lineHeight: '1.6'
+    },
+    cvPaperFade: {
+      position: 'absolute',
+      bottom: 0,
+      left: 0,
+      right: 0,
+      height: '100px',
+      background: 'linear-gradient(to top, #fff 0%, transparent 100%)',
+      pointerEvents: 'none'
+    },
+    cvHeader: {
+      marginBottom: '24px'
+    },
+    cvName: {
+      fontFamily: 'Georgia, serif',
+      fontSize: '28px',
+      fontWeight: '700',
+      color: '#111827',
+      marginBottom: '8px',
+      letterSpacing: '-0.5px'
+    },
+    cvHeadline: {
+      fontSize: '14px',
+      color: '#4f46e5',
+      fontWeight: '500',
+      marginBottom: '12px'
+    },
+    cvContact: {
+      fontSize: '13px',
+      color: '#6b7280'
+    },
+    cvDivider: {
+      height: '2px',
+      background: 'linear-gradient(to right, #6366f1, #a855f7)',
+      marginTop: '16px',
+      opacity: 0.6
+    },
+    cvSection: {
+      marginBottom: '20px'
+    },
+    cvSectionTitle: {
+      fontSize: '11px',
+      fontWeight: '700',
+      color: '#6b7280',
+      textTransform: 'uppercase',
+      letterSpacing: '1px',
+      marginBottom: '12px'
+    },
+    cvList: {
+      listStyle: 'none',
+      padding: 0,
+      margin: 0
+    },
+    cvListItem: {
+      marginBottom: '6px',
+      paddingLeft: '0'
+    },
+    cvExperience: {
+      marginBottom: '16px'
+    },
+    cvExpHeader: {
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'baseline',
+      marginBottom: '4px'
+    },
+    cvExpDates: {
+      fontSize: '12px',
+      color: '#9ca3af'
+    },
+    cvExpCompany: {
+      fontSize: '13px',
+      color: '#6b7280',
+      marginBottom: '8px'
+    },
+    cvExpBullet: {
+      fontSize: '13px',
+      marginBottom: '4px',
+      color: '#374151'
+    },
+    cvRawText: {
+      fontFamily: 'system-ui, -apple-system, sans-serif',
+      fontSize: '13px',
+      lineHeight: '1.7',
+      whiteSpace: 'pre-wrap',
+      margin: 0,
+      color: '#374151'
     },
     contentPreview: {
       background: 'rgba(0,0,0,0.2)',
@@ -219,6 +451,18 @@ function DocumentsContent() {
       textTransform: 'uppercase',
       marginBottom: '16px',
       marginTop: '32px'
+    },
+    atsChip: {
+      display: 'inline-flex',
+      alignItems: 'center',
+      gap: '6px',
+      padding: '4px 10px',
+      borderRadius: '6px',
+      background: 'rgba(16, 185, 129, 0.15)',
+      color: '#10b981',
+      fontSize: '12px',
+      fontWeight: '600',
+      marginLeft: '12px'
     },
     nav: {
       display: 'flex',
@@ -259,7 +503,7 @@ function DocumentsContent() {
         <div style={styles.header}>
           <h1 style={styles.title}>Mis Documentos</h1>
           <p style={styles.subtitle}>
-            Tus CVs, cartas y recursos listos para usar
+            CVs optimizados para ATS y LinkedIn, cartas y recursos listos para usar
           </p>
         </div>
 
@@ -271,7 +515,7 @@ function DocumentsContent() {
               Genera tus documentos personalizados
             </p>
             <p style={styles.generateSubtext}>
-              CV genérico, CVs por rol, cartas de presentación, LinkedIn bullets y elevator pitch
+              CV genérico ATS-optimizado, CVs por rol, cartas de presentación, LinkedIn bullets y elevator pitch
             </p>
             <button 
               style={styles.generateBtn(generating)}
@@ -283,13 +527,31 @@ function DocumentsContent() {
           </div>
         )}
 
+        {/* Tabs */}
+        {documents.length > 0 && (
+          <div style={styles.tabs}>
+            <button 
+              style={styles.tab(activeTab === 'general')}
+              onClick={() => setActiveTab('general')}
+            >
+              📄 CV y LinkedIn
+            </button>
+            <button 
+              style={styles.tab(activeTab === 'roles')}
+              onClick={() => setActiveTab('roles')}
+            >
+              🎯 Por Rol ({specificDocs.length})
+            </button>
+          </div>
+        )}
+
         {/* Generic documents */}
-        {genericDocs.length > 0 && (
+        {activeTab === 'general' && genericDocs.length > 0 && (
           <>
-            <h3 style={styles.sectionTitle}>Documentos generales</h3>
             {genericDocs.map(doc => {
               const isExpanded = expandedDoc === doc.id
               const content = doc.content_text || JSON.stringify(doc.content, null, 2)
+              const isCV = doc.doc_type === 'cv_generic'
               
               return (
                 <div key={doc.id} style={styles.docCard}>
@@ -300,6 +562,11 @@ function DocumentsContent() {
                     <div>
                       <div style={styles.docTitle}>
                         {getDocTypeLabel(doc.doc_type)}
+                        {isCV && (
+                          <span style={styles.atsChip}>
+                            ✓ ATS Optimizado
+                          </span>
+                        )}
                       </div>
                     </div>
                     <div style={styles.docActions}>
@@ -310,13 +577,22 @@ function DocumentsContent() {
                           copyToClipboard(content, doc.id)
                         }}
                       >
-                        {copied === doc.id ? '✓ Copiado' : '📋 Copiar'}
+                        {copied === doc.id ? '✓ Copiado' : '📋 Copiar texto'}
                       </button>
+                      {isCV && (
+                        <button style={styles.pdfBtn}>
+                          📥 PDF
+                        </button>
+                      )}
                     </div>
                   </div>
                   {isExpanded && (
                     <div style={styles.docContent}>
-                      <pre style={styles.contentPreview}>{content}</pre>
+                      {isCV ? (
+                        <CVPaperPreview doc={doc} />
+                      ) : (
+                        <pre style={styles.contentPreview}>{content}</pre>
+                      )}
                     </div>
                   )}
                 </div>
@@ -326,13 +602,13 @@ function DocumentsContent() {
         )}
 
         {/* Role-specific documents */}
-        {specificDocs.length > 0 && (
+        {activeTab === 'roles' && specificDocs.length > 0 && (
           <>
-            <h3 style={styles.sectionTitle}>Documentos por rol</h3>
             {specificDocs.map(doc => {
               const isExpanded = expandedDoc === doc.id
               const content = doc.content_text || JSON.stringify(doc.content, null, 2)
               const role = selectedRoles.find(r => r.role_id === doc.role_id)
+              const isCV = doc.doc_type === 'cv_specific'
               
               return (
                 <div key={doc.id} style={styles.docCard}>
@@ -343,6 +619,11 @@ function DocumentsContent() {
                     <div>
                       <div style={styles.docTitle}>
                         {getDocTypeLabel(doc.doc_type)}
+                        {isCV && (
+                          <span style={styles.atsChip}>
+                            ✓ ATS Optimizado
+                          </span>
+                        )}
                       </div>
                       <div style={styles.docRole}>
                         Para: {role?.title_es || role?.title || 'Rol específico'}
@@ -356,13 +637,22 @@ function DocumentsContent() {
                           copyToClipboard(content, doc.id)
                         }}
                       >
-                        {copied === doc.id ? '✓ Copiado' : '📋 Copiar'}
+                        {copied === doc.id ? '✓ Copiado' : '📋 Copiar texto'}
                       </button>
+                      {isCV && (
+                        <button style={styles.pdfBtn}>
+                          📥 PDF
+                        </button>
+                      )}
                     </div>
                   </div>
                   {isExpanded && (
                     <div style={styles.docContent}>
-                      <pre style={styles.contentPreview}>{content}</pre>
+                      {isCV ? (
+                        <CVPaperPreview doc={doc} />
+                      ) : (
+                        <pre style={styles.contentPreview}>{content}</pre>
+                      )}
                     </div>
                   )}
                 </div>
