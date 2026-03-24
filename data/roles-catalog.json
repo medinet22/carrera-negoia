@@ -1,0 +1,942 @@
+[
+  {
+    "id": "csm-001",
+    "title": "Customer Success Manager",
+    "title_es": "Gestor de Éxito del Cliente",
+    "category": "business",
+    "day_to_day": "Tu día empieza revisando métricas de salud de tus cuentas en el dashboard del CRM. Gestionas una cartera de 25-40 cuentas B2B y tu trabajo es asegurar que extraigan máximo valor del producto. Por la mañana tienes 2-3 calls con clientes: algunas son QBRs (revisiones trimestrales de objetivos), otras son seguimientos de onboarding o resolución de problemas. Entre calls, respondes emails y mensajes de Slack de clientes que necesitan ayuda. Analizas datos de uso para identificar cuentas en riesgo de churn antes de que sea tarde. Por la tarde, colaboras con el equipo de producto para escalar feedback y con ventas para identificar oportunidades de upsell. Documentas todo en el CRM. Mucho Zoom, Slack, y herramientas como Gainsight, ChurnZero o HubSpot.",
+    "pros": [
+      "Alta demanda en empresas SaaS y tech — mercado creciendo 20%+ anual",
+      "Rol muy humano: construyes relaciones reales con clientes",
+      "Camino de carrera claro hacia VP Customer Success o Chief Customer Officer",
+      "Salarios competitivos con bonus por retención y NPS"
+    ],
+    "cons": [
+      "Puede ser emocionalmente demandante cuando clientes se van enfadados",
+      "Presión constante por métricas de retención y churn",
+      "Algunos lo perciben como 'soporte glorificado' (aunque no lo es)",
+      "Horarios pueden extenderse si gestionas cuentas en múltiples zonas horarias"
+    ],
+    "required_hard_skills": [
+      {"skill": "CRM (HubSpot, Salesforce)", "level": 4},
+      {"skill": "Análisis de datos de uso", "level": 3},
+      {"skill": "Conocimiento de producto SaaS", "level": 4},
+      {"skill": "Herramientas CS (Gainsight, ChurnZero)", "level": 3}
+    ],
+    "required_soft_skills": [
+      {"skill": "Comunicación", "level": 5},
+      {"skill": "Empatía", "level": 5},
+      {"skill": "Resolución de problemas", "level": 4},
+      {"skill": "Gestión de relaciones", "level": 5}
+    ],
+    "salary_ranges": {
+      "ES": {"min": 32000, "max": 55000, "currency": "EUR"},
+      "MX": {"min": 30000, "max": 55000, "currency": "MXN/mes"},
+      "CO": {"min": 5000000, "max": 10000000, "currency": "COP/mes"},
+      "AR": {"min": 800000, "max": 1800000, "currency": "ARS/mes"},
+      "remote": {"min": 50000, "max": 90000, "currency": "USD"}
+    },
+    "demand_level": "alta",
+    "growth_trend": "growing",
+    "growth_percentage": 23,
+    "remote_friendly": true,
+    "companies_hiring": ["HubSpot", "Salesforce", "Typeform", "Factorial", "Stripe", "Notion"],
+    "linkedin_search_template": "Customer Success Manager",
+    "infojobs_search_template": "customer success",
+    "indeed_search_template": "customer success manager",
+    "transition_from": ["Account Manager", "Sales", "Customer Support", "Project Manager"]
+  },
+  {
+    "id": "pm-001",
+    "title": "Product Manager",
+    "title_es": "Product Manager",
+    "category": "tech",
+    "day_to_day": "Empiezas el día revisando métricas de producto (DAU, conversión de funnel, NPS). La mañana está llena de reuniones: daily con el equipo de desarrollo, 1:1 con diseño para revisar mockups, call con stakeholders para alinear prioridades. Pasas mucho tiempo hablando con usuarios (llamadas de discovery, análisis de feedback) para entender problemas reales. Escribes PRDs (Product Requirements Documents) que definen qué construir y por qué. Priorizas el backlog usando frameworks como RICE o ICE. Por la tarde, revisas el progreso del sprint y eliminas bloqueadores del equipo. El PM es el punto de conexión entre negocio, diseño y tecnología — mucha comunicación y poco código.",
+    "pros": [
+      "Rol de alto impacto: defines qué se construye y por qué",
+      "Muy demandado, especialmente con background técnico o de negocio",
+      "Exposición a todas las áreas de la empresa",
+      "Salarios altos y muchas oportunidades de crecimiento"
+    ],
+    "cons": [
+      "Responsabilidad sin autoridad directa (tienes que influir, no mandar)",
+      "Alta presión por resultados de métricas que no controlas al 100%",
+      "Muchas reuniones — algunos días no produces nada tangible",
+      "El burnout es común si no pones límites"
+    ],
+    "required_hard_skills": [
+      {"skill": "Análisis de datos (SQL básico)", "level": 3},
+      {"skill": "Herramientas de roadmap (Jira, Linear, Notion)", "level": 4},
+      {"skill": "Frameworks de priorización (RICE, ICE)", "level": 4},
+      {"skill": "User research basics", "level": 3}
+    ],
+    "required_soft_skills": [
+      {"skill": "Comunicación", "level": 5},
+      {"skill": "Pensamiento estratégico", "level": 5},
+      {"skill": "Influencia sin autoridad", "level": 5},
+      {"skill": "Toma de decisiones", "level": 4}
+    ],
+    "salary_ranges": {
+      "ES": {"min": 45000, "max": 80000, "currency": "EUR"},
+      "MX": {"min": 45000, "max": 85000, "currency": "MXN/mes"},
+      "CO": {"min": 8000000, "max": 18000000, "currency": "COP/mes"},
+      "AR": {"min": 1200000, "max": 3000000, "currency": "ARS/mes"},
+      "remote": {"min": 80000, "max": 180000, "currency": "USD"}
+    },
+    "demand_level": "alta",
+    "growth_trend": "growing",
+    "growth_percentage": 18,
+    "remote_friendly": true,
+    "companies_hiring": ["Spotify", "Glovo", "Cabify", "Revolut", "N26", "Delivery Hero"],
+    "linkedin_search_template": "Product Manager",
+    "infojobs_search_template": "product manager",
+    "indeed_search_template": "product manager",
+    "transition_from": ["Business Analyst", "UX Designer", "Developer", "Consultant", "Project Manager"]
+  },
+  {
+    "id": "ops-001",
+    "title": "Operations Manager",
+    "title_es": "Director de Operaciones",
+    "category": "operations",
+    "day_to_day": "Tu día empieza revisando KPIs operativos y dashboards de performance. Gestionas equipos que ejecutan procesos críticos del negocio (fulfillment, soporte, logística). Muchas reuniones de coordinación entre departamentos. Identificas cuellos de botella, diseñas procesos más eficientes, y mides el impacto. Trabajas con herramientas de automatización y BI para escalar operaciones. Mucho tiempo en spreadsheets, ERPs y herramientas de gestión de proyectos. Por la tarde, revisas incidencias y preparas reportes para dirección. El rol es resolver problemas constantemente mientras mantienes la máquina funcionando.",
+    "pros": [
+      "Impacto directo y medible en el negocio",
+      "Exposición a todas las áreas de la empresa",
+      "Demanda estable en todo tipo de industrias",
+      "Camino claro hacia COO o Director General"
+    ],
+    "cons": [
+      "Mucha presión por KPIs y deadlines",
+      "Apagar fuegos es parte del día a día",
+      "Horarios pueden extenderse en picos de demanda",
+      "Gestionar equipos grandes puede ser agotador"
+    ],
+    "required_hard_skills": [
+      {"skill": "Excel/Google Sheets avanzado", "level": 5},
+      {"skill": "Herramientas de BI (Looker, Power BI)", "level": 3},
+      {"skill": "Gestión de proyectos (Asana, Monday)", "level": 4},
+      {"skill": "ERP basics (SAP, Oracle)", "level": 3}
+    ],
+    "required_soft_skills": [
+      {"skill": "Liderazgo de equipos", "level": 5},
+      {"skill": "Resolución de problemas", "level": 5},
+      {"skill": "Pensamiento analítico", "level": 4},
+      {"skill": "Gestión del estrés", "level": 5}
+    ],
+    "salary_ranges": {
+      "ES": {"min": 40000, "max": 75000, "currency": "EUR"},
+      "MX": {"min": 40000, "max": 80000, "currency": "MXN/mes"},
+      "CO": {"min": 7000000, "max": 15000000, "currency": "COP/mes"},
+      "AR": {"min": 1000000, "max": 2500000, "currency": "ARS/mes"},
+      "remote": {"min": 60000, "max": 120000, "currency": "USD"}
+    },
+    "demand_level": "alta",
+    "growth_trend": "stable",
+    "growth_percentage": 8,
+    "remote_friendly": false,
+    "companies_hiring": ["Amazon", "Glovo", "Rappi", "Mercado Libre", "Inditex", "DHL"],
+    "linkedin_search_template": "Operations Manager",
+    "infojobs_search_template": "director operaciones",
+    "indeed_search_template": "operations manager",
+    "transition_from": ["Project Manager", "Supply Chain", "Logistics Coordinator", "Store Manager"]
+  },
+  {
+    "id": "bdr-001",
+    "title": "Business Development Representative",
+    "title_es": "Representante de Desarrollo de Negocio",
+    "category": "business",
+    "day_to_day": "Tu día es un mix de prospección activa y cualificación de leads. Empiezas revisando tu pipeline y preparando tu lista de contactos. Haces 30-60 llamadas frías o envías 50-100 emails personalizados para generar interés. Usas herramientas como LinkedIn Sales Navigator, Apollo, o Outreach. Cuando alguien muestra interés, lo cualificas con preguntas BANT o MEDDIC. Si encaja, agendas una demo con el Account Executive. Por la tarde, actualizas el CRM, investigas cuentas target, y preparas secuencias de outreach. Es un rol de volumen: mucho rechazo, pero cada 'sí' es una victoria.",
+    "pros": [
+      "Puerta de entrada a carreras en ventas tech con altos salarios",
+      "Desarrollas skills de comunicación y resiliencia rápidamente",
+      "Cultura joven y dinámica en la mayoría de empresas",
+      "Potencial de comisiones altas si superas objetivos"
+    ],
+    "cons": [
+      "Alta tasa de rechazo — hay que tener piel dura",
+      "Presión constante por cuotas mensuales",
+      "Puede sentirse repetitivo y mecánico",
+      "Rotación alta en el rol — muchos lo usan como trampolín"
+    ],
+    "required_hard_skills": [
+      {"skill": "CRM (Salesforce, HubSpot)", "level": 3},
+      {"skill": "Herramientas de prospección (LinkedIn, Apollo)", "level": 4},
+      {"skill": "Email outreach", "level": 4},
+      {"skill": "Cualificación de leads (BANT, MEDDIC)", "level": 3}
+    ],
+    "required_soft_skills": [
+      {"skill": "Comunicación persuasiva", "level": 5},
+      {"skill": "Resiliencia", "level": 5},
+      {"skill": "Escucha activa", "level": 4},
+      {"skill": "Organización", "level": 4}
+    ],
+    "salary_ranges": {
+      "ES": {"min": 24000, "max": 40000, "currency": "EUR"},
+      "MX": {"min": 20000, "max": 40000, "currency": "MXN/mes"},
+      "CO": {"min": 3500000, "max": 7000000, "currency": "COP/mes"},
+      "AR": {"min": 600000, "max": 1400000, "currency": "ARS/mes"},
+      "remote": {"min": 40000, "max": 70000, "currency": "USD"}
+    },
+    "demand_level": "alta",
+    "growth_trend": "growing",
+    "growth_percentage": 15,
+    "remote_friendly": true,
+    "companies_hiring": ["Salesforce", "HubSpot", "Datadog", "Stripe", "monday.com", "Personio"],
+    "linkedin_search_template": "Business Development Representative SDR",
+    "infojobs_search_template": "BDR SDR ventas",
+    "indeed_search_template": "business development representative",
+    "transition_from": ["Sales Retail", "Customer Support", "Telemarketing", "Account Manager junior"]
+  },
+  {
+    "id": "ux-001",
+    "title": "UX Designer",
+    "title_es": "Diseñador UX",
+    "category": "creative",
+    "day_to_day": "Empiezas el día revisando feedback de usuarios y métricas de usabilidad. Participas en sesiones de discovery con usuarios reales para entender sus problemas. Diseñas wireframes y prototipos en Figma, iterando con el equipo. Haces tests de usabilidad donde observas usuarios interactuando con tus diseños. Mucho tiempo en reuniones con Product y Engineering alineando soluciones. Por la tarde, preparas especificaciones de diseño y sistemas de componentes. El rol es parte investigación, parte diseño visual, y parte psicología del usuario.",
+    "pros": [
+      "Trabajo creativo con impacto directo en usuarios",
+      "Alta demanda en empresas de producto",
+      "Comunidad activa y recursos de aprendizaje abundantes",
+      "Salarios competitivos y creciendo"
+    ],
+    "cons": [
+      "Tus diseños serán criticados constantemente — necesitas ego bajo",
+      "A veces business decisions pisan tus recomendaciones de UX",
+      "Puede ser frustrante cuando el usuario no hace lo que esperabas",
+      "Portfolio es esencial — competencia alta para roles junior"
+    ],
+    "required_hard_skills": [
+      {"skill": "Figma", "level": 5},
+      {"skill": "Prototipado interactivo", "level": 4},
+      {"skill": "User Research", "level": 4},
+      {"skill": "Design Systems", "level": 3}
+    ],
+    "required_soft_skills": [
+      {"skill": "Empatía", "level": 5},
+      {"skill": "Pensamiento crítico", "level": 4},
+      {"skill": "Comunicación visual", "level": 5},
+      {"skill": "Colaboración", "level": 4}
+    ],
+    "salary_ranges": {
+      "ES": {"min": 35000, "max": 60000, "currency": "EUR"},
+      "MX": {"min": 30000, "max": 60000, "currency": "MXN/mes"},
+      "CO": {"min": 5000000, "max": 12000000, "currency": "COP/mes"},
+      "AR": {"min": 800000, "max": 2000000, "currency": "ARS/mes"},
+      "remote": {"min": 60000, "max": 120000, "currency": "USD"}
+    },
+    "demand_level": "alta",
+    "growth_trend": "growing",
+    "growth_percentage": 16,
+    "remote_friendly": true,
+    "companies_hiring": ["Spotify", "Figma", "Airbnb", "Revolut", "Cabify", "Typeform"],
+    "linkedin_search_template": "UX Designer",
+    "infojobs_search_template": "diseñador UX",
+    "indeed_search_template": "UX designer",
+    "transition_from": ["Graphic Designer", "Web Designer", "Product Designer", "UI Developer"]
+  },
+  {
+    "id": "da-001",
+    "title": "Data Analyst",
+    "title_es": "Analista de Datos",
+    "category": "tech",
+    "day_to_day": "Tu día empieza revisando dashboards y alertas de métricas clave. Recibes peticiones de diferentes equipos que necesitan análisis ad-hoc. Escribes queries SQL para extraer datos y los visualizas en herramientas como Looker o Tableau. Mucho tiempo limpiando y transformando datos (el 80% del trabajo). Preparas presentaciones con insights accionables para stakeholders. Por la tarde, trabajas en proyectos más largos: modelado de datos, A/B testing analysis, o predicciones. El rol es traducir datos en decisiones de negocio.",
+    "pros": [
+      "Alta demanda en todas las industrias",
+      "Trabajo intelectualmente estimulante",
+      "Flexibilidad para especializarte (marketing, finanzas, producto)",
+      "Camino hacia Data Science o Analytics Engineering"
+    ],
+    "cons": [
+      "Mucho tiempo limpiando datos sucios",
+      "A veces te piden análisis con conclusión predeterminada",
+      "Puede ser aislado — mucho tiempo en pantalla",
+      "Herramientas y stack cambian constantemente"
+    ],
+    "required_hard_skills": [
+      {"skill": "SQL", "level": 5},
+      {"skill": "Excel avanzado", "level": 4},
+      {"skill": "Herramientas BI (Looker, Tableau, Power BI)", "level": 4},
+      {"skill": "Python o R básico", "level": 3}
+    ],
+    "required_soft_skills": [
+      {"skill": "Pensamiento analítico", "level": 5},
+      {"skill": "Storytelling con datos", "level": 4},
+      {"skill": "Atención al detalle", "level": 5},
+      {"skill": "Comunicación", "level": 4}
+    ],
+    "salary_ranges": {
+      "ES": {"min": 30000, "max": 55000, "currency": "EUR"},
+      "MX": {"min": 28000, "max": 55000, "currency": "MXN/mes"},
+      "CO": {"min": 4500000, "max": 10000000, "currency": "COP/mes"},
+      "AR": {"min": 700000, "max": 1800000, "currency": "ARS/mes"},
+      "remote": {"min": 55000, "max": 100000, "currency": "USD"}
+    },
+    "demand_level": "alta",
+    "growth_trend": "growing",
+    "growth_percentage": 25,
+    "remote_friendly": true,
+    "companies_hiring": ["Google", "Amazon", "Spotify", "Mercado Libre", "Rappi", "Glovo"],
+    "linkedin_search_template": "Data Analyst",
+    "infojobs_search_template": "analista de datos",
+    "indeed_search_template": "data analyst",
+    "transition_from": ["Business Analyst", "Financial Analyst", "Marketing Analyst", "Excel power user"]
+  },
+  {
+    "id": "pjm-001",
+    "title": "Project Manager",
+    "title_es": "Gestor de Proyectos",
+    "category": "operations",
+    "day_to_day": "Empiezas revisando el estado de tus proyectos activos y tareas pendientes. Tienes reuniones de seguimiento con equipos para revisar progreso y eliminar bloqueadores. Actualizas cronogramas, gestionas riesgos y comunicas status a stakeholders. Mucho tiempo en herramientas como Jira, Asana, Monday o MS Project. Medias entre equipos cuando hay conflictos de recursos o prioridades. Por la tarde, preparas reportes de avance y planificas próximas fases. El rol es asegurar que los proyectos se entregan a tiempo, en presupuesto y con el alcance acordado.",
+    "pros": [
+      "Demanda constante en todas las industrias",
+      "Certificaciones (PMP, PRINCE2) aumentan salario significativamente",
+      "Exposición a múltiples áreas y proyectos",
+      "Habilidades transferibles a cualquier sector"
+    ],
+    "cons": [
+      "Estás en el medio de todo — mucha presión de todos lados",
+      "Responsabilidad por resultados que otros ejecutan",
+      "Muchas reuniones y administración",
+      "Puede ser frustrante cuando los proyectos se retrasan"
+    ],
+    "required_hard_skills": [
+      {"skill": "Herramientas PM (Jira, Asana, MS Project)", "level": 4},
+      {"skill": "Excel/Sheets avanzado", "level": 4},
+      {"skill": "Metodologías (Agile, Waterfall)", "level": 4},
+      {"skill": "Gestión de presupuestos", "level": 3}
+    ],
+    "required_soft_skills": [
+      {"skill": "Comunicación", "level": 5},
+      {"skill": "Organización", "level": 5},
+      {"skill": "Liderazgo", "level": 4},
+      {"skill": "Negociación", "level": 4}
+    ],
+    "salary_ranges": {
+      "ES": {"min": 35000, "max": 60000, "currency": "EUR"},
+      "MX": {"min": 30000, "max": 60000, "currency": "MXN/mes"},
+      "CO": {"min": 5000000, "max": 12000000, "currency": "COP/mes"},
+      "AR": {"min": 700000, "max": 1800000, "currency": "ARS/mes"},
+      "remote": {"min": 50000, "max": 100000, "currency": "USD"}
+    },
+    "demand_level": "alta",
+    "growth_trend": "stable",
+    "growth_percentage": 10,
+    "remote_friendly": true,
+    "companies_hiring": ["Accenture", "Deloitte", "IBM", "Telefónica", "BBVA", "Santander"],
+    "linkedin_search_template": "Project Manager",
+    "infojobs_search_template": "gestor de proyectos",
+    "indeed_search_template": "project manager",
+    "transition_from": ["Team Lead", "Coordinator", "Business Analyst", "Scrum Master"]
+  },
+  {
+    "id": "hrbp-001",
+    "title": "HR Business Partner",
+    "title_es": "HR Business Partner",
+    "category": "business",
+    "day_to_day": "Tu día es un mix de estrategia y ejecución. Empiezas con reuniones con managers para entender sus necesidades de talento y problemas de equipo. Diseñas planes de desarrollo, gestionas performance reviews, y medias en conflictos. Trabajas en iniciativas de cultura y engagement. Por la tarde, analizas datos de rotación y engagement para identificar problemas. Colaboras con Talent Acquisition para hiring y con Compensation para benchmarks salariales. El HRBP es el puente entre la estrategia de RRHH y la realidad del negocio.",
+    "pros": [
+      "Rol estratégico con asiento en la mesa de dirección",
+      "Alto impacto en la cultura y el bienestar de personas",
+      "Demanda creciente por foco en employee experience",
+      "Salarios competitivos en empresas grandes"
+    ],
+    "cons": [
+      "Involucrado en decisiones difíciles (despidos, conflictos)",
+      "A veces te toca ser el 'policía' de políticas impopulares",
+      "Métricas de impacto son difíciles de cuantificar",
+      "Carga emocional cuando gestionas casos complejos"
+    ],
+    "required_hard_skills": [
+      {"skill": "HRIS (Workday, SAP HR)", "level": 3},
+      {"skill": "Legislación laboral local", "level": 4},
+      {"skill": "Analytics de RRHH", "level": 3},
+      {"skill": "Diseño de procesos de performance", "level": 4}
+    ],
+    "required_soft_skills": [
+      {"skill": "Empatía", "level": 5},
+      {"skill": "Comunicación", "level": 5},
+      {"skill": "Pensamiento estratégico", "level": 4},
+      {"skill": "Confidencialidad", "level": 5}
+    ],
+    "salary_ranges": {
+      "ES": {"min": 40000, "max": 70000, "currency": "EUR"},
+      "MX": {"min": 35000, "max": 70000, "currency": "MXN/mes"},
+      "CO": {"min": 6000000, "max": 14000000, "currency": "COP/mes"},
+      "AR": {"min": 900000, "max": 2200000, "currency": "ARS/mes"},
+      "remote": {"min": 60000, "max": 110000, "currency": "USD"}
+    },
+    "demand_level": "media",
+    "growth_trend": "growing",
+    "growth_percentage": 12,
+    "remote_friendly": false,
+    "companies_hiring": ["Google", "Microsoft", "Amazon", "Telefónica", "Santander", "Inditex"],
+    "linkedin_search_template": "HR Business Partner",
+    "infojobs_search_template": "HR business partner",
+    "indeed_search_template": "HR business partner",
+    "transition_from": ["HR Generalist", "Recruiter Senior", "Learning & Development", "HR Manager"]
+  },
+  {
+    "id": "cs-001",
+    "title": "Content Strategist",
+    "title_es": "Estratega de Contenidos",
+    "category": "creative",
+    "day_to_day": "Empiezas revisando métricas de contenido publicado (tráfico, engagement, conversiones). Planificas el calendario editorial para el próximo mes basándote en keywords, tendencias y objetivos de negocio. Escribes briefs para writers y revisas borradores. Coordinas con SEO para optimizar contenido y con diseño para assets visuales. Por la tarde, analizas qué contenido está funcionando y por qué. Mucho tiempo en herramientas como Notion, Ahrefs/SEMrush, y Google Analytics. El rol es pensar estratégicamente sobre qué contar, a quién, y cómo.",
+    "pros": [
+      "Mezcla de creatividad y datos",
+      "Alta demanda con el boom del content marketing",
+      "Puede ser remoto fácilmente",
+      "Exposición a múltiples canales y formatos"
+    ],
+    "cons": [
+      "Presión constante por producir contenido nuevo",
+      "Resultados de SEO tardan meses — difícil mostrar impacto rápido",
+      "A veces te toca escribir sobre temas que no te interesan",
+      "El algoritmo de Google cambia y hay que adaptarse"
+    ],
+    "required_hard_skills": [
+      {"skill": "SEO y keyword research", "level": 4},
+      {"skill": "Herramientas analytics (GA4, Ahrefs)", "level": 4},
+      {"skill": "CMS (WordPress, Webflow)", "level": 3},
+      {"skill": "Copywriting", "level": 4}
+    ],
+    "required_soft_skills": [
+      {"skill": "Creatividad", "level": 5},
+      {"skill": "Pensamiento estratégico", "level": 4},
+      {"skill": "Organización", "level": 4},
+      {"skill": "Comunicación", "level": 4}
+    ],
+    "salary_ranges": {
+      "ES": {"min": 30000, "max": 50000, "currency": "EUR"},
+      "MX": {"min": 25000, "max": 50000, "currency": "MXN/mes"},
+      "CO": {"min": 4000000, "max": 9000000, "currency": "COP/mes"},
+      "AR": {"min": 600000, "max": 1500000, "currency": "ARS/mes"},
+      "remote": {"min": 50000, "max": 90000, "currency": "USD"}
+    },
+    "demand_level": "alta",
+    "growth_trend": "growing",
+    "growth_percentage": 20,
+    "remote_friendly": true,
+    "companies_hiring": ["HubSpot", "Notion", "Buffer", "Mailchimp", "Semrush", "Ahrefs"],
+    "linkedin_search_template": "Content Strategist",
+    "infojobs_search_template": "estratega contenidos",
+    "indeed_search_template": "content strategist",
+    "transition_from": ["Copywriter", "SEO Specialist", "Content Writer", "Marketing Manager"]
+  },
+  {
+    "id": "gm-001",
+    "title": "Growth Marketer",
+    "title_es": "Growth Marketer",
+    "category": "business",
+    "day_to_day": "Tu día empieza revisando dashboards de adquisición y conversión. Analizas performance de campañas activas (Google Ads, Meta, LinkedIn) y ajustas bids y creativos. Diseñas y ejecutas experimentos de growth (A/B tests, nuevos canales, landing pages). Trabajas muy cerca de producto para optimizar onboarding y activación. Por la tarde, analizas cohortes y unit economics. Mucho tiempo en herramientas de analytics, ads managers, y experimentación. El rol es encontrar formas escalables y rentables de crecer.",
+    "pros": [
+      "Muy demandado en startups y scaleups",
+      "Trabajo directo con métricas e impacto medible",
+      "Creatividad + datos = combinación ganadora",
+      "Salarios altos, especialmente con experiencia en B2B SaaS"
+    ],
+    "cons": [
+      "Presión constante por resultados mensuales",
+      "Canales de adquisición se saturan rápido",
+      "Alta competencia por atención del usuario",
+      "Burnout común por la intensidad del rol"
+    ],
+    "required_hard_skills": [
+      {"skill": "Google/Meta Ads", "level": 5},
+      {"skill": "Analytics (GA4, Amplitude, Mixpanel)", "level": 4},
+      {"skill": "A/B testing", "level": 4},
+      {"skill": "SQL básico", "level": 3}
+    ],
+    "required_soft_skills": [
+      {"skill": "Pensamiento analítico", "level": 5},
+      {"skill": "Creatividad", "level": 4},
+      {"skill": "Experimentación", "level": 5},
+      {"skill": "Comunicación", "level": 4}
+    ],
+    "salary_ranges": {
+      "ES": {"min": 35000, "max": 65000, "currency": "EUR"},
+      "MX": {"min": 30000, "max": 65000, "currency": "MXN/mes"},
+      "CO": {"min": 5000000, "max": 12000000, "currency": "COP/mes"},
+      "AR": {"min": 800000, "max": 2000000, "currency": "ARS/mes"},
+      "remote": {"min": 60000, "max": 130000, "currency": "USD"}
+    },
+    "demand_level": "alta",
+    "growth_trend": "growing",
+    "growth_percentage": 22,
+    "remote_friendly": true,
+    "companies_hiring": ["Revolut", "N26", "Factorial", "Typeform", "monday.com", "Notion"],
+    "linkedin_search_template": "Growth Marketer Growth Marketing",
+    "infojobs_search_template": "growth marketing",
+    "indeed_search_template": "growth marketer",
+    "transition_from": ["Performance Marketer", "Digital Marketing", "Product Marketing", "SEO Specialist"]
+  },
+  {
+    "id": "sm-001",
+    "title": "Scrum Master",
+    "title_es": "Scrum Master",
+    "category": "tech",
+    "day_to_day": "Tu día empieza con el daily standup donde el equipo comparte progreso y bloqueadores. Facilitas que el equipo resuelva problemas y eliminas impedimentos. Preparas y conduces retrospectivas y planning sessions. Trabajas con el Product Owner para refinar el backlog. Mucho tiempo observando dinámicas del equipo y proponiendo mejoras de proceso. Por la tarde, revisas métricas de velocidad y burndown. El rol es servir al equipo para que sean lo más productivos posible.",
+    "pros": [
+      "Rol de facilitación — menos ejecución, más habilitación",
+      "Alta demanda en empresas que usan Agile",
+      "Certificaciones (CSM, PSM) aumentan empleabilidad",
+      "Camino hacia Agile Coach o Product Owner"
+    ],
+    "cons": [
+      "No tienes autoridad directa — solo puedes influir",
+      "Algunos equipos no quieren un Scrum Master",
+      "A veces se percibe como rol 'de reuniones'",
+      "Impacto puede ser difícil de medir"
+    ],
+    "required_hard_skills": [
+      {"skill": "Metodología Scrum/Agile", "level": 5},
+      {"skill": "Jira/Linear", "level": 4},
+      {"skill": "Técnicas de facilitación", "level": 4},
+      {"skill": "Métricas Agile (velocity, burndown)", "level": 4}
+    ],
+    "required_soft_skills": [
+      {"skill": "Facilitación", "level": 5},
+      {"skill": "Comunicación", "level": 5},
+      {"skill": "Coaching", "level": 4},
+      {"skill": "Resolución de conflictos", "level": 4}
+    ],
+    "salary_ranges": {
+      "ES": {"min": 40000, "max": 65000, "currency": "EUR"},
+      "MX": {"min": 35000, "max": 65000, "currency": "MXN/mes"},
+      "CO": {"min": 6000000, "max": 13000000, "currency": "COP/mes"},
+      "AR": {"min": 900000, "max": 2000000, "currency": "ARS/mes"},
+      "remote": {"min": 60000, "max": 110000, "currency": "USD"}
+    },
+    "demand_level": "media",
+    "growth_trend": "stable",
+    "growth_percentage": 8,
+    "remote_friendly": true,
+    "companies_hiring": ["Accenture", "Thoughtworks", "Globant", "BBVA", "Telefónica", "ING"],
+    "linkedin_search_template": "Scrum Master",
+    "infojobs_search_template": "scrum master",
+    "indeed_search_template": "scrum master",
+    "transition_from": ["Project Manager", "Developer", "QA", "Business Analyst"]
+  },
+  {
+    "id": "am-001",
+    "title": "Account Manager",
+    "title_es": "Account Manager",
+    "category": "business",
+    "day_to_day": "Tu día es relación pura con clientes existentes. Empiezas revisando el estado de tus cuentas y cualquier ticket de soporte abierto. Tienes calls de seguimiento con clientes para asegurar que están satisfechos. Identificas oportunidades de upsell y cross-sell. Preparas propuestas comerciales y negociaciones de renovación. Por la tarde, coordinas internamente para resolver problemas de clientes. Mucho CRM, emails, y calls. El objetivo: retener cuentas, hacerlas crecer, y mantener relaciones sólidas.",
+    "pros": [
+      "Construyes relaciones duraderas con clientes",
+      "Comisiones por upsells y renovaciones",
+      "Menos presión de prospección que en ventas nuevas",
+      "Demanda constante en B2B"
+    ],
+    "cons": [
+      "Responsable de problemas que no causaste",
+      "Presión por retención y NRR",
+      "Algunos clientes son difíciles",
+      "Puede ser repetitivo si gestionas muchas cuentas similares"
+    ],
+    "required_hard_skills": [
+      {"skill": "CRM (Salesforce, HubSpot)", "level": 4},
+      {"skill": "Excel/Sheets", "level": 3},
+      {"skill": "Presentaciones ejecutivas", "level": 4},
+      {"skill": "Negociación de contratos", "level": 4}
+    ],
+    "required_soft_skills": [
+      {"skill": "Gestión de relaciones", "level": 5},
+      {"skill": "Comunicación", "level": 5},
+      {"skill": "Empatía", "level": 4},
+      {"skill": "Resolución de problemas", "level": 4}
+    ],
+    "salary_ranges": {
+      "ES": {"min": 30000, "max": 55000, "currency": "EUR"},
+      "MX": {"min": 28000, "max": 55000, "currency": "MXN/mes"},
+      "CO": {"min": 4500000, "max": 10000000, "currency": "COP/mes"},
+      "AR": {"min": 700000, "max": 1700000, "currency": "ARS/mes"},
+      "remote": {"min": 50000, "max": 90000, "currency": "USD"}
+    },
+    "demand_level": "alta",
+    "growth_trend": "stable",
+    "growth_percentage": 10,
+    "remote_friendly": true,
+    "companies_hiring": ["Google", "Meta", "LinkedIn", "HubSpot", "Salesforce", "SAP"],
+    "linkedin_search_template": "Account Manager",
+    "infojobs_search_template": "account manager",
+    "indeed_search_template": "account manager",
+    "transition_from": ["Sales Rep", "Customer Success", "Business Development", "Customer Support"]
+  },
+  {
+    "id": "ba-001",
+    "title": "Business Analyst",
+    "title_es": "Analista de Negocio",
+    "category": "business",
+    "day_to_day": "Tu día empieza revisando documentación de procesos y requerimientos. Tienes reuniones con stakeholders para entender problemas de negocio y traducirlos en requerimientos técnicos. Escribes especificaciones funcionales, user stories, y diagramas de flujo. Trabajas con tecnología para asegurar que la solución cumple las necesidades. Por la tarde, analizas datos para validar hipótesis y preparas presentaciones de recomendaciones. El rol es el puente entre negocio y tecnología.",
+    "pros": [
+      "Rol muy versátil — encaja en muchas industrias",
+      "Exposición a diferentes áreas del negocio",
+      "Camino hacia Product Manager o consultoría",
+      "Desarrollo de habilidades analíticas y de comunicación"
+    ],
+    "cons": [
+      "A veces te quedas en el medio sin decidir nada",
+      "Mucha documentación y reuniones",
+      "Stakeholders con expectativas contradictorias",
+      "Puede ser difícil medir tu impacto directo"
+    ],
+    "required_hard_skills": [
+      {"skill": "Documentación de requerimientos", "level": 5},
+      {"skill": "SQL básico", "level": 3},
+      {"skill": "Diagramas de procesos (BPMN, Visio)", "level": 4},
+      {"skill": "Excel avanzado", "level": 4}
+    ],
+    "required_soft_skills": [
+      {"skill": "Comunicación", "level": 5},
+      {"skill": "Pensamiento analítico", "level": 5},
+      {"skill": "Atención al detalle", "level": 5},
+      {"skill": "Stakeholder management", "level": 4}
+    ],
+    "salary_ranges": {
+      "ES": {"min": 32000, "max": 55000, "currency": "EUR"},
+      "MX": {"min": 28000, "max": 55000, "currency": "MXN/mes"},
+      "CO": {"min": 4500000, "max": 10000000, "currency": "COP/mes"},
+      "AR": {"min": 700000, "max": 1700000, "currency": "ARS/mes"},
+      "remote": {"min": 50000, "max": 95000, "currency": "USD"}
+    },
+    "demand_level": "alta",
+    "growth_trend": "stable",
+    "growth_percentage": 12,
+    "remote_friendly": true,
+    "companies_hiring": ["Accenture", "Deloitte", "KPMG", "EY", "Capgemini", "Banco Santander"],
+    "linkedin_search_template": "Business Analyst",
+    "infojobs_search_template": "analista de negocio",
+    "indeed_search_template": "business analyst",
+    "transition_from": ["Project Coordinator", "Financial Analyst", "Operations Analyst", "Data Analyst"]
+  },
+  {
+    "id": "chm-001",
+    "title": "Change Management Specialist",
+    "title_es": "Especialista en Gestión del Cambio",
+    "category": "consulting",
+    "day_to_day": "Tu día depende de la fase del proyecto de cambio. Al principio, haces análisis de impacto y mapeo de stakeholders. Diseñas planes de comunicación y formación. Facilitas workshops para alineación. Gestionas la resistencia al cambio con conversaciones uno a uno. Mides la adopción y ajustas el enfoque. Mucho trabajo con sponsors ejecutivos para asegurar compromiso. Por la tarde, preparas materiales de formación y comunicaciones. El rol es hacer que los cambios organizacionales funcionen.",
+    "pros": [
+      "Alto impacto organizacional",
+      "Trabajo muy humano — entiendes las emociones del cambio",
+      "Demanda creciente con transformación digital",
+      "Certificaciones (Prosci) muy valoradas"
+    ],
+    "cons": [
+      "A veces el proyecto falla y tú no podías hacer nada",
+      "Resistencia humana es frustrante",
+      "Roles temporales (por proyecto) son comunes",
+      "Difícil medir tu impacto vs otros factores"
+    ],
+    "required_hard_skills": [
+      {"skill": "Metodologías de change (ADKAR, Kotter)", "level": 5},
+      {"skill": "Diseño de formación", "level": 4},
+      {"skill": "Comunicación interna", "level": 4},
+      {"skill": "Project management básico", "level": 3}
+    ],
+    "required_soft_skills": [
+      {"skill": "Empatía", "level": 5},
+      {"skill": "Influencia", "level": 5},
+      {"skill": "Comunicación", "level": 5},
+      {"skill": "Paciencia", "level": 4}
+    ],
+    "salary_ranges": {
+      "ES": {"min": 40000, "max": 70000, "currency": "EUR"},
+      "MX": {"min": 35000, "max": 70000, "currency": "MXN/mes"},
+      "CO": {"min": 6000000, "max": 14000000, "currency": "COP/mes"},
+      "AR": {"min": 900000, "max": 2100000, "currency": "ARS/mes"},
+      "remote": {"min": 60000, "max": 120000, "currency": "USD"}
+    },
+    "demand_level": "media",
+    "growth_trend": "growing",
+    "growth_percentage": 15,
+    "remote_friendly": false,
+    "companies_hiring": ["McKinsey", "Deloitte", "Accenture", "PwC", "KPMG", "Prosci partners"],
+    "linkedin_search_template": "Change Management",
+    "infojobs_search_template": "change management",
+    "indeed_search_template": "change management specialist",
+    "transition_from": ["HR Business Partner", "Project Manager", "Internal Communications", "Training Manager"]
+  },
+  {
+    "id": "ld-001",
+    "title": "Learning & Development Specialist",
+    "title_es": "Especialista en Formación y Desarrollo",
+    "category": "business",
+    "day_to_day": "Tu día empieza revisando métricas de programas de formación activos. Diseñas contenido de aprendizaje (elearning, workshops, guías). Facilitas sesiones presenciales o virtuales. Trabajas con managers para identificar gaps de habilidades. Evalúas el impacto de la formación con encuestas y métricas de negocio. Por la tarde, gestionas la plataforma LMS y preparas materiales para próximas sesiones. El rol es desarrollar a las personas para que la empresa crezca.",
+    "pros": [
+      "Trabajo con propósito — ayudas a crecer a las personas",
+      "Creatividad en diseño de experiencias de aprendizaje",
+      "Demanda creciente por reskilling y upskilling",
+      "Puede ser remoto"
+    ],
+    "cons": [
+      "Presupuesto de L&D es el primero en cortarse en crisis",
+      "Medir ROI de la formación es muy difícil",
+      "Algunas empresas te piden solo 'poner cursos'",
+      "Puede ser repetitivo si haces siempre los mismos temas"
+    ],
+    "required_hard_skills": [
+      {"skill": "Diseño instruccional", "level": 5},
+      {"skill": "Herramientas elearning (Articulate, Canva)", "level": 4},
+      {"skill": "LMS (Moodle, Workday Learning)", "level": 4},
+      {"skill": "Facilitación de workshops", "level": 4}
+    ],
+    "required_soft_skills": [
+      {"skill": "Comunicación", "level": 5},
+      {"skill": "Creatividad", "level": 4},
+      {"skill": "Empatía", "level": 5},
+      {"skill": "Organización", "level": 4}
+    ],
+    "salary_ranges": {
+      "ES": {"min": 30000, "max": 50000, "currency": "EUR"},
+      "MX": {"min": 25000, "max": 50000, "currency": "MXN/mes"},
+      "CO": {"min": 4000000, "max": 9000000, "currency": "COP/mes"},
+      "AR": {"min": 600000, "max": 1500000, "currency": "ARS/mes"},
+      "remote": {"min": 45000, "max": 85000, "currency": "USD"}
+    },
+    "demand_level": "media",
+    "growth_trend": "growing",
+    "growth_percentage": 18,
+    "remote_friendly": true,
+    "companies_hiring": ["LinkedIn Learning", "Coursera", "Udemy Business", "McKinsey Academy", "Google", "Amazon"],
+    "linkedin_search_template": "Learning Development Specialist",
+    "infojobs_search_template": "formación y desarrollo",
+    "indeed_search_template": "learning development specialist",
+    "transition_from": ["Teacher", "Trainer", "HR Generalist", "Content Creator"]
+  },
+  {
+    "id": "cm-001",
+    "title": "Community Manager",
+    "title_es": "Community Manager",
+    "category": "creative",
+    "day_to_day": "Tu día empieza revisando notificaciones y respondiendo comentarios en redes sociales. Monitoreas conversaciones sobre la marca y detectas oportunidades o crisis. Creas contenido para redes (copy, imágenes, videos cortos). Programas publicaciones usando herramientas como Buffer o Hootsuite. Por la tarde, analizas métricas de engagement y alcance. Colaboras con marketing para campañas y con soporte para resolver quejas públicas. El rol es ser la voz de la marca online.",
+    "pros": [
+      "Trabajo creativo y variado cada día",
+      "Alta demanda — toda empresa necesita presencia social",
+      "Entrada accesible sin mucha experiencia previa",
+      "Puedes trabajar remoto fácilmente"
+    ],
+    "cons": [
+      "Salarios relativamente bajos vs otros roles de marketing",
+      "Estás 'always on' — los comentarios no esperan",
+      "Gestionas trolls y comentarios negativos",
+      "A veces eres el 'social media person' y te piden de todo"
+    ],
+    "required_hard_skills": [
+      {"skill": "Plataformas sociales (Instagram, TikTok, LinkedIn)", "level": 5},
+      {"skill": "Herramientas de scheduling (Buffer, Hootsuite)", "level": 4},
+      {"skill": "Copywriting", "level": 4},
+      {"skill": "Canva/edición básica de imagen", "level": 3}
+    ],
+    "required_soft_skills": [
+      {"skill": "Creatividad", "level": 5},
+      {"skill": "Comunicación", "level": 5},
+      {"skill": "Empatía", "level": 4},
+      {"skill": "Gestión del estrés", "level": 4}
+    ],
+    "salary_ranges": {
+      "ES": {"min": 22000, "max": 38000, "currency": "EUR"},
+      "MX": {"min": 18000, "max": 35000, "currency": "MXN/mes"},
+      "CO": {"min": 3000000, "max": 6000000, "currency": "COP/mes"},
+      "AR": {"min": 500000, "max": 1200000, "currency": "ARS/mes"},
+      "remote": {"min": 35000, "max": 60000, "currency": "USD"}
+    },
+    "demand_level": "alta",
+    "growth_trend": "stable",
+    "growth_percentage": 8,
+    "remote_friendly": true,
+    "companies_hiring": ["Agencias", "Startups", "Marcas DTC", "Medios de comunicación"],
+    "linkedin_search_template": "Community Manager",
+    "infojobs_search_template": "community manager",
+    "indeed_search_template": "community manager",
+    "transition_from": ["Social Media Intern", "Content Creator", "Customer Support", "Marketing Assistant"]
+  },
+  {
+    "id": "revops-001",
+    "title": "Revenue Operations",
+    "title_es": "Revenue Operations",
+    "category": "business",
+    "day_to_day": "Tu día empieza revisando el pipeline de ventas y métricas de conversión. Trabajas en la optimización del CRM y automatizaciones del funnel. Colaboras con Sales, Marketing y Customer Success para alinear procesos. Analizas datos para identificar cuellos de botella en el ciclo de revenue. Preparas reportes y forecasts para dirección. Por la tarde, implementas herramientas y mejoras de proceso. El rol es hacer que la máquina de revenue funcione eficientemente.",
+    "pros": [
+      "Rol emergente muy demandado en B2B SaaS",
+      "Impacto directo en revenue — métricas claras",
+      "Exposición a toda la operación comercial",
+      "Salarios altos por la escasez de talento"
+    ],
+    "cons": [
+      "Rol nuevo — definición varía mucho entre empresas",
+      "Dependes de que otros equipos adopten tus procesos",
+      "Mucho trabajo técnico con CRMs y herramientas",
+      "Presión por forecasts precisos"
+    ],
+    "required_hard_skills": [
+      {"skill": "CRM avanzado (Salesforce, HubSpot)", "level": 5},
+      {"skill": "SQL y analytics", "level": 4},
+      {"skill": "Herramientas de automatización (Zapier, Make)", "level": 4},
+      {"skill": "Forecasting y modelado", "level": 4}
+    ],
+    "required_soft_skills": [
+      {"skill": "Pensamiento analítico", "level": 5},
+      {"skill": "Comunicación", "level": 4},
+      {"skill": "Gestión de stakeholders", "level": 4},
+      {"skill": "Orientación a resultados", "level": 5}
+    ],
+    "salary_ranges": {
+      "ES": {"min": 45000, "max": 80000, "currency": "EUR"},
+      "MX": {"min": 40000, "max": 80000, "currency": "MXN/mes"},
+      "CO": {"min": 7000000, "max": 16000000, "currency": "COP/mes"},
+      "AR": {"min": 1000000, "max": 2500000, "currency": "ARS/mes"},
+      "remote": {"min": 70000, "max": 140000, "currency": "USD"}
+    },
+    "demand_level": "alta",
+    "growth_trend": "growing",
+    "growth_percentage": 35,
+    "remote_friendly": true,
+    "companies_hiring": ["Salesforce", "HubSpot", "Gong", "Outreach", "monday.com", "Notion"],
+    "linkedin_search_template": "Revenue Operations RevOps",
+    "infojobs_search_template": "revenue operations",
+    "indeed_search_template": "revenue operations",
+    "transition_from": ["Sales Operations", "Marketing Operations", "Business Analyst", "CRM Admin"]
+  },
+  {
+    "id": "cxd-001",
+    "title": "Customer Experience Designer",
+    "title_es": "Diseñador de Experiencia de Cliente",
+    "category": "creative",
+    "day_to_day": "Tu día empieza revisando datos de NPS, CSAT y journey analytics. Mapeas customer journeys completos, identificando pain points y momentos de fricción. Facilitas workshops con equipos internos para diseñar mejoras. Trabajas con producto, marketing y soporte para implementar cambios. Por la tarde, diseñas prototipos de nuevas experiencias y mides el impacto de cambios anteriores. El rol es diseñar cómo los clientes interactúan con la empresa end-to-end.",
+    "pros": [
+      "Visión holística del cliente — no solo una pantalla",
+      "Alto impacto en satisfacción y retención",
+      "Mezcla de diseño, estrategia y facilitación",
+      "Demanda creciente por foco en CX"
+    ],
+    "cons": [
+      "Rol difuso — a veces no queda claro quién manda",
+      "Requiere alinear muchos equipos con agendas distintas",
+      "Medir impacto de CX es complejo",
+      "Puede ser frustrante cuando silos impiden cambios"
+    ],
+    "required_hard_skills": [
+      {"skill": "Journey mapping", "level": 5},
+      {"skill": "Herramientas CX (Miro, Figma)", "level": 4},
+      {"skill": "Analytics de CX (Qualtrics, Medallia)", "level": 4},
+      {"skill": "Service design", "level": 4}
+    ],
+    "required_soft_skills": [
+      {"skill": "Empatía", "level": 5},
+      {"skill": "Pensamiento sistémico", "level": 5},
+      {"skill": "Facilitación", "level": 4},
+      {"skill": "Comunicación", "level": 5}
+    ],
+    "salary_ranges": {
+      "ES": {"min": 40000, "max": 65000, "currency": "EUR"},
+      "MX": {"min": 35000, "max": 65000, "currency": "MXN/mes"},
+      "CO": {"min": 6000000, "max": 13000000, "currency": "COP/mes"},
+      "AR": {"min": 900000, "max": 2000000, "currency": "ARS/mes"},
+      "remote": {"min": 60000, "max": 110000, "currency": "USD"}
+    },
+    "demand_level": "media",
+    "growth_trend": "growing",
+    "growth_percentage": 20,
+    "remote_friendly": true,
+    "companies_hiring": ["IDEO", "McKinsey", "Fjord/Accenture", "frog", "Banco Santander", "Telefónica"],
+    "linkedin_search_template": "Customer Experience Designer CX",
+    "infojobs_search_template": "customer experience",
+    "indeed_search_template": "customer experience designer",
+    "transition_from": ["UX Designer", "Service Designer", "Customer Success", "Marketing Strategist"]
+  },
+  {
+    "id": "se-001",
+    "title": "Solutions Engineer",
+    "title_es": "Ingeniero de Soluciones",
+    "category": "tech",
+    "day_to_day": "Tu día es un mix de ventas técnicas y consultoría. Empiezas preparando demos personalizadas para clientes potenciales. En las calls, presentas el producto y respondes preguntas técnicas profundas. Diseñas pruebas de concepto (PoCs) y ayudas en implementaciones. Trabajas muy cerca del equipo de ventas como su 'brazo técnico'. Por la tarde, documentas requerimientos técnicos y colaboras con producto para feedback. El rol es traducir las necesidades del cliente en soluciones técnicas.",
+    "pros": [
+      "Combina habilidades técnicas y de comunicación",
+      "Alta demanda en B2B SaaS y enterprise",
+      "Salarios muy competitivos + comisiones",
+      "Variedad — cada cliente es diferente"
+    ],
+    "cons": [
+      "Viajes frecuentes en algunas empresas",
+      "Presión del ciclo de ventas",
+      "A veces prometes cosas que producto no puede entregar",
+      "Requiere mantener skills técnicas actualizadas"
+    ],
+    "required_hard_skills": [
+      {"skill": "Conocimiento técnico del producto", "level": 5},
+      {"skill": "APIs y integraciones", "level": 4},
+      {"skill": "SQL y scripting básico", "level": 3},
+      {"skill": "Presentaciones técnicas", "level": 5}
+    ],
+    "required_soft_skills": [
+      {"skill": "Comunicación técnica", "level": 5},
+      {"skill": "Escucha activa", "level": 5},
+      {"skill": "Resolución de problemas", "level": 5},
+      {"skill": "Adaptabilidad", "level": 4}
+    ],
+    "salary_ranges": {
+      "ES": {"min": 45000, "max": 80000, "currency": "EUR"},
+      "MX": {"min": 40000, "max": 80000, "currency": "MXN/mes"},
+      "CO": {"min": 7000000, "max": 16000000, "currency": "COP/mes"},
+      "AR": {"min": 1000000, "max": 2500000, "currency": "ARS/mes"},
+      "remote": {"min": 80000, "max": 160000, "currency": "USD"}
+    },
+    "demand_level": "alta",
+    "growth_trend": "growing",
+    "growth_percentage": 18,
+    "remote_friendly": true,
+    "companies_hiring": ["Salesforce", "Google Cloud", "AWS", "Datadog", "Snowflake", "Stripe"],
+    "linkedin_search_template": "Solutions Engineer Pre-sales",
+    "infojobs_search_template": "solutions engineer",
+    "indeed_search_template": "solutions engineer",
+    "transition_from": ["Developer", "Technical Support", "Implementation Consultant", "Product Specialist"]
+  },
+  {
+    "id": "ta-001",
+    "title": "Talent Acquisition Specialist",
+    "title_es": "Especialista en Adquisición de Talento",
+    "category": "business",
+    "day_to_day": "Tu día empieza revisando aplicaciones y haciendo screening de CVs. Tienes entrevistas telefónicas y coordinas procesos de selección. Haces sourcing activo en LinkedIn y otras plataformas. Trabajas con hiring managers para entender perfiles y ajustar requisitos. Por la tarde, gestionas la experiencia del candidato y preparas ofertas. Actualizas el ATS y reportas métricas de pipeline. El rol es encontrar, evaluar y cerrar talento para la empresa.",
+    "pros": [
+      "Impacto directo en quién entra a la empresa",
+      "Conoces a muchas personas interesantes",
+      "Alta demanda en empresas en crecimiento",
+      "Puedes especializarte en tech, executive, etc."
+    ],
+    "cons": [
+      "Presión por llenar posiciones rápido",
+      "Candidatos te ghostean constantemente",
+      "Hiring managers cambian requisitos a mitad del proceso",
+      "En recesiones, recruiting es lo primero en recortarse"
+    ],
+    "required_hard_skills": [
+      {"skill": "LinkedIn Recruiter", "level": 5},
+      {"skill": "ATS (Greenhouse, Lever, Workday)", "level": 4},
+      {"skill": "Boolean search", "level": 4},
+      {"skill": "Técnicas de entrevista", "level": 4}
+    ],
+    "required_soft_skills": [
+      {"skill": "Comunicación", "level": 5},
+      {"skill": "Evaluación de personas", "level": 5},
+      {"skill": "Organización", "level": 5},
+      {"skill": "Persuasión", "level": 4}
+    ],
+    "salary_ranges": {
+      "ES": {"min": 28000, "max": 50000, "currency": "EUR"},
+      "MX": {"min": 25000, "max": 50000, "currency": "MXN/mes"},
+      "CO": {"min": 4000000, "max": 9000000, "currency": "COP/mes"},
+      "AR": {"min": 600000, "max": 1500000, "currency": "ARS/mes"},
+      "remote": {"min": 45000, "max": 85000, "currency": "USD"}
+    },
+    "demand_level": "alta",
+    "growth_trend": "stable",
+    "growth_percentage": 10,
+    "remote_friendly": true,
+    "companies_hiring": ["LinkedIn", "Meta", "Google", "Amazon", "Agencias de recruiting", "Startups"],
+    "linkedin_search_template": "Talent Acquisition Recruiter",
+    "infojobs_search_template": "talent acquisition recruiter",
+    "indeed_search_template": "talent acquisition specialist",
+    "transition_from": ["HR Generalist", "Sales", "Customer Service", "Headhunter"]
+  }
+]
