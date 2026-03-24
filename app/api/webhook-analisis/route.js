@@ -1,20 +1,51 @@
 import { createClient } from '@supabase/supabase-js'
+import Stripe from 'stripe'
 
 const supabase = createClient(
   process.env.SUPABASE_URL,
   process.env.SUPABASE_SERVICE_KEY
 )
 
+// Lazy initialization to avoid build errors
+let stripe = null
+function getStripe() {
+  if (!stripe && process.env.STRIPE_SECRET_KEY) {
+    stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
+  }
+  return stripe
+}
+
+const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET
+
 export async function POST(request) {
   try {
-    const body = await request.json()
+    // Get raw body for signature verification
+    const rawBody = await request.text()
+    const signature = request.headers.get('stripe-signature')
+    
+    let event
+    
+    // Verify webhook signature if secret is configured
+    const stripeInstance = getStripe()
+    if (webhookSecret && signature && stripeInstance) {
+      try {
+        event = stripeInstance.webhooks.constructEvent(rawBody, signature, webhookSecret)
+      } catch (err) {
+        console.error('Webhook signature verification failed:', err.message)
+        return Response.json({ error: 'Invalid signature' }, { status: 401 })
+      }
+    } else {
+      // Fallback for development (NOT recommended in production)
+      console.warn('⚠️ Webhook signature not verified - STRIPE_WEBHOOK_SECRET not set')
+      event = JSON.parse(rawBody)
+    }
     
     // Only handle checkout.session.completed
-    if (body.type !== 'checkout.session.completed') {
+    if (event.type !== 'checkout.session.completed') {
       return Response.json({ received: true })
     }
-
-    const session = body.data.object
+    
+    const session = event.data.object
     const email = session.customer_email
     const nombre = session.metadata?.nombre || ''
     const situacion = session.metadata?.situacion_actual || ''

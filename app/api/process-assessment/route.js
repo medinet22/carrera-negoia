@@ -2,6 +2,15 @@ import { createClient } from '@supabase/supabase-js'
 import Anthropic from '@anthropic-ai/sdk'
 import { SKILLS_EXTRACTION_PROMPT, SKILLS_MAP_PROMPT, ROLE_MATCHING_PROMPT, fillPrompt } from '../../../lib/ai-prompts'
 import rolesCatalog from '../../../data/roles-catalog.json'
+import { 
+  isValidEmail, 
+  isValidCountry, 
+  validatePayloadSize, 
+  checkRateLimit,
+  validateIntakeAnswers,
+  validateCvText,
+  sanitizeForPrompt
+} from '../../../lib/validation'
 
 const supabase = createClient(
   process.env.SUPABASE_URL,
@@ -12,10 +21,19 @@ const anthropic = new Anthropic({
   apiKey: process.env.ANTHROPIC_API_KEY
 })
 
+// Claude call timeout (90 seconds)
+const CLAUDE_TIMEOUT_MS = 90000
+
 // POST: Iniciar procesamiento del assessment
 export async function POST(request) {
   try {
     const body = await request.json()
+    
+    // Validate payload size (max 500KB)
+    if (!validatePayloadSize(body, 500)) {
+      return Response.json({ error: 'Payload demasiado grande' }, { status: 413 })
+    }
+    
     const { 
       email, 
       name, 
@@ -28,9 +46,25 @@ export async function POST(request) {
       utm_medium
     } = body
 
-    if (!email) {
-      return Response.json({ error: 'Email requerido' }, { status: 400 })
+    // Validate email
+    if (!email || !isValidEmail(email)) {
+      return Response.json({ error: 'Email inválido' }, { status: 400 })
     }
+    
+    // Rate limiting: max 3 assessments per email per hour
+    const rateLimit = checkRateLimit(`assessment:${email}`, 3, 3600000)
+    if (!rateLimit.allowed) {
+      return Response.json({ 
+        error: 'Has enviado demasiadas solicitudes. Intenta de nuevo más tarde.',
+        retryAfter: Math.ceil(rateLimit.resetMs / 1000)
+      }, { status: 429 })
+    }
+    
+    // Validate and sanitize inputs
+    const validatedCountry = isValidCountry(country) ? country : 'ES'
+    const validatedCvText = validateCvText(cv_text)
+    const validatedIntake = validateIntakeAnswers(intake_answers)
+    const validatedName = name ? sanitizeForPrompt(name.slice(0, 100)) : null
 
     // 1. Create or find user
     let { data: user, error: userError } = await supabase
@@ -44,12 +78,12 @@ export async function POST(request) {
         .from('users')
         .insert({
           email,
-          name: name || null,
-          country: country || 'ES',
-          source: utm_source || 'organic',
-          utm_source,
-          utm_campaign,
-          utm_medium
+          name: validatedName,
+          country: validatedCountry,
+          source: utm_source ? sanitizeForPrompt(utm_source.slice(0, 50)) : 'organic',
+          utm_source: utm_source ? sanitizeForPrompt(utm_source.slice(0, 50)) : null,
+          utm_campaign: utm_campaign ? sanitizeForPrompt(utm_campaign.slice(0, 100)) : null,
+          utm_medium: utm_medium ? sanitizeForPrompt(utm_medium.slice(0, 50)) : null
         })
         .select()
         .single()
@@ -66,9 +100,9 @@ export async function POST(request) {
       .from('profiles')
       .insert({
         user_id: user.id,
-        cv_raw_text: cv_text || null,
+        cv_raw_text: validatedCvText || null,
         cv_file_url: cv_file_url || null,
-        intake_answers: intake_answers || {}
+        intake_answers: validatedIntake
       })
       .select()
       .single()
@@ -90,7 +124,7 @@ export async function POST(request) {
       .single()
 
     // 4. Start async processing (don't await - let it run in background)
-    processAssessmentAsync(user.id, profile.id, job.id, cv_text, intake_answers, country, name)
+    processAssessmentAsync(user.id, profile.id, job.id, validatedCvText, validatedIntake, validatedCountry, validatedName)
 
     return Response.json({ 
       userId: user.id,
@@ -143,6 +177,29 @@ export async function GET(request) {
   }
 }
 
+// Helper: Call Claude with timeout
+async function callClaudeWithTimeout(prompt, maxTokens = 4000) {
+  const controller = new AbortController()
+  const timeoutId = setTimeout(() => controller.abort(), CLAUDE_TIMEOUT_MS)
+  
+  try {
+    const response = await anthropic.messages.create({
+      model: 'claude-sonnet-4-5-20250514',
+      max_tokens: maxTokens,
+      messages: [{ role: 'user', content: prompt }]
+    }, { signal: controller.signal })
+    
+    clearTimeout(timeoutId)
+    return response
+  } catch (err) {
+    clearTimeout(timeoutId)
+    if (err.name === 'AbortError') {
+      throw new Error('Claude API timeout')
+    }
+    throw err
+  }
+}
+
 // Async processing function (runs in background)
 async function processAssessmentAsync(userId, profileId, jobId, cvText, intakeAnswers, country, userName) {
   try {
@@ -159,13 +216,15 @@ async function processAssessmentAsync(userId, profileId, jobId, cvText, intakeAn
       country: country || 'ES'
     })
 
-    const skillsResponse = await anthropic.messages.create({
-      model: 'claude-sonnet-4-5-20250514',
-      max_tokens: 4000,
-      messages: [{ role: 'user', content: skillsPrompt }]
-    })
+    const skillsResponse = await callClaudeWithTimeout(skillsPrompt, 4000)
 
     const extractedSkills = parseJsonResponse(skillsResponse.content[0].text)
+    
+    // Handle parsing failure gracefully
+    if (!extractedSkills) {
+      throw new Error('Failed to parse skills extraction response')
+    }
+    
     const skillsCount = (extractedSkills.hard_skills?.length || 0) + 
                        (extractedSkills.soft_skills?.length || 0) +
                        (extractedSkills.domain_knowledge?.length || 0)
@@ -179,13 +238,14 @@ async function processAssessmentAsync(userId, profileId, jobId, cvText, intakeAn
       assessment_responses: assessmentText
     })
 
-    const mapResponse = await anthropic.messages.create({
-      model: 'claude-sonnet-4-5-20250514',
-      max_tokens: 4000,
-      messages: [{ role: 'user', content: mapPrompt }]
-    })
+    const mapResponse = await callClaudeWithTimeout(mapPrompt, 4000)
 
     const skillsMap = parseJsonResponse(mapResponse.content[0].text)
+    
+    // Handle parsing failure gracefully
+    if (!skillsMap) {
+      throw new Error('Failed to parse skills map response')
+    }
 
     // Save skills map to database
     const { data: savedMap, error: mapError } = await supabase
@@ -226,13 +286,15 @@ async function processAssessmentAsync(userId, profileId, jobId, cvText, intakeAn
       })
 
       try {
-        const matchResponse = await anthropic.messages.create({
-          model: 'claude-sonnet-4-5-20250514',
-          max_tokens: 2000,
-          messages: [{ role: 'user', content: matchPrompt }]
-        })
+        const matchResponse = await callClaudeWithTimeout(matchPrompt, 2000)
 
         const match = parseJsonResponse(matchResponse.content[0].text)
+        
+        // Skip if parsing failed
+        if (!match) {
+          console.error(`Failed to parse match for role ${role.id}`)
+          return null
+        }
         
         // Save role match
         await supabase.from('role_matches').insert({
@@ -241,7 +303,7 @@ async function processAssessmentAsync(userId, profileId, jobId, cvText, intakeAn
           role_id: role.id,
           match_percentage: match.match_percentage || 0,
           match_type: match.match_type || 'opportunity',
-          why_you_fit: match.why_you_fit,
+          why_you_fit: match.why_you_fit || '',
           gaps: match.gaps || [],
           strengths: match.strengths || [],
           user_status: 'pending'
@@ -250,7 +312,7 @@ async function processAssessmentAsync(userId, profileId, jobId, cvText, intakeAn
         rolesMatched++
         return match
       } catch (err) {
-        console.error(`Error matching role ${role.id}:`, err)
+        console.error(`Error matching role ${role.id}:`, err.message)
         return null
       }
     })
@@ -335,10 +397,18 @@ function parseJsonResponse(text) {
                       [null, text]
     
     const jsonStr = jsonMatch[1] || text
-    return JSON.parse(jsonStr.trim())
+    const parsed = JSON.parse(jsonStr.trim())
+    
+    // Validate that we got an object, not null/undefined
+    if (!parsed || typeof parsed !== 'object') {
+      console.error('Parsed JSON is not an object')
+      return null
+    }
+    
+    return parsed
   } catch (err) {
-    console.error('Error parsing JSON response:', err)
-    console.error('Raw text:', text.substring(0, 500))
-    return {}
+    console.error('Error parsing JSON response:', err.message)
+    console.error('Raw text (first 500 chars):', text?.substring(0, 500))
+    return null
   }
 }

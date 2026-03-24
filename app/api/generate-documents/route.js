@@ -2,6 +2,7 @@ import { createClient } from '@supabase/supabase-js'
 import Anthropic from '@anthropic-ai/sdk'
 import { CV_GENERATION_PROMPT, COVER_LETTER_PROMPT, LINKEDIN_PITCH_PROMPT, fillPrompt } from '../../../lib/ai-prompts'
 import rolesCatalog from '../../../data/roles-catalog.json'
+import { checkRateLimit } from '../../../lib/validation'
 
 const supabase = createClient(
   process.env.SUPABASE_URL,
@@ -12,12 +13,47 @@ const anthropic = new Anthropic({
   apiKey: process.env.ANTHROPIC_API_KEY
 })
 
+// Claude timeout (90s)
+const CLAUDE_TIMEOUT_MS = 90000
+
+// Helper: Call Claude with timeout
+async function callClaudeWithTimeout(prompt, maxTokens = 4000) {
+  const controller = new AbortController()
+  const timeoutId = setTimeout(() => controller.abort(), CLAUDE_TIMEOUT_MS)
+  
+  try {
+    const response = await anthropic.messages.create({
+      model: 'claude-sonnet-4-5-20250514',
+      max_tokens: maxTokens,
+      messages: [{ role: 'user', content: prompt }]
+    }, { signal: controller.signal })
+    
+    clearTimeout(timeoutId)
+    return response
+  } catch (err) {
+    clearTimeout(timeoutId)
+    if (err.name === 'AbortError') {
+      throw new Error('Claude API timeout')
+    }
+    throw err
+  }
+}
+
 export async function POST(request) {
   try {
     const { userId } = await request.json()
 
     if (!userId) {
       return Response.json({ error: 'userId requerido' }, { status: 400 })
+    }
+    
+    // Rate limiting: max 3 document generations per user per hour
+    const rateLimit = checkRateLimit(`docs:${userId}`, 3, 3600000)
+    if (!rateLimit.allowed) {
+      return Response.json({ 
+        error: 'Has generado documentos recientemente. Intenta más tarde.',
+        retryAfter: Math.ceil(rateLimit.resetMs / 1000)
+      }, { status: 429 })
     }
 
     // Check if user has complete plan
@@ -99,11 +135,7 @@ export async function POST(request) {
         skills_map: JSON.stringify(skillsMap, null, 2)
       })
 
-      const cvResponse = await anthropic.messages.create({
-        model: 'claude-sonnet-4-5-20250514',
-        max_tokens: 4000,
-        messages: [{ role: 'user', content: cvPrompt }]
-      })
+      const cvResponse = await callClaudeWithTimeout(cvPrompt, 4000)
 
       const cvData = parseJsonResponse(cvResponse.content[0].text)
 
@@ -132,11 +164,7 @@ export async function POST(request) {
         target_roles: JSON.stringify(selectedRoles.slice(0, 3).map(r => r.title_es), null, 2)
       })
 
-      const pitchResponse = await anthropic.messages.create({
-        model: 'claude-sonnet-4-5-20250514',
-        max_tokens: 2000,
-        messages: [{ role: 'user', content: pitchPrompt }]
-      })
+      const pitchResponse = await callClaudeWithTimeout(pitchPrompt, 2000)
 
       const pitchData = parseJsonResponse(pitchResponse.content[0].text)
 
@@ -187,11 +215,7 @@ export async function POST(request) {
           skills_map: JSON.stringify(skillsMap, null, 2)
         })
 
-        const specificCvResponse = await anthropic.messages.create({
-          model: 'claude-sonnet-4-5-20250514',
-          max_tokens: 4000,
-          messages: [{ role: 'user', content: specificCvPrompt }]
-        })
+        const specificCvResponse = await callClaudeWithTimeout(specificCvPrompt, 4000)
 
         const specificCvData = parseJsonResponse(specificCvResponse.content[0].text)
 
@@ -217,11 +241,7 @@ export async function POST(request) {
           company_name: role.companies_hiring?.[0] || '[Empresa]'
         })
 
-        const coverResponse = await anthropic.messages.create({
-          model: 'claude-sonnet-4-5-20250514',
-          max_tokens: 1500,
-          messages: [{ role: 'user', content: coverPrompt }]
-        })
+        const coverResponse = await callClaudeWithTimeout(coverPrompt, 1500)
 
         const coverData = parseJsonResponse(coverResponse.content[0].text)
 
