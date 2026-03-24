@@ -113,7 +113,7 @@ export async function POST(request) {
       .insert({
         user_id: user.id,
         status: 'pending',
-        current_step: 'queued'
+        
       })
       .select()
       .single()
@@ -158,7 +158,7 @@ export async function GET(request) {
     if (jobId) {
       query = query.eq('id', jobId)
     } else {
-      query = query.eq('user_id', userId).order('started_at', { ascending: false }).limit(1)
+      query = query.eq('user_id', userId).order('created_at', { ascending: false }).limit(1)
     }
 
     const { data: job, error } = await query.single()
@@ -169,7 +169,7 @@ export async function GET(request) {
 
     return Response.json({
       status: job.status,
-      currentStep: job.current_step,
+      
       skillsCount: job.skills_count || 0,
       rolesMatched: job.roles_matched || 0,
       completedAt: job.completed_at
@@ -208,7 +208,7 @@ async function triggerOpenClawProcessing(jobId, userId, profileId) {
     await supabase
       .from('assessment_jobs')
       .update({
-        current_step: 'webhook_failed',
+        
         error_message: `Webhook trigger failed: ${err.message}. Job will be processed via polling.`
       })
       .eq('id', jobId)
