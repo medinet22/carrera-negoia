@@ -1,0 +1,3 @@
+# DEPRECATED - NO USAR
+# Este script usa ANTHROPIC_API_KEY directamente, lo cual viola la regla.
+# Para testing, usar: POST /api/test-populate con profile='carlos' o 'adrian'

@@ -269,3 +269,37 @@ BEGIN
   RETURN FALSE;
 END;
 $$ LANGUAGE plpgsql;
+
+-- =====================================================
+-- DOCUMENT GENERATION JOBS — Async processing via webhook
+-- =====================================================
+
+CREATE TABLE IF NOT EXISTS document_generation_jobs (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID REFERENCES users(id) ON DELETE CASCADE,
+  status TEXT DEFAULT 'pending', -- pending, processing, done, failed
+  error TEXT,
+  documents_generated INTEGER DEFAULT 0,
+  created_at TIMESTAMPTZ DEFAULT now(),
+  started_at TIMESTAMPTZ,
+  completed_at TIMESTAMPTZ
+);
+
+CREATE INDEX IF NOT EXISTS idx_doc_gen_jobs_user_status ON document_generation_jobs(user_id, status);
+CREATE INDEX IF NOT EXISTS idx_doc_gen_jobs_pending ON document_generation_jobs(status) WHERE status = 'pending';
+
+-- =====================================================
+-- CARRERA_PROFILES — Datos adicionales del intake (alias de profiles)
+-- =====================================================
+
+CREATE TABLE IF NOT EXISTS carrera_profiles (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID REFERENCES users(id) ON DELETE CASCADE,
+  cv_raw_text TEXT,
+  cv_file_url TEXT,
+  intake_answers JSONB,
+  created_at TIMESTAMPTZ DEFAULT now(),
+  updated_at TIMESTAMPTZ DEFAULT now()
+);
+
+CREATE INDEX IF NOT EXISTS idx_carrera_profiles_user ON carrera_profiles(user_id);

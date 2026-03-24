@@ -1,47 +1,33 @@
 import { createClient } from '@supabase/supabase-js'
-import Anthropic from '@anthropic-ai/sdk'
-import { CV_GENERATION_PROMPT, COVER_LETTER_PROMPT, LINKEDIN_PITCH_PROMPT, fillPrompt } from '../../../lib/ai-prompts'
-import rolesCatalog from '../../../data/roles-catalog.json'
 import { checkRateLimit } from '../../../lib/validation'
+
+/**
+ * POST /api/generate-documents
+ * 
+ * Genera documentos (CVs, cartas, LinkedIn bullets) para el usuario.
+ * 
+ * IMPORTANTE: Este endpoint NO llama directamente a la API de Anthropic.
+ * 
+ * Flujo:
+ * 1. Si ya existen documentos para el usuario → devolverlos (cache)
+ * 2. Si no existen → crear job 'pending' y trigger al webhook VPS
+ * 3. El agente D-Business procesa el job con Claude (vía suscripción OpenClaw)
+ * 4. Frontend hace polling hasta status='done'
+ * 
+ * Para testing: usar /api/test-populate que inserta documentos hardcodeados.
+ */
 
 const supabase = createClient(
   process.env.SUPABASE_URL,
   process.env.SUPABASE_SERVICE_KEY
 )
 
-const anthropic = new Anthropic({
-  apiKey: process.env.ANTHROPIC_API_KEY
-})
-
-// Claude timeout (90s)
-const CLAUDE_TIMEOUT_MS = 90000
-
-// Helper: Call Claude with timeout
-async function callClaudeWithTimeout(prompt, maxTokens = 4000) {
-  const controller = new AbortController()
-  const timeoutId = setTimeout(() => controller.abort(), CLAUDE_TIMEOUT_MS)
-  
-  try {
-    const response = await anthropic.messages.create({
-      model: 'claude-sonnet-4-5-20250514',
-      max_tokens: maxTokens,
-      messages: [{ role: 'user', content: prompt }]
-    }, { signal: controller.signal })
-    
-    clearTimeout(timeoutId)
-    return response
-  } catch (err) {
-    clearTimeout(timeoutId)
-    if (err.name === 'AbortError') {
-      throw new Error('Claude API timeout')
-    }
-    throw err
-  }
-}
+// VPS webhook URL
+const WEBHOOK_URL = process.env.CARRERA_WEBHOOK_URL || 'http://46.224.55.15:4243/trigger-documents'
 
 export async function POST(request) {
   try {
-    const { userId } = await request.json()
+    const { userId, forceRegenerate = false } = await request.json()
 
     if (!userId) {
       return Response.json({ error: 'userId requerido' }, { status: 400 })
@@ -62,212 +48,104 @@ export async function POST(request) {
       .select('*')
       .eq('user_id', userId)
       .eq('status', 'paid')
-      .eq('plan', 'complete')
+      .in('plan', ['complete', 'completo'])
       .limit(1)
 
     if (!orders || orders.length === 0) {
       return Response.json({ error: 'Plan Completo requerido' }, { status: 403 })
     }
 
-    const orderId = orders[0].id
-
-    // Get user profile and skills map
-    const { data: user } = await supabase
-      .from('users')
-      .select('*')
-      .eq('id', userId)
-      .single()
-
-    const { data: profile } = await supabase
-      .from('carrera_profiles')
-      .select('*')
-      .eq('user_id', userId)
-      .order('created_at', { ascending: false })
-      .limit(1)
-      .single()
-
-    const { data: skillsMap } = await supabase
-      .from('skills_maps')
-      .select('*')
-      .eq('user_id', userId)
-      .order('created_at', { ascending: false })
-      .limit(1)
-      .single()
-
-    // Get selected roles
-    const { data: selectedMatches } = await supabase
-      .from('role_matches')
-      .select('*')
-      .eq('user_id', userId)
-      .in('user_status', ['interested', 'priority'])
-
-    const selectedRoles = (selectedMatches || []).map(match => {
-      const catalogRole = rolesCatalog.find(r => r.id === match.role_id)
-      return {
-        ...match,
-        ...catalogRole
-      }
-    })
-
-    // Delete existing documents
-    await supabase
-      .from('documents')
-      .delete()
-      .eq('user_id', userId)
-
-    const documents = []
-
-    // Build user profile context
-    const userProfile = {
-      name: user?.name || 'Profesional',
-      email: user?.email || '',
-      country: user?.country || 'ES',
-      cv_text: profile?.cv_raw_text || '',
-      intake_answers: profile?.intake_answers || {},
-      skills: skillsMap || {}
-    }
-
-    // 1. Generate generic CV
-    try {
-      const cvPrompt = fillPrompt(CV_GENERATION_PROMPT, {
-        user_profile: JSON.stringify(userProfile, null, 2),
-        target_role: 'Genérico - optimizado para múltiples roles',
-        skills_map: JSON.stringify(skillsMap, null, 2)
-      })
-
-      const cvResponse = await callClaudeWithTimeout(cvPrompt, 4000)
-
-      const cvData = parseJsonResponse(cvResponse.content[0].text)
-
-      const { data: cvDoc } = await supabase
+    // Check for existing documents (cache)
+    if (!forceRegenerate) {
+      const { data: existingDocs } = await supabase
         .from('documents')
-        .insert({
-          user_id: userId,
-          order_id: orderId,
-          doc_type: 'cv_generic',
-          content: cvData,
-          content_text: cvData.full_text || formatCvText(cvData)
-        })
-        .select()
-        .single()
+        .select('*')
+        .eq('user_id', userId)
+        .order('created_at', { ascending: false })
 
-      if (cvDoc) documents.push(cvDoc)
-    } catch (err) {
-      console.error('Error generating generic CV:', err)
+      if (existingDocs && existingDocs.length > 0) {
+        // Check if documents are recent (less than 24 hours old)
+        const oldestDoc = existingDocs[existingDocs.length - 1]
+        const docAge = Date.now() - new Date(oldestDoc.created_at).getTime()
+        const MAX_AGE = 24 * 60 * 60 * 1000 // 24 hours
+        
+        if (docAge < MAX_AGE) {
+          return Response.json({ 
+            status: 'done',
+            documents: existingDocs,
+            cached: true
+          })
+        }
+      }
     }
 
-    // 2. Generate LinkedIn bullets and elevator pitch
-    try {
-      const pitchPrompt = fillPrompt(LINKEDIN_PITCH_PROMPT, {
-        user_profile: JSON.stringify(userProfile, null, 2),
-        skills_map: JSON.stringify(skillsMap, null, 2),
-        target_roles: JSON.stringify(selectedRoles.slice(0, 3).map(r => r.title_es), null, 2)
+    // Check for pending job
+    const { data: pendingJob } = await supabase
+      .from('document_generation_jobs')
+      .select('*')
+      .eq('user_id', userId)
+      .eq('status', 'pending')
+      .single()
+
+    if (pendingJob) {
+      return Response.json({ 
+        status: 'processing',
+        jobId: pendingJob.id,
+        message: 'Ya hay una generación en curso'
       })
-
-      const pitchResponse = await callClaudeWithTimeout(pitchPrompt, 2000)
-
-      const pitchData = parseJsonResponse(pitchResponse.content[0].text)
-
-      // LinkedIn bullets
-      if (pitchData.linkedin_about_bullets) {
-        const { data: linkedinDoc } = await supabase
-          .from('documents')
-          .insert({
-            user_id: userId,
-            order_id: orderId,
-            doc_type: 'linkedin_bullets',
-            content: { bullets: pitchData.linkedin_about_bullets, headlines: pitchData.headline_suggestions },
-            content_text: pitchData.linkedin_about_bullets.join('\n\n')
-          })
-          .select()
-          .single()
-
-        if (linkedinDoc) documents.push(linkedinDoc)
-      }
-
-      // Elevator pitch
-      if (pitchData.elevator_pitch) {
-        const { data: pitchDoc } = await supabase
-          .from('documents')
-          .insert({
-            user_id: userId,
-            order_id: orderId,
-            doc_type: 'elevator_pitch',
-            content: { pitch: pitchData.elevator_pitch },
-            content_text: pitchData.elevator_pitch
-          })
-          .select()
-          .single()
-
-        if (pitchDoc) documents.push(pitchDoc)
-      }
-    } catch (err) {
-      console.error('Error generating LinkedIn/pitch:', err)
     }
 
-    // 3. Generate role-specific CVs and cover letters (max 3 roles)
-    for (const role of selectedRoles.slice(0, 3)) {
-      try {
-        // Specific CV
-        const specificCvPrompt = fillPrompt(CV_GENERATION_PROMPT, {
-          user_profile: JSON.stringify(userProfile, null, 2),
-          target_role: JSON.stringify(role, null, 2),
-          skills_map: JSON.stringify(skillsMap, null, 2)
+    // Create new document generation job
+    const { data: job, error: jobError } = await supabase
+      .from('document_generation_jobs')
+      .insert({
+        user_id: userId,
+        status: 'pending',
+        created_at: new Date().toISOString()
+      })
+      .select()
+      .single()
+
+    if (jobError) {
+      // Table might not exist - fallback to inline generation message
+      console.error('Job creation error:', jobError)
+      return Response.json({ 
+        status: 'pending',
+        message: 'Generación de documentos solicitada. Intenta de nuevo en unos minutos.',
+        fallback: true
+      })
+    }
+
+    // Trigger webhook for async processing
+    try {
+      await fetch(WEBHOOK_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          jobId: job.id,
+          userId,
+          type: 'documents'
         })
-
-        const specificCvResponse = await callClaudeWithTimeout(specificCvPrompt, 4000)
-
-        const specificCvData = parseJsonResponse(specificCvResponse.content[0].text)
-
-        const { data: specificCvDoc } = await supabase
-          .from('documents')
-          .insert({
-            user_id: userId,
-            order_id: orderId,
-            doc_type: 'cv_specific',
-            role_id: role.role_id,
-            content: specificCvData,
-            content_text: specificCvData.full_text || formatCvText(specificCvData)
-          })
-          .select()
-          .single()
-
-        if (specificCvDoc) documents.push(specificCvDoc)
-
-        // Cover letter
-        const coverPrompt = fillPrompt(COVER_LETTER_PROMPT, {
-          user_profile: JSON.stringify(userProfile, null, 2),
-          target_role: JSON.stringify(role, null, 2),
-          company_name: role.companies_hiring?.[0] || '[Empresa]'
-        })
-
-        const coverResponse = await callClaudeWithTimeout(coverPrompt, 1500)
-
-        const coverData = parseJsonResponse(coverResponse.content[0].text)
-
-        const { data: coverDoc } = await supabase
-          .from('documents')
-          .insert({
-            user_id: userId,
-            order_id: orderId,
-            doc_type: 'cover_letter',
-            role_id: role.role_id,
-            content: coverData,
-            content_text: coverData.full_text || formatCoverLetter(coverData)
-          })
-          .select()
-          .single()
-
-        if (coverDoc) documents.push(coverDoc)
-
-      } catch (err) {
-        console.error(`Error generating docs for role ${role.title}:`, err)
-      }
+      })
+    } catch (webhookError) {
+      console.error('Webhook trigger failed:', webhookError)
+      // Update job status to failed
+      await supabase
+        .from('document_generation_jobs')
+        .update({ status: 'failed', error: 'Webhook trigger failed' })
+        .eq('id', job.id)
+      
+      return Response.json({ 
+        status: 'error',
+        message: 'Error al iniciar generación. Intenta de nuevo.',
+        jobId: job.id
+      }, { status: 500 })
     }
 
     return Response.json({ 
-      status: 'done',
-      documents 
+      status: 'processing',
+      jobId: job.id,
+      message: 'Generación de documentos iniciada'
     })
 
   } catch (err) {
@@ -276,68 +154,64 @@ export async function POST(request) {
   }
 }
 
-function parseJsonResponse(text) {
+// GET endpoint for polling job status
+export async function GET(request) {
   try {
-    const jsonMatch = text.match(/```json\s*([\s\S]*?)\s*```/) || 
-                      text.match(/```\s*([\s\S]*?)\s*```/) ||
-                      [null, text]
-    const jsonStr = jsonMatch[1] || text
-    return JSON.parse(jsonStr.trim())
+    const { searchParams } = new URL(request.url)
+    const userId = searchParams.get('userId')
+    const jobId = searchParams.get('jobId')
+
+    if (!userId) {
+      return Response.json({ error: 'userId requerido' }, { status: 400 })
+    }
+
+    // If jobId provided, check specific job
+    if (jobId) {
+      const { data: job } = await supabase
+        .from('document_generation_jobs')
+        .select('*')
+        .eq('id', jobId)
+        .single()
+
+      if (!job) {
+        return Response.json({ error: 'Job no encontrado' }, { status: 404 })
+      }
+
+      if (job.status === 'done') {
+        // Fetch generated documents
+        const { data: documents } = await supabase
+          .from('documents')
+          .select('*')
+          .eq('user_id', userId)
+          .gte('created_at', job.created_at)
+          .order('created_at', { ascending: false })
+
+        return Response.json({ 
+          status: 'done',
+          documents: documents || []
+        })
+      }
+
+      return Response.json({ 
+        status: job.status,
+        jobId: job.id
+      })
+    }
+
+    // Otherwise, just get existing documents
+    const { data: documents } = await supabase
+      .from('documents')
+      .select('*')
+      .eq('user_id', userId)
+      .order('created_at', { ascending: false })
+
+    return Response.json({ 
+      status: documents?.length ? 'done' : 'none',
+      documents: documents || []
+    })
+
   } catch (err) {
-    console.error('Error parsing JSON:', err)
-    return { raw_text: text }
+    console.error('Get documents error:', err)
+    return Response.json({ error: 'Error del servidor' }, { status: 500 })
   }
-}
-
-function formatCvText(cvData) {
-  if (!cvData) return ''
-  
-  const lines = []
-  if (cvData.header) {
-    lines.push(cvData.header.name?.toUpperCase() || '')
-    lines.push(`${cvData.header.location || ''} | ${cvData.header.email || ''} | ${cvData.header.phone || ''}`)
-    if (cvData.header.linkedin) lines.push(cvData.header.linkedin)
-    lines.push('')
-  }
-  
-  if (cvData.summary) {
-    lines.push('RESUMEN PROFESIONAL')
-    lines.push(cvData.summary)
-    lines.push('')
-  }
-  
-  if (cvData.skills_section) {
-    lines.push('HABILIDADES')
-    lines.push(cvData.skills_section.join(' • '))
-    lines.push('')
-  }
-  
-  if (cvData.experience) {
-    lines.push('EXPERIENCIA PROFESIONAL')
-    cvData.experience.forEach(exp => {
-      lines.push(`${exp.title} | ${exp.company} | ${exp.dates}`)
-      exp.bullets?.forEach(b => lines.push(`• ${b}`))
-      lines.push('')
-    })
-  }
-  
-  if (cvData.education) {
-    lines.push('EDUCACIÓN')
-    cvData.education.forEach(edu => {
-      lines.push(`${edu.degree} | ${edu.institution} | ${edu.year}`)
-    })
-    lines.push('')
-  }
-  
-  if (cvData.certifications) {
-    lines.push('CERTIFICACIONES')
-    lines.push(cvData.certifications.join(' | '))
-  }
-  
-  return lines.join('\n')
-}
-
-function formatCoverLetter(data) {
-  if (!data) return ''
-  return `${data.greeting || ''}\n\n${data.body || ''}\n\n${data.closing || ''}`
 }
