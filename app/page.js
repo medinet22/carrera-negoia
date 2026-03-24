@@ -86,9 +86,9 @@ export default function Home() {
       {/* ========== HERO (AIDA Framework) ========== */}
       <section className="hero">
         <div className="hero-content">
-          <span className="badge">
-            <span className="badge-dot"></span>
-            🎯 Primeros 100 accesos gratis — Análisis personalizado
+          <span className="badge" style={{ background: '#059669', color: '#fff' }}>
+            <span className="badge-dot" style={{ background: '#fff' }}></span>
+            💼 Análisis de Carrera €29 — Entrega en 48h
           </span>
           
           {/* ATENCIÓN: Gancho que conecta con el dolor inmediato */}
@@ -137,6 +137,18 @@ export default function Home() {
                 onClick={() => track('cta_click', { cta_id: 'hero_encuesta', destination: '/encuesta' })}
               >
                 Empezar con la encuesta rápida (90 seg) →
+              </Link>
+            </div>
+            <div style={{ marginTop: '12px', textAlign: 'center', padding: '12px', background: '#f0fdf4', borderRadius: '8px', border: '1px solid #bbf7d0' }}>
+              <p style={{ margin: '0 0 8px 0', fontSize: '14px', color: '#166534' }}>
+                <strong>¿Prefieres resultados ya?</strong>
+              </p>
+              <Link
+                href="/analisis-carrera"
+                style={{ color: '#059669', fontWeight: '600', fontSize: '15px', textDecoration: 'none' }}
+                onClick={() => track('cta_click', { cta_id: 'hero_paid_cta', destination: '/analisis-carrera' })}
+              >
+                → Análisis personalizado por €29 (entrega 48h)
               </Link>
             </div>
             <div className="form-footer">

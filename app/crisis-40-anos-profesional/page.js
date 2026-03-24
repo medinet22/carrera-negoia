@@ -144,6 +144,30 @@ export default function Crisis40AnosProfesional() {
             <li><strong>Abandonar todo impulsivamente.</strong> Dejarlo todo y "seguir tu pasión" sin plan es romántico en las películas y desastroso en la vida real. Especialmente a los 40, con responsabilidades.</li>
           </ul>
 
+          {/* CTA intermedio - Análisis Carrera €29 */}
+          <div style={{ 
+            background: 'linear-gradient(135deg, #f0fdf4 0%, #ecfccb 100%)', 
+            border: '2px solid #22c55e', 
+            borderRadius: '12px', 
+            padding: '24px', 
+            margin: '32px 0',
+            textAlign: 'center'
+          }}>
+            <p style={{ margin: '0 0 8px 0', fontSize: '14px', color: '#166534', fontWeight: '600' }}>
+              💡 ¿No tienes tiempo para hacer todo esto solo?
+            </p>
+            <p style={{ margin: '0 0 16px 0', fontSize: '16px', color: '#1e293b' }}>
+              Un experto analiza tu perfil con IA y te entrega tu diagnóstico completo: habilidades reales, 5 roles que encajan, y plan de acción de 30 días.
+            </p>
+            <Link 
+              href="/analisis-carrera"
+              className="btn btn-primary"
+              style={{ display: 'inline-block', textDecoration: 'none' }}
+            >
+              Análisis personalizado €29 — Entrega 48h →
+            </Link>
+          </div>
+
           <h2>Lo que SÍ funciona: un proceso en 4 pasos</h2>
 
           <h3>Paso 1: Diagnostica qué te falta exactamente</h3>

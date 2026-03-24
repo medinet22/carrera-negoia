@@ -139,14 +139,14 @@ export default function CuandoOdiasTuTrabajo() {
             <li><strong>¿Qué necesito para pagar las facturas?</strong> Sé realista. Si necesitas €2.500/mes para vivir, no busques trabajos de €1.800 por "seguir tu pasión".</li>
           </ol>
 
-          <div className="cta-box">
-            <h3>¿No tienes claro qué se te da bien?</h3>
-            <p>La mayoría de la gente lleva años trabajando pero no sabe nombrar sus habilidades reales. Si quieres descubrir las tuyas en 15 minutos, prueba esto:</p>
+          <div className="cta-box" style={{ background: '#f0fdf4', border: '2px solid #22c55e' }}>
+            <h3>¿No tienes claro qué se te da bien ni hacia dónde ir?</h3>
+            <p>Un experto analiza tu perfil con IA y te entrega: mapa de habilidades reales, 5 roles donde encajas, y un plan de acción de 30 días para salir de donde estás.</p>
             <Link 
-              href="/?utm_source=seo&utm_medium=blog&utm_campaign=cuando_odias_trabajo&utm_content=cta_principal"
+              href="/analisis-carrera"
               className="btn btn-primary"
             >
-              Descubrir mis habilidades reales →
+              Análisis de Carrera Personalizado — €29 →
             </Link>
           </div>
 

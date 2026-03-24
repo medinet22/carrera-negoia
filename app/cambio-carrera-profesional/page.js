@@ -122,6 +122,30 @@ export default function CambioCarreraProfesional() {
             metodologías ágiles y herramientas específicas de producto.
           </p>
 
+          {/* CTA intermedio - Análisis Carrera €29 */}
+          <div style={{ 
+            background: 'linear-gradient(135deg, #f0fdf4 0%, #ecfccb 100%)', 
+            border: '2px solid #22c55e', 
+            borderRadius: '12px', 
+            padding: '24px', 
+            margin: '32px 0',
+            textAlign: 'center'
+          }}>
+            <p style={{ margin: '0 0 8px 0', fontSize: '14px', color: '#166534', fontWeight: '600' }}>
+              🎯 ¿Quieres saber exactamente qué roles encajan contigo?
+            </p>
+            <p style={{ margin: '0 0 16px 0', fontSize: '16px', color: '#1e293b' }}>
+              Un experto analiza tu trayectoria con IA y te dice: tus habilidades transferibles, 5 roles donde tienes ventaja, y qué gaps cubrir.
+            </p>
+            <Link 
+              href="/analisis-carrera"
+              className="btn btn-primary"
+              style={{ display: 'inline-block', textDecoration: 'none' }}
+            >
+              Análisis de Carrera Personalizado — €29 →
+            </Link>
+          </div>
+
           <h2>Habilidades Transferibles: Tu Activo Oculto</h2>
           
           <p>

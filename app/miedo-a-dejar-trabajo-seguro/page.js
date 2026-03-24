@@ -114,10 +114,33 @@ export default function MiedoDejarTrabajoSeguro() {
                 <li><strong>Si mañana te despidieran, ¿estarías aliviado o aterrado?</strong> Aliviado = estás en el sitio equivocado. Aterrado = quizá el trabajo no es tan malo, es el miedo genérico el que habla.</li>
               </ol>
             </div>
-            <p className="text-slate-300 leading-relaxed">
+            <p className="text-slate-300 leading-relaxed mb-6">
               La mayoría de personas en parálisis responden: "más de 2 años", "nada concreto", 
               "fantasía vaga", "aliviado". Si te suena, no eres raro. Pero sí necesitas cambiar algo.
             </p>
+            
+            {/* CTA intermedio */}
+            <div style={{ 
+              background: 'linear-gradient(135deg, #f0fdf4 0%, #ecfccb 100%)', 
+              border: '2px solid #22c55e', 
+              borderRadius: '12px', 
+              padding: '24px', 
+              textAlign: 'center'
+            }}>
+              <p style={{ margin: '0 0 8px 0', fontSize: '14px', color: '#166534', fontWeight: '600' }}>
+                🎯 Primer paso concreto para salir de la parálisis
+              </p>
+              <p style={{ margin: '0 0 16px 0', fontSize: '16px', color: '#1e293b' }}>
+                Saber qué habilidades tienes y qué roles encajan contigo. Un experto analiza tu perfil con IA y te lo entrega en 48h.
+              </p>
+              <Link 
+                href="/analisis-carrera"
+                className="btn btn-primary"
+                style={{ display: 'inline-block', textDecoration: 'none', background: '#22c55e', color: '#fff', padding: '12px 20px', borderRadius: '8px', fontWeight: '600' }}
+              >
+                Análisis de Carrera Personalizado — €29 →
+              </Link>
+            </div>
           </section>
 
           <section className="mb-12">

@@ -120,6 +120,30 @@ export default function NoSeParaQueSoyBueno() {
             cuáles son tus habilidades reales.
           </p>
 
+          {/* CTA intermedio - Análisis Carrera €29 */}
+          <div style={{ 
+            background: 'linear-gradient(135deg, #f0fdf4 0%, #ecfccb 100%)', 
+            border: '2px solid #22c55e', 
+            borderRadius: '12px', 
+            padding: '24px', 
+            margin: '32px 0',
+            textAlign: 'center'
+          }}>
+            <p style={{ margin: '0 0 8px 0', fontSize: '14px', color: '#166534', fontWeight: '600' }}>
+              ⏰ ¿No tienes tiempo para hacer esto solo?
+            </p>
+            <p style={{ margin: '0 0 16px 0', fontSize: '16px', color: '#1e293b' }}>
+              Un experto analiza tu perfil con IA y te entrega tu mapa de habilidades + 5 roles que encajan contigo.
+            </p>
+            <Link 
+              href="/analisis-carrera"
+              className="btn btn-primary"
+              style={{ display: 'inline-block', textDecoration: 'none' }}
+            >
+              Análisis personalizado €29 — Entrega 48h →
+            </Link>
+          </div>
+
           <h2>El método para descubrir para qué eres bueno</h2>
 
           <h3>Paso 1: El inventario de logros</h3>
@@ -195,10 +219,10 @@ export default function NoSeParaQueSoyBueno() {
             competencias con evidencia de cada una, extraída de tu propia experiencia.
           </p>
 
-          <div className="cta-box">
-            <h3>Descubre para qué eres bueno en 15 minutos</h3>
-            <p>La IA analiza tu experiencia y te dice exactamente cuáles son tus competencias reales. Sin tests genéricos.</p>
-            <Link href="https://carrera.negoia.com/?utm_source=seo&utm_medium=blog&utm_campaign=no_se_para_que_soy_bueno_cta_b" className="btn btn-primary">Quiero descubrir mis habilidades en 15 minutos →</Link>
+          <div className="cta-box" style={{ background: '#f0fdf4', border: '2px solid #22c55e' }}>
+            <h3>Deja de adivinar. Descubre para qué eres bueno.</h3>
+            <p>Un experto analiza tu trayectoria con IA y te entrega: mapa de habilidades, 5 roles que encajan, y plan de acción de 30 días.</p>
+            <Link href="/analisis-carrera" className="btn btn-primary">Análisis de Carrera Personalizado — €29 →</Link>
           </div>
         </div>
       </div>
