@@ -132,6 +132,57 @@ export default function RootLayout({ children }) {
             })
           }}
         />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "FAQPage",
+              "mainEntity": [
+                {
+                  "@type": "Question",
+                  "name": "¿Es un PDF que me envían por email?",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "No, es una plataforma web interactiva. No recibes un documento estático — accedes a tu perfil personal donde puedes explorar roles, seleccionar los que te interesan, ver gaps de cada uno, y generar documentos cuando estés listo."
+                  }
+                },
+                {
+                  "@type": "Question",
+                  "name": "¿Tengo que pagar para ver mi Mapa de Habilidades?",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "No. El Mapa de Habilidades (radar interactivo + texto narrativo + preview de 3 roles) es 100% gratis. Solo pagas si quieres explorar todos los roles con datos completos y usar el sistema de selección."
+                  }
+                },
+                {
+                  "@type": "Question",
+                  "name": "¿Qué pasa si cambio de opinión sobre los roles?",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Puedes cambiar tus selecciones cuando quieras. Si descartaste un rol y luego lo quieres reconsiderar, simplemente vuelves y lo marcas como 'Me interesa'. La plataforma es tuya."
+                  }
+                },
+                {
+                  "@type": "Question",
+                  "name": "¿Cuál es la diferencia entre el Plan Básico y el Completo?",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "El Básico (€29) te da acceso a explorar todos los roles, seleccionar los que te interesan, y ver el gap analysis y plan de estudio. El Completo (€39) añade la sección 'Mis Documentos' donde generas CVs específicos por rol, cartas de presentación, y tu elevator pitch."
+                  }
+                },
+                {
+                  "@type": "Question",
+                  "name": "¿Cuánto tiempo tengo acceso?",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Para siempre. No es una suscripción. Pagas una vez y tienes acceso permanente a tu nivel desbloqueado."
+                  }
+                }
+              ]
+            })
+          }}
+        />
       </head>
       <body>
         <AnalyticsTracker />
