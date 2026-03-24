@@ -283,7 +283,7 @@ export default function Home() {
           {[
             { number: '200+', label: 'Perfiles analizados' },
             { number: '94%', label: 'Dicen que "valió la pena"' },
-            { number: '+€8.400', label: 'Salario medio anual ganado tras el cambio' }
+            { number: '3 opciones', label: 'Reales de media, con tu perfil tal como está hoy' }
           ].map((stat, i) => (
             <div key={i} style={{ 
               textAlign: 'center',
