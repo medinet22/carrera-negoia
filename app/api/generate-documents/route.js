@@ -55,7 +55,7 @@ export async function POST(request) {
       return Response.json({ error: 'Plan Completo requerido' }, { status: 403 })
     }
 
-    // Check for existing documents (cache)
+    // Smart caching: check if docs exist AND skills_map hasn't changed
     if (!forceRegenerate) {
       const { data: existingDocs } = await supabase
         .from('documents')
@@ -64,18 +64,34 @@ export async function POST(request) {
         .order('created_at', { ascending: false })
 
       if (existingDocs && existingDocs.length > 0) {
-        // Check if documents are recent (less than 24 hours old)
+        // Check if skills_map has been updated since documents were generated
+        const { data: skillsMap } = await supabase
+          .from('skills_maps')
+          .select('updated_at')
+          .eq('user_id', userId)
+          .single()
+
         const oldestDoc = existingDocs[existingDocs.length - 1]
-        const docAge = Date.now() - new Date(oldestDoc.created_at).getTime()
-        const MAX_AGE = 24 * 60 * 60 * 1000 // 24 hours
-        
-        if (docAge < MAX_AGE) {
-          return Response.json({ 
-            status: 'done',
-            documents: existingDocs,
-            cached: true
-          })
+        const docCreatedAt = new Date(oldestDoc.created_at).getTime()
+        const skillsUpdatedAt = skillsMap?.updated_at 
+          ? new Date(skillsMap.updated_at).getTime() 
+          : 0
+
+        // If documents are newer than skills_map update, return cached
+        if (docCreatedAt > skillsUpdatedAt) {
+          const docAge = Date.now() - docCreatedAt
+          const MAX_AGE = 7 * 24 * 60 * 60 * 1000 // 7 days (was 24 hours)
+          
+          if (docAge < MAX_AGE) {
+            return Response.json({ 
+              status: 'done',
+              documents: existingDocs,
+              cached: true,
+              cacheAge: Math.round(docAge / (1000 * 60 * 60)) + 'h'
+            })
+          }
         }
+        // Skills were updated after docs → need regeneration (fall through)
       }
     }
 

@@ -15,6 +15,8 @@ function RolesContent() {
   const [hasPaid, setHasPaid] = useState(false)
   const [paidPlan, setPaidPlan] = useState(null)
   const [userCountry, setUserCountry] = useState('ES')
+  const [userSalary, setUserSalary] = useState(null)
+  const [showOnboarding, setShowOnboarding] = useState(false)
 
   useEffect(() => {
     if (!userId) {
@@ -36,8 +38,17 @@ function RolesContent() {
         setHasPaid(data.hasPaid)
         setPaidPlan(data.paidPlan)
         setUserCountry(data.userCountry || 'ES')
+        setUserSalary(data.userSalary || null)
+        
+        // Show onboarding tooltip on first visit
+        const hasSeenOnboarding = typeof window !== 'undefined' && localStorage.getItem('carrera_roles_onboarding')
+        if (!hasSeenOnboarding) {
+          setShowOnboarding(true)
+        }
       } catch (err) {
-        console.error('Error fetching roles:', err)
+        if (process.env.NODE_ENV !== 'production') {
+          console.error('Error fetching roles:', err)
+        }
       } finally {
         setLoading(false)
       }
@@ -45,6 +56,32 @@ function RolesContent() {
 
     fetchRoles()
   }, [userId, router])
+
+  const dismissOnboarding = () => {
+    setShowOnboarding(false)
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('carrera_roles_onboarding', 'true')
+    }
+  }
+
+  // Calculate salary delta for a role
+  const getSalaryDelta = (salaryRanges, country) => {
+    if (!salaryRanges || !userSalary) return null
+    const range = salaryRanges[country] || salaryRanges['ES']
+    if (!range) return null
+    
+    // Use midpoint of range
+    const roleSalaryMid = (range.min + range.max) / 2
+    const delta = roleSalaryMid - userSalary
+    
+    if (Math.abs(delta) < 2000) return null // Not significant
+    
+    const formatK = (n) => `${Math.round(n / 1000)}K`
+    return {
+      value: delta,
+      formatted: delta > 0 ? `+€${formatK(delta)}` : `-€${formatK(Math.abs(delta))}`
+    }
+  }
 
   const updateRoleStatus = async (roleMatchId, newStatus) => {
     try {
@@ -343,6 +380,54 @@ function RolesContent() {
           </p>
         </div>
 
+        {/* Onboarding tooltip - first visit */}
+        {showOnboarding && (
+          <div style={{
+            padding: '20px 24px',
+            background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(168, 85, 247, 0.1))',
+            borderRadius: '16px',
+            border: '1px solid rgba(99, 102, 241, 0.3)',
+            marginBottom: '24px',
+            display: 'flex',
+            alignItems: 'flex-start',
+            gap: '16px',
+            position: 'relative'
+          }}>
+            <span style={{ fontSize: '32px' }}>💡</span>
+            <div style={{ flex: 1 }}>
+              <p style={{ 
+                fontSize: '16px', 
+                fontWeight: '600', 
+                marginBottom: '8px',
+                color: '#f8fafc'
+              }}>
+                ¡Bienvenido a tu mapa de roles!
+              </p>
+              <p style={{ 
+                fontSize: '14px', 
+                color: 'rgba(255,255,255,0.7)',
+                lineHeight: '1.6'
+              }}>
+                Marca con ❤️ los roles que te interesan y con ⭐ los prioritarios. 
+                Esto crea tu plan de transición personalizado.
+              </p>
+            </div>
+            <button 
+              onClick={dismissOnboarding}
+              style={{
+                background: 'transparent',
+                border: 'none',
+                color: 'rgba(255,255,255,0.5)',
+                fontSize: '24px',
+                cursor: 'pointer',
+                padding: '4px'
+              }}
+            >
+              ×
+            </button>
+          </div>
+        )}
+
         {/* Filters */}
         <div style={styles.filters}>
           <button 
@@ -390,6 +475,26 @@ function RolesContent() {
                     <span style={styles.demandChip(role.demand_level)}>
                       Demanda {role.demand_level}
                     </span>
+                    {/* 💰 Salary comparison chip */}
+                    {(() => {
+                      const salaryDelta = getSalaryDelta(role.salary_ranges, userCountry)
+                      if (salaryDelta && salaryDelta.value > 0) {
+                        return (
+                          <span style={{
+                            padding: '4px 10px',
+                            borderRadius: '6px',
+                            fontSize: '12px',
+                            fontWeight: '700',
+                            background: 'rgba(16, 185, 129, 0.2)',
+                            border: '1px solid rgba(16, 185, 129, 0.3)',
+                            color: '#10b981'
+                          }}>
+                            💰 {salaryDelta.formatted}/año vs actual
+                          </span>
+                        )
+                      }
+                      return null
+                    })()}
                     {/* 🔥 Market Opportunity Alert - roles con crecimiento >25% */}
                     {role.growth_percentage && role.growth_percentage >= 25 && (
                       <span style={styles.marketAlertChip}>

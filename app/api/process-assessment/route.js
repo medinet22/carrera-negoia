@@ -74,10 +74,14 @@ async function runAnalysisInline(userId, profileId, jobId, cvText, intakeAnswers
       completed_at: new Date().toISOString()
     }).eq('id', jobId)
     
-    console.log(`✅ Analysis completed for job ${jobId}`)
+    if (process.env.NODE_ENV !== 'production') {
+      console.log(`✅ Analysis completed for job ${jobId}`)
+    }
     
   } catch (err) {
-    console.error('Analysis error:', err)
+    if (process.env.NODE_ENV !== 'production') {
+      console.error('Analysis error:', err)
+    }
     await supabase.from('assessment_jobs').update({
       status: 'error',
       error_message: err.message
@@ -344,7 +348,7 @@ export async function POST(request) {
         .single()
       
       if (createError) {
-        console.error('Error creating user:', createError)
+        if (process.env.NODE_ENV !== 'production') console.error('Error creating user:', createError)
         return Response.json({ error: 'Error creando usuario' }, { status: 500 })
       }
       user = newUser
@@ -362,23 +366,25 @@ export async function POST(request) {
       .single()
 
     if (profileError) {
-      console.error('Error creating profile:', profileError)
+      if (process.env.NODE_ENV !== 'production') console.error('Error creating profile:', profileError)
       return Response.json({ error: 'Error guardando perfil' }, { status: 500 })
     }
 
-    // 3. Create assessment job
+    // 3. Create assessment job with expiration (10 min timeout for processing)
+    const expiresAt = new Date(Date.now() + 10 * 60 * 1000).toISOString() // 10 min
     const { data: job, error: jobError } = await supabase
       .from('assessment_jobs')
       .insert({
         user_id: user.id,
         profile_id: profile.id,
-        status: 'pending'
+        status: 'pending',
+        expires_at: expiresAt
       })
       .select()
       .single()
 
     if (jobError) {
-      console.error('Error creating job:', jobError)
+      if (process.env.NODE_ENV !== 'production') console.error('Error creating job:', jobError)
       return Response.json({ error: 'Error creando job' }, { status: 500 })
     }
 
@@ -392,7 +398,7 @@ export async function POST(request) {
       { ...validatedIntake, name: validatedName }, 
       validatedCountry
     ).catch(err => {
-      console.error('Background analysis error:', err)
+      if (process.env.NODE_ENV !== 'production') console.error('Background analysis error:', err)
     })
 
     return Response.json({ 
@@ -402,7 +408,7 @@ export async function POST(request) {
     })
 
   } catch (err) {
-    console.error('Process assessment error:', err)
+    if (process.env.NODE_ENV !== 'production') console.error('Process assessment error:', err)
     return Response.json({ error: 'Error del servidor' }, { status: 500 })
   }
 }
@@ -432,15 +438,34 @@ export async function GET(request) {
       return Response.json({ status: 'not_found' }, { status: 404 })
     }
 
+    // Check for timeout: if job is pending/processing and expires_at has passed
+    if ((job.status === 'pending' || job.status === 'processing') && job.expires_at) {
+      const expiresAt = new Date(job.expires_at).getTime()
+      if (Date.now() > expiresAt) {
+        // Mark job as timed out
+        await supabase.from('assessment_jobs').update({
+          status: 'error',
+          error_message: 'Processing timeout - please try again'
+        }).eq('id', job.id)
+        
+        return Response.json({
+          status: 'error',
+          error: 'timeout',
+          message: 'El análisis tardó demasiado. Por favor, inténtalo de nuevo.'
+        })
+      }
+    }
+
     return Response.json({
       status: job.status,
       skillsCount: job.skills_count || 0,
       rolesMatched: job.roles_matched || 0,
-      completedAt: job.completed_at
+      completedAt: job.completed_at,
+      expiresAt: job.expires_at
     })
 
   } catch (err) {
-    console.error('Status check error:', err)
+    if (process.env.NODE_ENV !== 'production') console.error('Status check error:', err)
     return Response.json({ error: 'Error del servidor' }, { status: 500 })
   }
 }
