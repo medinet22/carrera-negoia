@@ -283,7 +283,7 @@ export default function Home() {
           {[
             { number: '200+', label: 'Perfiles analizados' },
             { number: '94%', label: 'Dicen que "valió la pena"' },
-            { number: '3 opciones', label: 'Reales de media, con tu perfil tal como está hoy' }
+            { number: '8 de cada 10', label: 'Descubren al menos un rol que nunca habían considerado' }
           ].map((stat, i) => (
             <div key={i} style={{ 
               textAlign: 'center',
