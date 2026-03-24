@@ -184,6 +184,20 @@ function RolesContent() {
              level === 'media' ? '#fbbf24' : 
              '#94a3b8'
     }),
+    // 🔥 Market Opportunity Alert - NEW
+    marketAlertChip: {
+      padding: '6px 12px',
+      borderRadius: '8px',
+      fontSize: '12px',
+      fontWeight: '700',
+      background: 'linear-gradient(135deg, rgba(239, 68, 68, 0.2), rgba(249, 115, 22, 0.2))',
+      border: '1px solid rgba(239, 68, 68, 0.4)',
+      color: '#f97316',
+      display: 'inline-flex',
+      alignItems: 'center',
+      gap: '6px',
+      animation: 'pulse 2s infinite'
+    },
     expandArrow: (isExpanded) => ({
       fontSize: '20px',
       transform: isExpanded ? 'rotate(180deg)' : 'rotate(0deg)',
@@ -372,10 +386,16 @@ function RolesContent() {
                     {role.user_status === 'interested' && <span>❤️</span>}
                     <h3 style={styles.roleTitle}>{role.title_es || role.title}</h3>
                   </div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
                     <span style={styles.demandChip(role.demand_level)}>
                       Demanda {role.demand_level}
                     </span>
+                    {/* 🔥 Market Opportunity Alert - roles con crecimiento >25% */}
+                    {role.growth_percentage && role.growth_percentage >= 25 && (
+                      <span style={styles.marketAlertChip}>
+                        🔥 Mercado en expansión — +{role.growth_percentage}% en 2026
+                      </span>
+                    )}
                     {role.remote_friendly && (
                       <span style={{ fontSize: '13px', color: 'rgba(255,255,255,0.5)' }}>
                         🌍 Remote-friendly

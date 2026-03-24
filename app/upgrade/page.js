@@ -309,6 +309,79 @@ function UpgradeContent() {
           </div>
         </div>
 
+        {/* ROI Calculator - NEW */}
+        <div style={{
+          marginTop: '48px',
+          padding: '32px',
+          background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(6, 182, 212, 0.1))',
+          borderRadius: '20px',
+          border: '1px solid rgba(16, 185, 129, 0.3)',
+          textAlign: 'center'
+        }}>
+          <h3 style={{ fontSize: '22px', fontWeight: '700', marginBottom: '16px' }}>
+            💰 Calculadora de ROI
+          </h3>
+          <p style={{ fontSize: '16px', color: 'rgba(255,255,255,0.7)', marginBottom: '24px' }}>
+            Si este análisis te ayuda a conseguir un trabajo con solo €5.000 más de salario anual...
+          </p>
+          <div style={{ 
+            display: 'flex', 
+            justifyContent: 'center', 
+            alignItems: 'center', 
+            gap: '24px',
+            flexWrap: 'wrap',
+            marginBottom: '16px'
+          }}>
+            <div style={{ 
+              padding: '20px 32px', 
+              background: 'rgba(255,255,255,0.05)', 
+              borderRadius: '12px',
+              minWidth: '140px'
+            }}>
+              <div style={{ fontSize: '14px', color: 'rgba(255,255,255,0.5)', marginBottom: '4px' }}>
+                Inversión
+              </div>
+              <div style={{ fontSize: '32px', fontWeight: '800', color: '#f8fafc' }}>€39</div>
+            </div>
+            <div style={{ fontSize: '28px', color: 'rgba(255,255,255,0.4)' }}>→</div>
+            <div style={{ 
+              padding: '20px 32px', 
+              background: 'rgba(16, 185, 129, 0.2)', 
+              borderRadius: '12px',
+              minWidth: '140px'
+            }}>
+              <div style={{ fontSize: '14px', color: '#10b981', marginBottom: '4px' }}>
+                Incremento salarial
+              </div>
+              <div style={{ fontSize: '32px', fontWeight: '800', color: '#10b981' }}>€5.000</div>
+            </div>
+            <div style={{ fontSize: '28px', color: 'rgba(255,255,255,0.4)' }}>=</div>
+            <div style={{ 
+              padding: '20px 32px', 
+              background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.3), rgba(6, 182, 212, 0.3))', 
+              borderRadius: '12px',
+              border: '2px solid #10b981',
+              minWidth: '160px'
+            }}>
+              <div style={{ fontSize: '14px', color: '#10b981', marginBottom: '4px' }}>
+                ROI
+              </div>
+              <div style={{ 
+                fontSize: '40px', 
+                fontWeight: '800', 
+                background: 'linear-gradient(135deg, #10b981, #06b6d4)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent'
+              }}>
+                12.720%
+              </div>
+            </div>
+          </div>
+          <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.5)' }}>
+            Y eso sin contar el valor de encontrar un trabajo que realmente te motive 🚀
+          </p>
+        </div>
+
         {/* Comparison vs alternatives */}
         <div style={styles.comparison}>
           <h3 style={styles.comparisonTitle}>Compara con las alternativas</h3>

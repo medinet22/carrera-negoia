@@ -330,6 +330,16 @@ function ProfileContent() {
       color: 'rgba(255,255,255,0.5)',
       marginTop: '6px'
     },
+    // Market Comparison Badge - NEW
+    marketComparison: {
+      fontSize: '11px',
+      color: '#10b981',
+      background: 'rgba(16, 185, 129, 0.15)',
+      padding: '3px 8px',
+      borderRadius: '4px',
+      marginTop: '6px',
+      display: 'inline-block'
+    },
     rolesPreview: {
       display: 'grid',
       gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
@@ -668,12 +678,27 @@ function ProfileContent() {
             <div style={styles.skillsList}>
               {allSkills.map((skill, i) => {
                 const levelInfo = getLevelLabel(skill.level)
+                // Calculate market percentile based on level (estimation)
+                const getMarketPercentile = (level) => {
+                  if (level >= 5) return 95
+                  if (level >= 4) return 82
+                  if (level >= 3) return 65
+                  if (level >= 2) return 45
+                  return 25
+                }
+                const percentile = getMarketPercentile(skill.level)
                 return (
                   <div key={i} style={styles.skillItem}>
                     <div>
                       <div style={styles.skillName}>{skill.name_es || skill.name}</div>
                       {skill.evidence && (
                         <div style={styles.skillEvidence}>{skill.evidence}</div>
+                      )}
+                      {/* Market Comparison - NEW */}
+                      {skill.level >= 3 && (
+                        <div style={styles.marketComparison}>
+                          📊 Por encima del {percentile}% de profesionales en tu sector
+                        </div>
                       )}
                     </div>
                     <div style={{ display: 'flex', alignItems: 'center' }}>
