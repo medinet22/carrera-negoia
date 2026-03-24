@@ -283,7 +283,7 @@ export default function Home() {
           {[
             { number: '200+', label: 'Perfiles analizados' },
             { number: '94%', label: 'Dicen que "valió la pena"' },
-            { number: '€70', label: 'Valor incluido en el plan completo' }
+            { number: '€39', label: 'Precio único — sin suscripción' }
           ].map((stat, i) => (
             <div key={i} style={{ 
               textAlign: 'center',
@@ -321,7 +321,7 @@ export default function Home() {
           
           <div style={{ 
             display: 'grid', 
-            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', 
+            gridTemplateColumns: 'repeat(2, 1fr)', 
             gap: '20px' 
           }}>
             {[
