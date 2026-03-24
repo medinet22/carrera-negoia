@@ -1,0 +1,20 @@
+[Unit]
+Description=Carrera.negoia.com Webhook Server
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/openclaw/.openclaw/workspace-d-business/carrera-ia-v1/scripts
+ExecStart=/usr/bin/node carrera-webhook-server.js
+Restart=always
+RestartSec=5
+StandardOutput=append:/home/openclaw/.openclaw/logs/carrera-webhook.log
+StandardError=append:/home/openclaw/.openclaw/logs/carrera-webhook.log
+Environment=NODE_ENV=production
+Environment=CARRERA_WEBHOOK_PORT=4243
+Environment=CARRERA_WEBHOOK_SECRET=carrera-negoia-2026
+Environment=SUPABASE_URL=https://goasfxfeaczhzgzwupzg.supabase.co
+EnvironmentFile=/home/openclaw/.openclaw/workspace-d-business/carrera-ia-v1/.env.local
+
+[Install]
+WantedBy=default.target

@@ -938,5 +938,99 @@
     "infojobs_search_template": "talent acquisition recruiter",
     "indeed_search_template": "talent acquisition specialist",
     "transition_from": ["HR Generalist", "Sales", "Customer Service", "Headhunter"]
+  },
+  {
+    "id": "tpm-001",
+    "title": "Technical Program Manager",
+    "title_es": "Technical Program Manager",
+    "category": "tech",
+    "day_to_day": "Tu día empieza revisando el estado de múltiples programas técnicos que coordinas. Tienes reuniones con engineering leads para entender bloqueadores y dependencias entre equipos. Facilitas la comunicación entre equipos que no se hablan naturalmente. Gestionas riesgos técnicos y creas planes de mitigación. Por la tarde, actualizas roadmaps de programa, preparas reportes para liderazgo ejecutivo, y trabajas en la planificación de próximos quarters. El rol es hacer que proyectos técnicos complejos con múltiples equipos se entreguen a tiempo.",
+    "pros": [
+      "Uno de los roles mejor pagados en tech sin escribir código",
+      "Exposición a toda la organización de ingeniería",
+      "Camino hacia Director of Engineering o VP Engineering",
+      "Muy demandado en empresas grandes de tech"
+    ],
+    "cons": [
+      "Responsabilidad sin autoridad — dependes de que otros ejecuten",
+      "Mucha complejidad: manejar 5-10 equipos simultáneos",
+      "Presión intensa cerca de deadlines de lanzamiento",
+      "Requiere entender profundamente sistemas técnicos sin construirlos"
+    ],
+    "required_hard_skills": [
+      {"skill": "Herramientas PM (Jira, Asana, Linear)", "level": 5},
+      {"skill": "Comprensión de arquitectura de software", "level": 4},
+      {"skill": "Gestión de dependencias y riesgos", "level": 5},
+      {"skill": "Comunicación técnica escrita", "level": 5}
+    ],
+    "required_soft_skills": [
+      {"skill": "Comunicación", "level": 5},
+      {"skill": "Influencia sin autoridad", "level": 5},
+      {"skill": "Pensamiento sistémico", "level": 5},
+      {"skill": "Gestión de stakeholders", "level": 5}
+    ],
+    "salary_ranges": {
+      "ES": {"min": 50000, "max": 90000, "currency": "EUR"},
+      "MX": {"min": 50000, "max": 100000, "currency": "MXN/mes"},
+      "CO": {"min": 10000000, "max": 22000000, "currency": "COP/mes"},
+      "AR": {"min": 1500000, "max": 3500000, "currency": "ARS/mes"},
+      "remote": {"min": 100000, "max": 200000, "currency": "USD"}
+    },
+    "demand_level": "alta",
+    "growth_trend": "growing",
+    "growth_percentage": 20,
+    "remote_friendly": true,
+    "companies_hiring": ["Google", "Meta", "Amazon", "Microsoft", "Apple", "Stripe", "Databricks"],
+    "linkedin_search_template": "Technical Program Manager TPM",
+    "infojobs_search_template": "technical program manager",
+    "indeed_search_template": "technical program manager",
+    "transition_from": ["Project Manager IT", "Engineering Manager", "Scrum Master", "Solutions Architect"]
+  },
+  {
+    "id": "ic-001",
+    "title": "Implementation Consultant",
+    "title_es": "Consultor de Implementación",
+    "category": "consulting",
+    "day_to_day": "Tu día varía según la fase del proyecto. Al principio, haces discovery con el cliente para entender sus procesos actuales. Diseñas la solución de implementación y el plan de proyecto. Durante la implementación, configuras el producto, migras datos, y entrenas usuarios. Gestionas la relación con el cliente y resuelves problemas que surgen. Por la tarde, documentas progreso, preparas materiales de formación, y coordinas con el equipo interno. El rol es llevar a los clientes desde la compra hasta el éxito con el producto.",
+    "pros": [
+      "Cada proyecto es diferente — no hay dos implementaciones iguales",
+      "Impacto directo: ves cómo el cliente adopta y usa el producto",
+      "Exposición a múltiples industrias y procesos de negocio",
+      "Camino hacia consultoría senior o product management"
+    ],
+    "cons": [
+      "Viajes frecuentes en algunos roles (menos post-COVID)",
+      "Presión por timelines de implementación del cliente",
+      "A veces heredas promesas de venta que son difíciles de cumplir",
+      "Burnout común por gestionar múltiples implementaciones simultáneas"
+    ],
+    "required_hard_skills": [
+      {"skill": "Conocimiento del producto/plataforma", "level": 5},
+      {"skill": "Configuración y customización", "level": 4},
+      {"skill": "Gestión de proyectos", "level": 4},
+      {"skill": "Migración de datos", "level": 3}
+    ],
+    "required_soft_skills": [
+      {"skill": "Comunicación", "level": 5},
+      {"skill": "Resolución de problemas", "level": 5},
+      {"skill": "Paciencia", "level": 5},
+      {"skill": "Adaptabilidad", "level": 4}
+    ],
+    "salary_ranges": {
+      "ES": {"min": 38000, "max": 65000, "currency": "EUR"},
+      "MX": {"min": 35000, "max": 70000, "currency": "MXN/mes"},
+      "CO": {"min": 6000000, "max": 14000000, "currency": "COP/mes"},
+      "AR": {"min": 900000, "max": 2200000, "currency": "ARS/mes"},
+      "remote": {"min": 55000, "max": 110000, "currency": "USD"}
+    },
+    "demand_level": "alta",
+    "growth_trend": "growing",
+    "growth_percentage": 15,
+    "remote_friendly": true,
+    "companies_hiring": ["Salesforce", "SAP", "Workday", "ServiceNow", "HubSpot", "Factorial"],
+    "linkedin_search_template": "Implementation Consultant",
+    "infojobs_search_template": "consultor implementación",
+    "indeed_search_template": "implementation consultant",
+    "transition_from": ["Project Manager", "Business Analyst", "Technical Support", "Customer Success"]
   }
 ]

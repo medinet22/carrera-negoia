@@ -1,7 +1,4 @@
 import { createClient } from '@supabase/supabase-js'
-import Anthropic from '@anthropic-ai/sdk'
-import { SKILLS_EXTRACTION_PROMPT, SKILLS_MAP_PROMPT, ROLE_MATCHING_PROMPT, fillPrompt } from '../../../lib/ai-prompts'
-import rolesCatalog from '../../../data/roles-catalog.json'
 import { 
   isValidEmail, 
   isValidCountry, 
@@ -17,12 +14,10 @@ const supabase = createClient(
   process.env.SUPABASE_SERVICE_KEY
 )
 
-const anthropic = new Anthropic({
-  apiKey: process.env.ANTHROPIC_API_KEY
-})
-
-// Claude call timeout (90 seconds)
-const CLAUDE_TIMEOUT_MS = 90000
+// Webhook URL for VPS OpenClaw trigger
+// In production, this would be the public IP or domain of the VPS
+const WEBHOOK_URL = process.env.CARRERA_WEBHOOK_URL || 'http://46.224.55.15:4243/trigger'
+const WEBHOOK_SECRET = process.env.CARRERA_WEBHOOK_SECRET || 'carrera-negoia-2026'
 
 // POST: Iniciar procesamiento del assessment
 export async function POST(request) {
@@ -112,19 +107,28 @@ export async function POST(request) {
       return Response.json({ error: 'Error guardando perfil' }, { status: 500 })
     }
 
-    // 3. Create assessment job for polling
+    // 3. Create assessment job with pending status
     const { data: job, error: jobError } = await supabase
       .from('assessment_jobs')
       .insert({
         user_id: user.id,
-        status: 'processing',
-        current_step: 'extracting_skills'
+        status: 'pending',
+        current_step: 'queued'
       })
       .select()
       .single()
 
-    // 4. Start async processing (don't await - let it run in background)
-    processAssessmentAsync(user.id, profile.id, job.id, validatedCvText, validatedIntake, validatedCountry, validatedName)
+    if (jobError) {
+      console.error('Error creating job:', jobError)
+      return Response.json({ error: 'Error creando job' }, { status: 500 })
+    }
+
+    // 4. Trigger OpenClaw processing via webhook
+    // This is non-blocking - we don't wait for the webhook response
+    triggerOpenClawProcessing(job.id, user.id, profile.id).catch(err => {
+      console.error('Error triggering OpenClaw:', err.message)
+      // Job remains in 'pending' state - agent can pick it up via polling
+    })
 
     return Response.json({ 
       userId: user.id,
@@ -177,238 +181,38 @@ export async function GET(request) {
   }
 }
 
-// Helper: Call Claude with timeout
-async function callClaudeWithTimeout(prompt, maxTokens = 4000) {
-  const controller = new AbortController()
-  const timeoutId = setTimeout(() => controller.abort(), CLAUDE_TIMEOUT_MS)
-  
+// Trigger OpenClaw processing via webhook (non-blocking)
+async function triggerOpenClawProcessing(jobId, userId, profileId) {
   try {
-    const response = await anthropic.messages.create({
-      model: 'claude-sonnet-4-5-20250514',
-      max_tokens: maxTokens,
-      messages: [{ role: 'user', content: prompt }]
-    }, { signal: controller.signal })
+    const response = await fetch(WEBHOOK_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Webhook-Secret': WEBHOOK_SECRET
+      },
+      body: JSON.stringify({ jobId, userId, profileId })
+    })
     
-    clearTimeout(timeoutId)
-    return response
-  } catch (err) {
-    clearTimeout(timeoutId)
-    if (err.name === 'AbortError') {
-      throw new Error('Claude API timeout')
+    if (!response.ok) {
+      const text = await response.text()
+      throw new Error(`Webhook returned ${response.status}: ${text}`)
     }
+    
+    console.log(`OpenClaw processing triggered for job ${jobId}`)
+    
+  } catch (err) {
+    console.error('Webhook trigger failed:', err.message)
+    
+    // Update job status to indicate webhook failure
+    // The job can still be picked up by the agent via polling
+    await supabase
+      .from('assessment_jobs')
+      .update({
+        current_step: 'webhook_failed',
+        error_message: `Webhook trigger failed: ${err.message}. Job will be processed via polling.`
+      })
+      .eq('id', jobId)
+    
     throw err
-  }
-}
-
-// Async processing function (runs in background)
-async function processAssessmentAsync(userId, profileId, jobId, cvText, intakeAnswers, country, userName) {
-  try {
-    // Update status: extracting skills
-    await updateJobStatus(jobId, 'processing', 'extracting_skills')
-
-    // Format assessment responses for the prompt
-    const assessmentText = formatAssessmentResponses(intakeAnswers)
-    
-    // Step 1: Extract skills
-    const skillsPrompt = fillPrompt(SKILLS_EXTRACTION_PROMPT, {
-      cv_text: cvText || 'No se proporcionó CV',
-      assessment_responses: assessmentText,
-      country: country || 'ES'
-    })
-
-    const skillsResponse = await callClaudeWithTimeout(skillsPrompt, 4000)
-
-    const extractedSkills = parseJsonResponse(skillsResponse.content[0].text)
-    
-    // Handle parsing failure gracefully
-    if (!extractedSkills) {
-      throw new Error('Failed to parse skills extraction response')
-    }
-    
-    const skillsCount = (extractedSkills.hard_skills?.length || 0) + 
-                       (extractedSkills.soft_skills?.length || 0) +
-                       (extractedSkills.domain_knowledge?.length || 0)
-
-    await updateJobStatus(jobId, 'processing', 'generating_map', skillsCount)
-
-    // Step 2: Generate skills map
-    const mapPrompt = fillPrompt(SKILLS_MAP_PROMPT, {
-      user_name: userName || 'Profesional',
-      extracted_skills: JSON.stringify(extractedSkills, null, 2),
-      assessment_responses: assessmentText
-    })
-
-    const mapResponse = await callClaudeWithTimeout(mapPrompt, 4000)
-
-    const skillsMap = parseJsonResponse(mapResponse.content[0].text)
-    
-    // Handle parsing failure gracefully
-    if (!skillsMap) {
-      throw new Error('Failed to parse skills map response')
-    }
-
-    // Save skills map to database
-    const { data: savedMap, error: mapError } = await supabase
-      .from('skills_maps')
-      .insert({
-        user_id: userId,
-        profile_id: profileId,
-        hard_skills: extractedSkills.hard_skills || [],
-        soft_skills: extractedSkills.soft_skills || [],
-        domain_knowledge: extractedSkills.domain_knowledge || [],
-        narrative_text: skillsMap.narrative_text,
-        summary_one_liner: skillsMap.summary_one_liner,
-        radar_data: skillsMap.radar_data,
-        status: 'done'
-      })
-      .select()
-      .single()
-
-    if (mapError) {
-      console.error('Error saving skills map:', mapError)
-    }
-
-    await updateJobStatus(jobId, 'processing', 'matching_roles', skillsCount)
-
-    // Step 3: Match with roles (process top 10 roles for speed, full 20 for better matches)
-    const allSkills = {
-      hard_skills: extractedSkills.hard_skills || [],
-      soft_skills: extractedSkills.soft_skills || [],
-      domain_knowledge: extractedSkills.domain_knowledge || []
-    }
-
-    let rolesMatched = 0
-    const matchPromises = rolesCatalog.map(async (role) => {
-      const matchPrompt = fillPrompt(ROLE_MATCHING_PROMPT, {
-        user_skills: JSON.stringify(allSkills, null, 2),
-        user_country: country || 'ES',
-        role: JSON.stringify(role, null, 2)
-      })
-
-      try {
-        const matchResponse = await callClaudeWithTimeout(matchPrompt, 2000)
-
-        const match = parseJsonResponse(matchResponse.content[0].text)
-        
-        // Skip if parsing failed
-        if (!match) {
-          console.error(`Failed to parse match for role ${role.id}`)
-          return null
-        }
-        
-        // Save role match
-        await supabase.from('role_matches').insert({
-          user_id: userId,
-          skills_map_id: savedMap?.id,
-          role_id: role.id,
-          match_percentage: match.match_percentage || 0,
-          match_type: match.match_type || 'opportunity',
-          why_you_fit: match.why_you_fit || '',
-          gaps: match.gaps || [],
-          strengths: match.strengths || [],
-          user_status: 'pending'
-        })
-
-        rolesMatched++
-        return match
-      } catch (err) {
-        console.error(`Error matching role ${role.id}:`, err.message)
-        return null
-      }
-    })
-
-    // Wait for all matches to complete
-    await Promise.all(matchPromises)
-
-    // Update job as completed
-    await supabase
-      .from('assessment_jobs')
-      .update({
-        status: 'done',
-        current_step: 'completed',
-        skills_count: skillsCount,
-        roles_matched: rolesMatched,
-        completed_at: new Date().toISOString()
-      })
-      .eq('id', jobId)
-
-  } catch (err) {
-    console.error('Async processing error:', err)
-    await supabase
-      .from('assessment_jobs')
-      .update({
-        status: 'error',
-        error_message: err.message
-      })
-      .eq('id', jobId)
-  }
-}
-
-async function updateJobStatus(jobId, status, step, skillsCount = null) {
-  const update = { status, current_step: step }
-  if (skillsCount !== null) update.skills_count = skillsCount
-  
-  await supabase
-    .from('assessment_jobs')
-    .update(update)
-    .eq('id', jobId)
-}
-
-function formatAssessmentResponses(answers) {
-  if (!answers || typeof answers !== 'object') return 'Sin respuestas adicionales'
-  
-  const lines = []
-  if (answers.proudest_achievement) {
-    lines.push(`Logro más importante: ${answers.proudest_achievement}`)
-  }
-  if (answers.what_makes_different) {
-    lines.push(`Lo que me diferencia: ${answers.what_makes_different}`)
-  }
-  if (answers.work_preference) {
-    lines.push(`Prefiero trabajar con: ${answers.work_preference}`)
-  }
-  if (answers.productive_environment) {
-    lines.push(`Entorno productivo: ${answers.productive_environment}`)
-  }
-  if (answers.greatest_strength) {
-    lines.push(`Mayor fortaleza: ${answers.greatest_strength}`)
-  }
-  if (answers.next_role_change) {
-    lines.push(`Qué quiero diferente: ${answers.next_role_change}`)
-  }
-  if (answers.job_search_status) {
-    lines.push(`Estado de búsqueda: ${answers.job_search_status}`)
-  }
-  if (answers.role_in_mind) {
-    lines.push(`Rol en mente: ${answers.role_in_mind}`)
-  }
-  if (answers.cv_description) {
-    lines.push(`Descripción de trayectoria: ${answers.cv_description}`)
-  }
-  
-  return lines.length > 0 ? lines.join('\n') : 'Sin respuestas adicionales'
-}
-
-function parseJsonResponse(text) {
-  try {
-    // Try to find JSON in the response (handle markdown code blocks)
-    const jsonMatch = text.match(/```json\s*([\s\S]*?)\s*```/) || 
-                      text.match(/```\s*([\s\S]*?)\s*```/) ||
-                      [null, text]
-    
-    const jsonStr = jsonMatch[1] || text
-    const parsed = JSON.parse(jsonStr.trim())
-    
-    // Validate that we got an object, not null/undefined
-    if (!parsed || typeof parsed !== 'object') {
-      console.error('Parsed JSON is not an object')
-      return null
-    }
-    
-    return parsed
-  } catch (err) {
-    console.error('Error parsing JSON response:', err.message)
-    console.error('Raw text (first 500 chars):', text?.substring(0, 500))
-    return null
   }
 }
