@@ -17,7 +17,7 @@ export async function GET(request) {
   try {
     // Check if user has paid
     const { data: orders, error: orderError } = await supabase
-      .from('carrera_orders')
+      .from('orders')
       .select('*')
       .eq('user_id', userId)
       .eq('status', 'paid')
@@ -33,7 +33,7 @@ export async function GET(request) {
 
     // Get user country
     const { data: user } = await supabase
-      .from('carrera_users')
+      .from('users')
       .select('country')
       .eq('id', userId)
       .single()

@@ -6,9 +6,23 @@ const supabase = createClient(
   process.env.SUPABASE_SERVICE_KEY
 )
 
+// ========== STRIPE TEST/LIVE SWITCH (PATRÓN BRIEFINTEL) ==========
+const isTestMode = process.env.STRIPE_MODE === 'test' || process.env.NODE_ENV === 'development'
+
+const STRIPE_CONFIG = {
+  secretKey: isTestMode 
+    ? process.env.STRIPE_SECRET_KEY_TEST 
+    : process.env.STRIPE_SECRET_KEY,
+  webhookSecret: isTestMode
+    ? process.env.STRIPE_WEBHOOK_SECRET_TEST
+    : process.env.STRIPE_WEBHOOK_SECRET
+}
+
 let stripe = null
 function getStripe() {
-  if (!stripe && process.env.STRIPE_SECRET_KEY) stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
+  if (!stripe && STRIPE_CONFIG.secretKey) {
+    stripe = new Stripe(STRIPE_CONFIG.secretKey)
+  }
   return stripe
 }
 
@@ -69,10 +83,11 @@ export async function POST(request) {
   try {
     const rawBody = await request.text()
     const signature = request.headers.get('stripe-signature')
-    const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET
+    const webhookSecret = STRIPE_CONFIG.webhookSecret
 
     let event
     const stripeInstance = getStripe()
+    
     if (webhookSecret && signature && stripeInstance) {
       try {
         event = stripeInstance.webhooks.constructEvent(rawBody, signature, webhookSecret)
@@ -90,17 +105,21 @@ export async function POST(request) {
     const userId = session.metadata?.user_id
     const plan = session.metadata?.plan
     const orderId = session.metadata?.order_id
+    const mode = session.metadata?.mode || 'live' // Track test vs live payments
 
     if (!userId || !plan) return Response.json({ error: 'Missing metadata' }, { status: 400 })
 
+    // Log para debugging
+    console.log(`[Webhook] Payment received - Mode: ${mode}, Plan: ${plan}, User: ${userId}`)
+
     if (orderId) {
-      await supabase.from('carrera_orders').update({
+      await supabase.from('orders').update({
         status: 'paid',
         stripe_payment_intent: session.payment_intent,
         paid_at: new Date().toISOString()
       }).eq('id', orderId)
     } else {
-      await supabase.from('carrera_orders').insert({
+      await supabase.from('orders').insert({
         user_id: userId, plan,
         amount_cents: session.amount_total,
         currency: session.currency?.toUpperCase() || 'EUR',
@@ -111,7 +130,7 @@ export async function POST(request) {
       })
     }
 
-    const { data: user } = await supabase.from('carrera_users').select('email, name').eq('id', userId).single()
+    const { data: user } = await supabase.from('users').select('email, name').eq('id', userId).single()
     if (user?.email) {
       const { subject, html } = emailPagoConfirmado(user.name, userId, plan)
       await sendEmail(user.email, subject, html)

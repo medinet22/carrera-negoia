@@ -58,7 +58,7 @@ export async function POST(request) {
 
     // Check if user has complete plan
     const { data: orders } = await supabase
-      .from('carrera_orders')
+      .from('orders')
       .select('*')
       .eq('user_id', userId)
       .eq('status', 'paid')
@@ -73,7 +73,7 @@ export async function POST(request) {
 
     // Get user profile and skills map
     const { data: user } = await supabase
-      .from('carrera_users')
+      .from('users')
       .select('*')
       .eq('id', userId)
       .single()

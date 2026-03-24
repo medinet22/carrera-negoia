@@ -17,7 +17,7 @@ export async function GET(request) {
   try {
     // Check if user has complete plan
     const { data: orders, error: orderError } = await supabase
-      .from('carrera_orders')
+      .from('orders')
       .select('*')
       .eq('user_id', userId)
       .eq('status', 'paid')
