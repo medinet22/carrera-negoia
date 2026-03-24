@@ -308,7 +308,7 @@ export default function Home() {
 
       {/* ========== SECCIÓN 3: ESTO ES PARA TI SI... ========== */}
       <section style={{ 
-        padding: '100px 20px', 
+        padding: '64px 20px', 
         background: '#0a0a0f'
       }}>
         <div style={{ maxWidth: '900px', margin: '0 auto' }}>
@@ -356,7 +356,7 @@ export default function Home() {
               <div key={i} style={{ 
                 background: '#0d0d16', 
                 borderRadius: '16px', 
-                padding: '28px', 
+                padding: '20px 20px', 
                 border: '1px solid rgba(255,255,255,0.06)'
               }}>
                 <div style={{ 
@@ -410,57 +410,63 @@ export default function Home() {
           
           <div style={{ 
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))',
-            gap: '16px'
+            gridTemplateColumns: 'repeat(3, 1fr)',
+            gap: '20px',
+            maxWidth: '860px',
+            margin: '0 auto'
           }}>
             {[
-              { step: '①', url: '/start', title: 'Tu experiencia', desc: '5 preguntas guiadas + CV', badge: 'GRATIS', badgeColor: '#22c55e' },
-              { step: '②', url: '/profile', title: 'Tu Mapa', desc: 'Habilidades + narrativa', badge: 'GRATIS', badgeColor: '#22c55e' },
-              { step: '③', url: '/roles', title: 'Explora roles', desc: '❤️ ❌ ⭐ Salarios reales', badge: 'desde €29', badgeColor: '#a5b4fc' },
-              { step: '④', url: '/selected', title: 'Gap analysis', desc: 'Plan de estudio + Links empleo', badge: 'desde €29', badgeColor: '#a5b4fc' },
-              { step: '⑤', url: '/documents', title: 'Tus documentos', desc: 'CV genérico + CVs por rol + Cartas', badge: 'Plan Completo', badgeColor: '#fbbf24' },
-              { step: '⑥', url: '/next', title: 'Siempre disponible', desc: 'Vuelve cuando quieras', badge: '∞', badgeColor: '#64748b' }
+              { num: '1', title: 'Tu experiencia', desc: '5 preguntas guiadas + sube tu CV', badge: 'GRATIS', badgeColor: '#22c55e', badgeBg: 'rgba(34,197,94,0.1)' },
+              { num: '2', title: 'Tu Mapa de Habilidades', desc: 'Tus skills ordenadas por nivel + tu superpoder único', badge: 'GRATIS', badgeColor: '#22c55e', badgeBg: 'rgba(34,197,94,0.1)' },
+              { num: '3', title: 'Explora tus roles', desc: 'Marca favoritos, descarta, guarda — con salarios reales', badge: 'desde €29', badgeColor: '#a5b4fc', badgeBg: 'rgba(99,102,241,0.12)' },
+              { num: '4', title: 'Gap analysis', desc: 'Qué te falta para cada rol y cómo cerrarlo en semanas', badge: 'desde €29', badgeColor: '#a5b4fc', badgeBg: 'rgba(99,102,241,0.12)' },
+              { num: '5', title: 'Tus documentos', desc: 'CV por rol, carta de presentación y bullets de LinkedIn', badge: 'Plan Completo', badgeColor: '#fbbf24', badgeBg: 'rgba(251,191,36,0.1)' },
+              { num: '6', title: 'Siempre disponible', desc: 'Vuelve cuando quieras. Sin fecha de expiración.', badge: 'Para siempre', badgeColor: '#64748b', badgeBg: 'rgba(100,116,139,0.1)' }
             ].map((item, i) => (
               <div key={i} style={{ 
                 background: '#0a0a0f',
-                borderRadius: '14px',
-                padding: '20px',
-                border: '1px solid rgba(255,255,255,0.06)',
-                textAlign: 'center'
+                borderRadius: '16px',
+                padding: '28px 24px',
+                border: '1px solid rgba(255,255,255,0.07)',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '0'
               }}>
-                <span style={{ 
-                  fontSize: '24px',
-                  color: '#6366f1',
-                  display: 'block',
-                  marginBottom: '8px'
-                }}>{item.step}</span>
-                <span style={{ 
-                  display: 'inline-block',
-                  background: 'rgba(99,102,241,0.1)',
-                  color: '#a5b4fc',
-                  fontSize: '10px',
-                  fontWeight: '600',
-                  padding: '3px 8px',
-                  borderRadius: '100px',
-                  marginBottom: '12px'
-                }}>{item.url}</span>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '14px' }}>
+                  <span style={{ 
+                    width: '32px', height: '32px',
+                    borderRadius: '50%',
+                    background: 'rgba(99,102,241,0.15)',
+                    border: '1px solid rgba(99,102,241,0.3)',
+                    color: '#a5b4fc',
+                    fontSize: '14px',
+                    fontWeight: '700',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    flexShrink: '0'
+                  }}>{item.num}</span>
+                  <span style={{ 
+                    background: item.badgeBg,
+                    color: item.badgeColor,
+                    fontSize: '11px',
+                    fontWeight: '700',
+                    padding: '4px 10px',
+                    borderRadius: '100px',
+                    letterSpacing: '0.3px'
+                  }}>{item.badge}</span>
+                </div>
                 <h4 style={{ 
-                  margin: '0 0 6px 0', 
+                  margin: '0 0 8px 0', 
                   color: '#f8fafc', 
-                  fontSize: '14px', 
-                  fontWeight: '600' 
+                  fontSize: '16px', 
+                  fontWeight: '600',
+                  lineHeight: '1.3'
                 }}>{item.title}</h4>
                 <p style={{ 
-                  margin: '0 0 12px 0', 
-                  color: '#64748b', 
-                  fontSize: '12px', 
-                  lineHeight: '1.5' 
+                  margin: 0, 
+                  color: '#94a3b8', 
+                  fontSize: '14px', 
+                  lineHeight: '1.6'
                 }}>{item.desc}</p>
-                <span style={{ 
-                  fontSize: '10px',
-                  fontWeight: '700',
-                  color: item.badgeColor
-                }}>{item.badge}</span>
               </div>
             ))}
           </div>
