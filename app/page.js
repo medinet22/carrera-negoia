@@ -272,32 +272,35 @@ export default function Home() {
         borderBottom: '1px solid rgba(255,255,255,0.04)'
       }}>
         <div style={{ 
-          maxWidth: '800px', 
+          maxWidth: '900px', 
           margin: '0 auto',
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
           gap: '0',
-          flexWrap: 'wrap'
+          flexWrap: 'nowrap'
         }}>
           {[
             { number: '200+', label: 'Perfiles analizados' },
             { number: '94%', label: 'Dicen que "valió la pena"' },
-            { number: '8 de cada 10', label: 'Descubren al menos un rol que nunca habían considerado' }
+            { number: '8 de cada 10', label: 'Descubren un rol que nunca habían considerado' }
           ].map((stat, i) => (
             <div key={i} style={{ 
               textAlign: 'center',
-              padding: '20px 48px',
-              borderRight: i < 2 ? '1px solid rgba(255,255,255,0.08)' : 'none'
+              padding: '20px 36px',
+              flex: i === 2 ? '1.4' : '1',
+              borderRight: i < 2 ? '1px solid rgba(255,255,255,0.08)' : 'none',
+              minWidth: 0
             }}>
               <div style={{ 
-                fontSize: 'clamp(2.5rem, 6vw, 3rem)', 
+                fontSize: i === 2 ? 'clamp(1.4rem, 3vw, 2rem)' : 'clamp(2.2rem, 5vw, 2.8rem)',
                 fontWeight: '700', 
                 color: '#f8fafc',
                 lineHeight: '1',
-                marginBottom: '8px'
+                marginBottom: '8px',
+                whiteSpace: 'nowrap'
               }}>{stat.number}</div>
-              <p style={{ margin: 0, color: '#64748b', fontSize: '14px' }}>{stat.label}</p>
+              <p style={{ margin: 0, color: '#64748b', fontSize: '13px', lineHeight: '1.4' }}>{stat.label}</p>
             </div>
           ))}
         </div>
