@@ -10,7 +10,7 @@ const PRICE_ID = 'price_1TEImJKHITR2cWbKWAN3XNQh'
 
 export async function POST(request) {
   try {
-    const { email, nombre, situacion_actual } = await request.json()
+    const { email, nombre, situacion_actual, linkedin_url, cv_url, cv_filename } = await request.json()
 
     if (!email) {
       return Response.json({ error: 'Email requerido' }, { status: 400 })
@@ -23,6 +23,8 @@ export async function POST(request) {
         email,
         nombre: nombre || null,
         situacion_actual: situacion_actual || null,
+        linkedin_url: linkedin_url || null,
+        cv_url: cv_url || null,
         estado: 'pendiente_pago',
         created_at: new Date().toISOString()
       })
@@ -35,23 +37,39 @@ export async function POST(request) {
     }
 
     // 2. Crear Stripe Checkout Session
+    // Build metadata (Stripe has 500 char limit per value)
+    const metadata = {
+      nombre: (nombre || '').substring(0, 100),
+      situacion_actual: (situacion_actual || '').substring(0, 450),
+      linkedin_url: (linkedin_url || '').substring(0, 200),
+      cv_url: (cv_url || '').substring(0, 450),
+      cv_filename: (cv_filename || '').substring(0, 100),
+      solicitud_id: solicitud?.id || ''
+    }
+
+    const checkoutParams = new URLSearchParams({
+      'mode': 'payment',
+      'success_url': `https://carrera.negoia.com/analisis-carrera/gracias?session_id={CHECKOUT_SESSION_ID}`,
+      'cancel_url': 'https://carrera.negoia.com/analisis-carrera',
+      'customer_email': email,
+      'line_items[0][price]': PRICE_ID,
+      'line_items[0][quantity]': '1'
+    })
+
+    // Add metadata
+    Object.entries(metadata).forEach(([key, value]) => {
+      if (value) {
+        checkoutParams.append(`metadata[${key}]`, value)
+      }
+    })
+
     const checkoutResponse = await fetch('https://api.stripe.com/v1/checkout/sessions', {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${STRIPE_SECRET_KEY}`,
         'Content-Type': 'application/x-www-form-urlencoded'
       },
-      body: new URLSearchParams({
-        'mode': 'payment',
-        'success_url': `https://carrera.negoia.com/analisis-carrera/gracias?session_id={CHECKOUT_SESSION_ID}`,
-        'cancel_url': 'https://carrera.negoia.com/analisis-carrera',
-        'customer_email': email,
-        'line_items[0][price]': PRICE_ID,
-        'line_items[0][quantity]': '1',
-        'metadata[nombre]': nombre || '',
-        'metadata[situacion_actual]': (situacion_actual || '').substring(0, 500),
-        'metadata[solicitud_id]': solicitud?.id || ''
-      })
+      body: checkoutParams
     })
 
     const session = await checkoutResponse.json()

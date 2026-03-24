@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import Link from 'next/link'
 import { track } from '../lib/analytics'
 
@@ -7,10 +7,64 @@ export default function AnalisisCarrera() {
   const [formData, setFormData] = useState({
     nombre: '',
     email: '',
+    linkedin_url: '',
     situacion_actual: ''
   })
+  const [cvFile, setCvFile] = useState(null)
+  const [cvUploading, setCvUploading] = useState(false)
+  const [cvUrl, setCvUrl] = useState(null)
+  const [cvError, setCvError] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+  const fileInputRef = useRef(null)
+
+  const handleCvChange = async (e) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+
+    // Validar tamaño (5MB max)
+    if (file.size > 5 * 1024 * 1024) {
+      setCvError('El archivo es demasiado grande. Máximo 5MB.')
+      return
+    }
+
+    // Validar tipo
+    const validTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document']
+    if (!validTypes.includes(file.type)) {
+      setCvError('Solo aceptamos PDF o Word (.doc, .docx)')
+      return
+    }
+
+    setCvFile(file)
+    setCvError('')
+    setCvUploading(true)
+
+    try {
+      const formDataUpload = new FormData()
+      formDataUpload.append('file', file)
+
+      const res = await fetch('/api/upload-cv', {
+        method: 'POST',
+        body: formDataUpload
+      })
+
+      const data = await res.json()
+
+      if (data.url) {
+        setCvUrl(data.url)
+        track('cv_upload_success', { filename: file.name })
+      } else if (data.fallback === 'email') {
+        setCvUrl(null)
+        setCvError('Sube el CV correctamente o adjúntalo por email después del pago.')
+        track('cv_upload_fallback', { filename: file.name })
+      }
+    } catch (err) {
+      setCvError('Error subiendo el CV. Puedes adjuntarlo por email después.')
+      track('cv_upload_error', { error: 'network' })
+    }
+
+    setCvUploading(false)
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -20,7 +74,7 @@ export default function AnalisisCarrera() {
       return
     }
 
-    track('checkout_start', { product: 'analisis_carrera', price: 29 })
+    track('checkout_start', { product: 'analisis_carrera', price: 29, has_cv: !!cvUrl })
     setLoading(true)
     setError('')
 
@@ -28,7 +82,11 @@ export default function AnalisisCarrera() {
       const res = await fetch('/api/checkout-analisis', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
+        body: JSON.stringify({
+          ...formData,
+          cv_url: cvUrl,
+          cv_filename: cvFile?.name || null
+        })
       })
 
       const data = await res.json()
@@ -50,7 +108,7 @@ export default function AnalisisCarrera() {
 
   return (
     <>
-      {/* Hero - optimizado para above-the-fold móvil */}
+      {/* Hero simplificado - sin box verde */}
       <section className="hero" style={{ 
         paddingTop: '40px', 
         paddingBottom: '24px', 
@@ -96,42 +154,11 @@ export default function AnalisisCarrera() {
             Un experto analiza tu situación con IA y te entrega un informe completo: 
             tus habilidades reales, 5 roles que encajan contigo, y un plan de acción de 30 días.
           </p>
-
-          {/* CTA rápido visible en móvil - above the fold */}
-          <div style={{ 
-            background: '#f0fdf4', 
-            border: '2px solid #22c55e', 
-            borderRadius: '10px', 
-            padding: '16px',
-            textAlign: 'center',
-            marginBottom: '8px'
-          }}>
-            <p style={{ margin: '0 0 12px 0', fontSize: '15px', color: '#1e293b', fontWeight: '500' }}>
-              ¿Sin tiempo para leer? →
-            </p>
-            <a 
-              href="#formulario"
-              style={{
-                display: 'inline-block',
-                background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)',
-                color: '#fff',
-                padding: '14px 24px',
-                borderRadius: '8px',
-                fontWeight: '600',
-                fontSize: '15px',
-                textDecoration: 'none',
-                minHeight: '48px'
-              }}
-              onClick={() => track('cta_click', { cta_id: 'hero_quick_cta' })}
-            >
-              Solicitar mi Análisis €29 →
-            </a>
-          </div>
         </div>
       </section>
 
       {/* Qué incluye */}
-      <section style={{ padding: '40px 16px', maxWidth: '900px', margin: '0 auto' }}>
+      <section style={{ padding: '24px 16px', maxWidth: '900px', margin: '0 auto' }}>
         <div style={{ 
           display: 'grid', 
           gridTemplateColumns: 'repeat(auto-fit, minmax(min(260px, 100%), 1fr))', 
@@ -173,7 +200,7 @@ export default function AnalisisCarrera() {
         </div>
       </section>
 
-      {/* Formulario de compra */}
+      {/* Formulario de compra con CV upload */}
       <section id="formulario" style={{ padding: '40px 16px', maxWidth: '500px', margin: '0 auto', scrollMarginTop: '20px' }}>
         <div className="form-card" style={{ 
           background: '#fff', 
@@ -201,6 +228,8 @@ export default function AnalisisCarrera() {
           </div>
 
           <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '14px', marginTop: '20px' }}>
+            
+            {/* Nombre */}
             <div>
               <label style={{ display: 'block', fontSize: '13px', fontWeight: '500', color: '#374151', marginBottom: '4px' }}>
                 Nombre (opcional)
@@ -214,6 +243,7 @@ export default function AnalisisCarrera() {
               />
             </div>
 
+            {/* Email */}
             <div>
               <label style={{ display: 'block', fontSize: '13px', fontWeight: '500', color: '#374151', marginBottom: '4px' }}>
                 Email *
@@ -228,9 +258,78 @@ export default function AnalisisCarrera() {
               />
             </div>
 
+            {/* LinkedIn */}
             <div>
               <label style={{ display: 'block', fontSize: '13px', fontWeight: '500', color: '#374151', marginBottom: '4px' }}>
-                Cuéntanos tu situación actual (opcional pero recomendado)
+                LinkedIn (opcional)
+              </label>
+              <input
+                type="url"
+                placeholder="https://linkedin.com/in/tu-perfil"
+                value={formData.linkedin_url}
+                onChange={(e) => setFormData({ ...formData, linkedin_url: e.target.value })}
+                style={{ width: '100%', padding: '14px', borderRadius: '8px', border: '1px solid #d1d5db', fontSize: '16px', boxSizing: 'border-box' }}
+              />
+            </div>
+
+            {/* CV Upload */}
+            <div>
+              <label style={{ display: 'block', fontSize: '13px', fontWeight: '500', color: '#374151', marginBottom: '4px' }}>
+                Tu CV (PDF o Word · recomendado)
+              </label>
+              <div 
+                onClick={() => fileInputRef.current?.click()}
+                style={{ 
+                  border: cvFile ? '2px solid #059669' : '2px dashed #d1d5db', 
+                  borderRadius: '8px', 
+                  padding: '20px', 
+                  textAlign: 'center',
+                  cursor: 'pointer',
+                  background: cvFile ? '#f0fdf4' : '#fafafa',
+                  transition: 'all 0.2s'
+                }}
+              >
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                  onChange={handleCvChange}
+                  style={{ display: 'none' }}
+                />
+                {cvUploading ? (
+                  <p style={{ margin: 0, color: '#6366f1', fontSize: '14px' }}>Subiendo...</p>
+                ) : cvFile ? (
+                  <div>
+                    <p style={{ margin: '0 0 4px 0', color: '#059669', fontSize: '14px', fontWeight: '600' }}>
+                      ✅ {cvFile.name}
+                    </p>
+                    <p style={{ margin: 0, color: '#64748b', fontSize: '12px' }}>
+                      Haz clic para cambiar
+                    </p>
+                  </div>
+                ) : (
+                  <div>
+                    <p style={{ margin: '0 0 4px 0', color: '#374151', fontSize: '14px' }}>
+                      📄 Haz clic para subir tu CV
+                    </p>
+                    <p style={{ margin: 0, color: '#94a3b8', fontSize: '12px' }}>
+                      PDF o Word · Máx 5MB
+                    </p>
+                  </div>
+                )}
+              </div>
+              {cvError && (
+                <p style={{ color: '#dc2626', fontSize: '12px', marginTop: '4px' }}>{cvError}</p>
+              )}
+              <p style={{ margin: '6px 0 0 0', color: '#64748b', fontSize: '12px', lineHeight: '1.5' }}>
+                Sin CV, trabajamos con lo que nos cuentes. Pero cuanto más nos des, mejor el análisis.
+              </p>
+            </div>
+
+            {/* Situación actual */}
+            <div>
+              <label style={{ display: 'block', fontSize: '13px', fontWeight: '500', color: '#374151', marginBottom: '4px' }}>
+                Cuéntanos tu situación actual (recomendado)
               </label>
               <textarea
                 placeholder='Ej: "Llevo 12 años en marketing de una empresa grande. Me pagan bien pero llevo 2 años sintiéndome estancado. No sé si seguir o cambiar de sector."'
@@ -305,8 +404,8 @@ export default function AnalisisCarrera() {
           <div style={{ display: 'flex', gap: '14px', alignItems: 'flex-start' }}>
             <div style={{ background: '#2563eb', color: '#fff', width: '28px', height: '28px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: '600', flexShrink: 0, fontSize: '14px' }}>2</div>
             <div>
-              <h4 style={{ margin: '0 0 4px 0', color: '#1e293b', fontSize: '15px', fontWeight: '600' }}>Nos envías tu CV (opcional)</h4>
-              <p style={{ margin: 0, color: '#64748b', fontSize: '14px', lineHeight: '1.5' }}>Responde al email de confirmación con tu CV adjunto. Si no tienes, trabajamos con lo que nos contaste.</p>
+              <h4 style={{ margin: '0 0 4px 0', color: '#1e293b', fontSize: '15px', fontWeight: '600' }}>D + IA analiza tu perfil</h4>
+              <p style={{ margin: 0, color: '#64748b', fontSize: '14px', lineHeight: '1.5' }}>Usamos tu CV y situación para extraer habilidades ocultas y encontrar roles que encajan.</p>
             </div>
           </div>
 
