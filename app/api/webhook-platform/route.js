@@ -94,13 +94,13 @@ export async function POST(request) {
     if (!userId || !plan) return Response.json({ error: 'Missing metadata' }, { status: 400 })
 
     if (orderId) {
-      await supabase.from('orders').update({
+      await supabase.from('carrera_orders').update({
         status: 'paid',
         stripe_payment_intent: session.payment_intent,
         paid_at: new Date().toISOString()
       }).eq('id', orderId)
     } else {
-      await supabase.from('orders').insert({
+      await supabase.from('carrera_orders').insert({
         user_id: userId, plan,
         amount_cents: session.amount_total,
         currency: session.currency?.toUpperCase() || 'EUR',
@@ -111,7 +111,7 @@ export async function POST(request) {
       })
     }
 
-    const { data: user } = await supabase.from('users').select('email, name').eq('id', userId).single()
+    const { data: user } = await supabase.from('carrera_users').select('email, name').eq('id', userId).single()
     if (user?.email) {
       const { subject, html } = emailPagoConfirmado(user.name, userId, plan)
       await sendEmail(user.email, subject, html)

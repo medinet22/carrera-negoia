@@ -63,14 +63,14 @@ export async function POST(request) {
 
     // 1. Create or find user
     let { data: user, error: userError } = await supabase
-      .from('users')
+      .from('carrera_users')
       .select('id')
       .eq('email', email)
       .single()
 
     if (!user) {
       const { data: newUser, error: createError } = await supabase
-        .from('users')
+        .from('carrera_users')
         .insert({
           email,
           name: validatedName,
@@ -92,7 +92,7 @@ export async function POST(request) {
 
     // 2. Create profile with intake data
     const { data: profile, error: profileError } = await supabase
-      .from('profiles')
+      .from('carrera_profiles')
       .insert({
         user_id: user.id,
         cv_raw_text: validatedCvText || null,

@@ -32,7 +32,7 @@ export async function POST(request) {
 
     // Get user email
     const { data: user, error: userError } = await supabase
-      .from('users')
+      .from('carrera_users')
       .select('email, name')
       .eq('id', userId)
       .single()
@@ -43,7 +43,7 @@ export async function POST(request) {
 
     // Create order in pending state
     const { data: order, error: orderError } = await supabase
-      .from('orders')
+      .from('carrera_orders')
       .insert({
         user_id: userId,
         plan,
@@ -95,7 +95,7 @@ export async function POST(request) {
     // Update order with session ID
     if (order?.id) {
       await supabase
-        .from('orders')
+        .from('carrera_orders')
         .update({ stripe_session_id: session.id })
         .eq('id', order.id)
     }
