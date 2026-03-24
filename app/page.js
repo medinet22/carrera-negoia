@@ -283,7 +283,7 @@ export default function Home() {
           {[
             { number: '200+', label: 'Perfiles analizados' },
             { number: '94%', label: 'Dicen que "valió la pena"' },
-            { number: '€39', label: 'Precio único — sin suscripción' }
+            { number: '+€8.400', label: 'Salario medio anual ganado tras el cambio' }
           ].map((stat, i) => (
             <div key={i} style={{ 
               textAlign: 'center',
