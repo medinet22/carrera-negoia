@@ -126,6 +126,7 @@ CREATE TABLE IF NOT EXISTS assessment_jobs (
   roles_matched INTEGER,
   started_at TIMESTAMPTZ,
   completed_at TIMESTAMPTZ,
+  expires_at TIMESTAMPTZ,
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
 CREATE INDEX IF NOT EXISTS idx_assessment_jobs_user ON assessment_jobs(user_id);
