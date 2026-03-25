@@ -8,6 +8,7 @@ import {
   validateCvText,
   sanitizeForPrompt
 } from '../../../lib/validation'
+import { sendAnalysisCompleteNotification } from '../../../lib/email'
 
 const supabase = createClient(
   process.env.SUPABASE_URL,
@@ -73,6 +74,28 @@ async function runAnalysisInline(userId, profileId, jobId, cvText, intakeAnswers
       roles_matched: roleMatches.length,
       completed_at: new Date().toISOString()
     }).eq('id', jobId)
+    
+    // Step 8: Send email notification
+    try {
+      const { data: user } = await supabase
+        .from('users')
+        .select('email, name')
+        .eq('id', userId)
+        .single()
+      
+      if (user?.email) {
+        const userName = intakeAnswers?.name || user.name || 'profesional'
+        await sendAnalysisCompleteNotification(user.email, userName, userId)
+        if (process.env.NODE_ENV !== 'production') {
+          console.log(`📧 Notification sent to ${user.email}`)
+        }
+      }
+    } catch (emailErr) {
+      // Don't fail the job if email fails
+      if (process.env.NODE_ENV !== 'production') {
+        console.error('Email notification failed:', emailErr)
+      }
+    }
     
     if (process.env.NODE_ENV !== 'production') {
       console.log(`✅ Analysis completed for job ${jobId}`)

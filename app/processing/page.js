@@ -14,6 +14,8 @@ function ProcessingContent() {
   const [rolesMatched, setRolesMatched] = useState(0)
   const [error, setError] = useState(null)
   const [dots, setDots] = useState('')
+  const [elapsedSeconds, setElapsedSeconds] = useState(0)
+  const [showSlowMessage, setShowSlowMessage] = useState(false)
 
   // Animate dots
   useEffect(() => {
@@ -23,14 +25,44 @@ function ProcessingContent() {
     return () => clearInterval(interval)
   }, [])
 
-  // Poll for status
+  // Poll for status with BACKOFF pattern
+  // 0-30s: poll every 2s
+  // 30-60s: poll every 5s
+  // 60s+: poll every 10s + show "taking longer" message
+  // 5min+: show error with retry button
   useEffect(() => {
     if (!userId && !jobId) {
       router.push('/start')
       return
     }
 
+    let pollCount = 0
+    let timeoutId = null
+    const startTime = Date.now()
+
+    const getPollingInterval = () => {
+      const elapsed = (Date.now() - startTime) / 1000
+      if (elapsed < 30) return 2000      // 0-30s: every 2s
+      if (elapsed < 60) return 5000      // 30-60s: every 5s
+      return 10000                        // 60s+: every 10s
+    }
+
     const pollStatus = async () => {
+      pollCount++
+      const elapsedSec = Math.floor((Date.now() - startTime) / 1000)
+      setElapsedSeconds(elapsedSec)
+      
+      // Show slow message after 60s
+      if (elapsedSec > 60 && !showSlowMessage) {
+        setShowSlowMessage(true)
+      }
+      
+      // Auto-error after 5 minutes
+      if (elapsedSec > 300) {
+        setError('El análisis está tardando demasiado. Por favor, inténtalo de nuevo.')
+        return
+      }
+
       try {
         const params = new URLSearchParams()
         if (jobId) params.set('jobId', jobId)
@@ -49,25 +81,32 @@ function ProcessingContent() {
           setTimeout(() => {
             router.push(`/profile?userId=${userId}`)
           }, 1500)
+          return // Stop polling
         } else if (data.status === 'error') {
-          setError(data.error || 'Ha ocurrido un error')
+          setError(data.error || data.message || 'Ha ocurrido un error')
+          return // Stop polling
         } else {
           setCurrentStep(data.currentStep || 'processing')
           setSkillsCount(data.skillsCount || 0)
           setRolesMatched(data.rolesMatched || 0)
         }
+        
+        // Schedule next poll with backoff
+        timeoutId = setTimeout(pollStatus, getPollingInterval())
       } catch (err) {
         console.error('Polling error:', err)
+        // On network error, retry with longer interval
+        timeoutId = setTimeout(pollStatus, 10000)
       }
     }
 
     // Initial poll
     pollStatus()
 
-    // Continue polling every 2 seconds
-    const interval = setInterval(pollStatus, 2000)
-    return () => clearInterval(interval)
-  }, [userId, jobId, router])
+    return () => {
+      if (timeoutId) clearTimeout(timeoutId)
+    }
+  }, [userId, jobId, router, showSlowMessage])
 
   const steps = [
     { id: 'extracting_skills', label: 'Analizando tu CV', icon: '📄' },
@@ -188,29 +227,58 @@ function ProcessingContent() {
   }
 
   if (error) {
+    const isTimeout = error.includes('tardando') || error.includes('timeout')
     return (
       <div style={styles.container}>
         <div style={styles.card}>
-          <div style={{ ...styles.spinner, background: 'linear-gradient(135deg, #ef4444, #dc2626)' }}>
-            ❌
+          <div style={{ ...styles.spinner, background: isTimeout ? 'linear-gradient(135deg, #f59e0b, #d97706)' : 'linear-gradient(135deg, #ef4444, #dc2626)' }}>
+            {isTimeout ? '⏰' : '❌'}
           </div>
-          <h2 style={styles.title}>Ha ocurrido un error</h2>
+          <h2 style={styles.title}>{isTimeout ? 'Análisis en progreso' : 'Ha ocurrido un error'}</h2>
           <p style={styles.subtitle}>{error}</p>
-          <button 
-            onClick={() => router.push('/start')}
-            style={{
-              padding: '14px 28px',
-              borderRadius: '10px',
-              border: 'none',
-              background: 'linear-gradient(135deg, #6366f1, #4f46e5)',
-              color: '#fff',
-              fontSize: '16px',
-              fontWeight: '600',
-              cursor: 'pointer'
-            }}
-          >
-            Intentar de nuevo
-          </button>
+          <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', marginTop: '24px', flexWrap: 'wrap' }}>
+            <button 
+              onClick={() => {
+                setError(null)
+                setElapsedSeconds(0)
+                setShowSlowMessage(false)
+                // Re-trigger the useEffect by updating state
+                window.location.reload()
+              }}
+              style={{
+                padding: '14px 28px',
+                borderRadius: '10px',
+                border: 'none',
+                background: 'linear-gradient(135deg, #6366f1, #4f46e5)',
+                color: '#fff',
+                fontSize: '16px',
+                fontWeight: '600',
+                cursor: 'pointer'
+              }}
+            >
+              🔄 Reintentar
+            </button>
+            <button 
+              onClick={() => router.push('/start')}
+              style={{
+                padding: '14px 28px',
+                borderRadius: '10px',
+                border: '1px solid rgba(255,255,255,0.2)',
+                background: 'transparent',
+                color: '#fff',
+                fontSize: '16px',
+                fontWeight: '600',
+                cursor: 'pointer'
+              }}
+            >
+              Empezar de nuevo
+            </button>
+          </div>
+          {isTimeout && (
+            <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.5)', marginTop: '16px' }}>
+              A veces el análisis tarda más con CVs largos. Prueba a reintentar.
+            </p>
+          )}
         </div>
       </div>
     )
@@ -271,9 +339,22 @@ function ProcessingContent() {
         )}
 
         {status !== 'done' && (
-          <p style={styles.loadingDots}>
-            Esto suele tardar entre 30 segundos y 2 minutos
-          </p>
+          <div style={{ marginTop: '24px' }}>
+            <p style={styles.loadingDots}>
+              {showSlowMessage 
+                ? `⏳ Esto está tardando más de lo esperado... (${elapsedSeconds}s)`
+                : 'Esto suele tardar entre 30 segundos y 2 minutos'}
+            </p>
+            {showSlowMessage && (
+              <p style={{ 
+                fontSize: '13px', 
+                color: 'rgba(255,255,255,0.4)', 
+                marginTop: '8px' 
+              }}>
+                No cierres esta página. Si pasan más de 5 minutos, podrás reintentar.
+              </p>
+            )}
+          </div>
         )}
       </div>
     </div>
