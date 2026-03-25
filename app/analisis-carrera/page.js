@@ -195,6 +195,22 @@ function AnalisisCarreraContent() {
             }}>
               Accede a todos los roles, datos de salarios, gap analysis, y documentos listos para aplicar.
             </p>
+            {/* Social proof badge */}
+            <div style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '6px',
+              marginTop: '16px',
+              padding: '8px 14px',
+              background: 'rgba(99, 102, 241, 0.12)',
+              border: '1px solid rgba(99, 102, 241, 0.25)',
+              borderRadius: '20px',
+              fontSize: '13px',
+              color: '#a5b4fc'
+            }}>
+              <span style={{ fontSize: '14px' }}>📊</span>
+              <span>12 profesionales esta semana</span>
+            </div>
           </div>
 
           {/* Grid layout */}
