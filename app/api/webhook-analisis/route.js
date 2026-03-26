@@ -9,13 +9,18 @@ const supabase = createClient(
 // Lazy initialization to avoid build errors
 let stripe = null
 function getStripe() {
-  if (!stripe && process.env.STRIPE_SECRET_KEY) {
-    stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
+  const isTestMode = process.env.STRIPE_MODE === 'test'
+  const stripeKey = isTestMode ? process.env.STRIPE_SECRET_KEY_TEST : process.env.STRIPE_SECRET_KEY
+  if (!stripe && stripeKey) {
+    stripe = new Stripe(stripeKey)
   }
   return stripe
 }
 
-const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET
+const isTestModeWebhook = process.env.STRIPE_MODE === 'test'
+const webhookSecret = isTestModeWebhook
+  ? process.env.STRIPE_WEBHOOK_SECRET_TEST
+  : process.env.STRIPE_WEBHOOK_SECRET
 
 export async function POST(request) {
   try {

@@ -5,12 +5,15 @@ const supabase = createClient(
   process.env.SUPABASE_SERVICE_KEY
 )
 
-const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY
+const isTestMode = process.env.STRIPE_MODE === 'test'
+const STRIPE_SECRET_KEY = isTestMode
+  ? process.env.STRIPE_SECRET_KEY_TEST
+  : process.env.STRIPE_SECRET_KEY
 
 // Price IDs from environment variables
 const PRICE_IDS = {
-  basico: process.env.STRIPE_PRICE_BASICO,
-  completo: process.env.STRIPE_PRICE_COMPLETO
+  basico: isTestMode ? process.env.STRIPE_PRICE_BASICO_TEST : process.env.STRIPE_PRICE_BASICO,
+  completo: isTestMode ? process.env.STRIPE_PRICE_COMPLETO_TEST : process.env.STRIPE_PRICE_COMPLETO
 }
 
 export async function POST(request) {
