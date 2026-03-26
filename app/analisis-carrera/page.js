@@ -545,6 +545,19 @@ function AnalisisCarreraContent() {
                 <p style={{ margin: 0, fontSize: '12px', color: '#64748b', textAlign: 'center', lineHeight: '1.4' }}>
                   Pago 100% seguro vía Stripe · No guardamos datos de tarjeta
                 </p>
+
+                {/* CRO: Reducción de fricción pre-compra */}
+                <div style={{ 
+                  marginTop: '16px',
+                  padding: '12px 16px',
+                  background: 'rgba(99,102,241,0.06)',
+                  borderRadius: '8px',
+                  textAlign: 'center'
+                }}>
+                  <p style={{ margin: 0, fontSize: '13px', color: '#a5b4fc', lineHeight: '1.5' }}>
+                    ¿Tienes dudas? Escríbenos antes de pagar → <a href="mailto:d@negoia.com" style={{ color: '#c7d2fe', textDecoration: 'underline' }}>d@negoia.com</a>
+                  </p>
+                </div>
               </form>
             </div>
 

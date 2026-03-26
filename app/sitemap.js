@@ -3,6 +3,7 @@ export default function sitemap() {
   const routes = [
     '',
     '/encuesta',
+    '/analisis-carrera',
     '/test-orientacion-profesional',
     '/herramientas-ia-buscar-trabajo',
     '/como-hacer-cv-sin-experiencia-en-sector',
@@ -33,6 +34,9 @@ export default function sitemap() {
     '/reinventarse-profesionalmente',
     '/que-hacer-cuando-no-te-ascienden',
     '/primer-trabajo-despues-de-los-40',
+    '/como-pedir-aumento-de-sueldo',
+    '/como-encontrar-vocacion-profesional',
+    '/senales-trabajo-te-quema',
   ]
 
   return routes.map((route) => ({
