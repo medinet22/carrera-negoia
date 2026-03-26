@@ -6,14 +6,28 @@ const supabase = createClient(
 )
 
 const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY
-const PRICE_ID = 'price_1TEImJKHITR2cWbKWAN3XNQh'
+
+// Price IDs from environment variables
+const PRICE_IDS = {
+  basico: process.env.STRIPE_PRICE_BASICO,
+  completo: process.env.STRIPE_PRICE_COMPLETO
+}
 
 export async function POST(request) {
   try {
-    const { email, nombre, situacion_actual, linkedin_url, cv_url, cv_filename } = await request.json()
+    const { email, nombre, situacion_actual, linkedin_url, cv_url, cv_filename, pack } = await request.json()
 
     if (!email) {
       return Response.json({ error: 'Email requerido' }, { status: 400 })
+    }
+
+    // Determine price ID based on selected plan (default to basico)
+    const selectedPlan = pack === 'completo' ? 'completo' : 'basico'
+    const priceId = PRICE_IDS[selectedPlan]
+
+    if (!priceId) {
+      console.error('Missing STRIPE_PRICE_* env variable for plan:', selectedPlan)
+      return Response.json({ error: 'Configuración de precios no válida' }, { status: 500 })
     }
 
     // 1. Guardar en Supabase con estado pendiente_pago
@@ -25,6 +39,7 @@ export async function POST(request) {
         situacion_actual: situacion_actual || null,
         linkedin_url: linkedin_url || null,
         cv_url: cv_url || null,
+        plan: selectedPlan,
         estado: 'pendiente_pago',
         created_at: new Date().toISOString()
       })
@@ -44,15 +59,16 @@ export async function POST(request) {
       linkedin_url: (linkedin_url || '').substring(0, 200),
       cv_url: (cv_url || '').substring(0, 450),
       cv_filename: (cv_filename || '').substring(0, 100),
-      solicitud_id: solicitud?.id || ''
+      solicitud_id: solicitud?.id || '',
+      plan: selectedPlan
     }
 
     const checkoutParams = new URLSearchParams({
       'mode': 'payment',
       'success_url': `https://carrera.negoia.com/analisis-carrera/gracias?session_id={CHECKOUT_SESSION_ID}`,
-      'cancel_url': 'https://carrera.negoia.com/analisis-carrera',
+      'cancel_url': `https://carrera.negoia.com/analisis-carrera?plan=${selectedPlan}`,
       'customer_email': email,
-      'line_items[0][price]': PRICE_ID,
+      'line_items[0][price]': priceId,
       'line_items[0][quantity]': '1'
     })
 

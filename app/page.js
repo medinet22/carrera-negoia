@@ -3,264 +3,129 @@ import Link from 'next/link'
 export default function Home() {
   return (
     <>
-      {/* ========== SECCIÓN 1: HERO — 2 columnas ========== */}
+      {/* ========== SECCIÓN 1: HERO — Mobile-first, above-the-fold optimizado ========== */}
       <section style={{ 
         minHeight: '100vh',
         display: 'flex',
         alignItems: 'center',
-        padding: '80px 20px 60px',
+        padding: '60px 20px 40px',
         background: '#0a0a0f'
       }}>
         <div style={{ 
-          maxWidth: '1200px', 
+          maxWidth: '720px', 
           margin: '0 auto',
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))',
-          gap: '48px',
-          alignItems: 'center'
+          textAlign: 'center'
         }}>
-          {/* Columna izquierda — Copy */}
-          <div style={{ maxWidth: '540px' }}>
-            {/* Badge */}
-            <span style={{ 
-              display: 'inline-block',
-              background: 'rgba(99, 102, 241, 0.08)', 
-              color: '#a5b4fc',
-              marginBottom: '24px',
-              fontSize: '13px',
-              padding: '8px 16px',
-              border: '1px solid rgba(99, 102, 241, 0.2)',
-              borderRadius: '100px',
-              fontWeight: '500'
-            }}>
-              Plataforma de carrera · Empieza gratis
-            </span>
-            
-            {/* H1 */}
-            <h1 style={{ 
-              fontSize: 'clamp(2.2rem, 5vw, 3.2rem)',
-              marginBottom: '20px',
-              lineHeight: '1.1',
-              color: '#f8fafc',
-              fontWeight: '700',
-              letterSpacing: '-0.03em'
-            }}>
-              Descubre la carrera{' '}
-              <span style={{ 
-                background: 'linear-gradient(135deg, #818cf8 0%, #c084fc 100%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text'
-              }}>que ya llevas dentro.</span>
-            </h1>
-            
-            {/* Subtítulo */}
-            <p style={{ 
-              fontSize: '1.1rem',
-              lineHeight: '1.7',
-              color: '#94a3b8',
-              marginBottom: '24px'
-            }}>
-              Analiza tus habilidades reales, encuentra los roles donde ya encajas con datos del mercado de 2026, y genera tus CVs listos para aplicar.
-            </p>
-
-            {/* Trust row */}
-            <div style={{ 
-              display: 'flex', 
-              gap: '16px', 
-              flexWrap: 'wrap',
-              marginBottom: '28px'
-            }}>
-              {['✓ Mapa de Habilidades gratis', '✓ Roles con salarios reales', '✓ CVs listos para aplicar'].map((item, i) => (
-                <span key={i} style={{ 
-                  fontSize: '13px', 
-                  color: '#64748b',
-                  background: 'rgba(255,255,255,0.03)',
-                  padding: '6px 12px',
-                  borderRadius: '6px',
-                  border: '1px solid rgba(255,255,255,0.06)'
-                }}>
-                  <span style={{ color: '#22c55e' }}>{item.slice(0, 1)}</span>{item.slice(1)}
-                </span>
-              ))}
-            </div>
-
-            {/* CTA principal */}
-            <Link
-              href="/start"
-              style={{ 
-                display: 'inline-flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                padding: '18px 36px',
-                fontSize: '16px',
-                fontWeight: '600',
-                textDecoration: 'none',
-                borderRadius: '12px',
-                background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)',
-                color: '#fff',
-                boxShadow: '0 4px 24px rgba(99, 102, 241, 0.35)',
-                minHeight: '56px',
-                marginBottom: '12px'
-              }}
-            >
-              Descubrir para qué soy bueno →
-            </Link>
-            
-            <p style={{ 
-              fontSize: '13px', 
-              color: '#64748b',
-              marginBottom: '16px'
-            }}>
-              Gratis · Sin tarjeta · Resultado en 15 minutos
-            </p>
-
-            {/* CTA secundario */}
-            <a
-              href="#pricing"
-              style={{ 
-                color: '#a5b4fc',
-                fontSize: '14px',
-                textDecoration: 'none'
-              }}
-            >
-              Ver planes desde €29 ↓
-            </a>
-          </div>
-
-          {/* Columna derecha — Mockup de la plataforma */}
-          <div style={{ 
-            background: '#0d0d16',
-            border: '1px solid rgba(99,102,241,0.3)',
-            borderRadius: '16px',
-            overflow: 'hidden',
-            boxShadow: '0 24px 60px rgba(99,102,241,0.15)'
+          {/* Badge */}
+          <span style={{ 
+            display: 'inline-block',
+            background: 'rgba(99, 102, 241, 0.08)', 
+            color: '#a5b4fc',
+            marginBottom: '24px',
+            fontSize: '13px',
+            padding: '8px 16px',
+            border: '1px solid rgba(99, 102, 241, 0.2)',
+            borderRadius: '100px',
+            fontWeight: '500'
           }}>
-            {/* Barra de URL falsa */}
-            <div style={{ 
-              background: '#1a1a2e',
-              padding: '12px 16px',
-              display: 'flex',
+            IA de carrera · Empieza gratis
+          </span>
+          
+          {/* H1 — Headline emocional y directo */}
+          <h1 style={{ 
+            fontSize: 'clamp(1.8rem, 5vw, 2.8rem)',
+            marginBottom: '20px',
+            lineHeight: '1.15',
+            color: '#f8fafc',
+            fontWeight: '700',
+            letterSpacing: '-0.02em'
+          }}>
+            ¿Llevas años trabajando y sigues sin saber{' '}
+            <span style={{ 
+              background: 'linear-gradient(135deg, #818cf8 0%, #c084fc 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text'
+            }}>para qué eres realmente bueno?</span>
+          </h1>
+          
+          {/* Subtítulo — Resultado concreto en tiempo */}
+          <p style={{ 
+            fontSize: 'clamp(1rem, 2.5vw, 1.2rem)',
+            lineHeight: '1.7',
+            color: '#94a3b8',
+            marginBottom: '32px',
+            maxWidth: '600px',
+            margin: '0 auto 32px auto'
+          }}>
+            En 15 minutos, la IA analiza toda tu experiencia y te dice con qué roles profesionales de 2026 ya encajas, con salarios reales y por qué.
+          </p>
+
+          {/* CTA principal — Grande y prominente */}
+          <Link
+            href="/start"
+            style={{ 
+              display: 'inline-flex',
               alignItems: 'center',
-              gap: '8px',
-              borderBottom: '1px solid rgba(255,255,255,0.05)'
-            }}>
-              <div style={{ display: 'flex', gap: '6px' }}>
-                <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#ff5f57' }} />
-                <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#febc2e' }} />
-                <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#28c840' }} />
-              </div>
-              <div style={{ 
-                flex: 1,
-                background: 'rgba(255,255,255,0.05)',
-                borderRadius: '6px',
-                padding: '6px 12px',
-                fontSize: '11px',
-                color: '#64748b'
-              }}>
-                carrera.negoia.com/profile
-              </div>
-            </div>
-            
-            {/* Contenido del mockup */}
-            <div style={{ padding: '24px' }}>
-              {/* Header */}
-              <div style={{ 
-                display: 'flex', 
-                justifyContent: 'space-between', 
-                alignItems: 'center', 
-                marginBottom: '24px' 
-              }}>
-                <h3 style={{ margin: 0, color: '#f8fafc', fontSize: '16px', fontWeight: '600' }}>
-                  Tu Mapa de Habilidades
-                </h3>
-                <span style={{ 
-                  background: 'rgba(34,197,94,0.15)',
-                  color: '#22c55e',
-                  fontSize: '10px',
-                  fontWeight: '700',
-                  padding: '4px 10px',
-                  borderRadius: '100px'
-                }}>GRATIS ✓</span>
-              </div>
+              justifyContent: 'center',
+              padding: '20px 48px',
+              fontSize: '18px',
+              fontWeight: '600',
+              textDecoration: 'none',
+              borderRadius: '14px',
+              background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)',
+              color: '#fff',
+              boxShadow: '0 8px 32px rgba(99, 102, 241, 0.4)',
+              minHeight: '64px',
+              marginBottom: '16px'
+            }}
+          >
+            Empezar análisis gratis — 15 minutos
+          </Link>
 
-              {/* Skills bars */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginBottom: '20px' }}>
-                {[
-                  { skill: 'Comunicación ejecutiva', level: 'EXPERTO', pct: 95 },
-                  { skill: 'Gestión de equipos', level: 'AVANZADO', pct: 80 },
-                  { skill: 'Pensamiento estratégico', level: 'AVANZADO', pct: 70 },
-                  { skill: 'Análisis de negocio', level: 'COMPETENTE', pct: 55 },
-                  { skill: 'Liderazgo técnico', level: 'COMPETENTE', pct: 45 }
-                ].map((s, i) => (
-                  <div key={i}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
-                      <span style={{ color: '#e2e8f0', fontSize: '12px' }}>{s.skill}</span>
-                      <span style={{ color: '#a5b4fc', fontSize: '10px', fontWeight: '600' }}>{s.level}</span>
-                    </div>
-                    <div style={{ width: '100%', height: '6px', background: 'rgba(255,255,255,0.06)', borderRadius: '3px' }}>
-                      <div style={{ 
-                        width: `${s.pct}%`, 
-                        height: '100%', 
-                        background: 'linear-gradient(90deg, #6366f1 0%, #8b5cf6 100%)', 
-                        borderRadius: '3px' 
-                      }} />
-                    </div>
-                  </div>
-                ))}
-              </div>
+          {/* Social proof inmediato */}
+          <p style={{ 
+            fontSize: '14px', 
+            color: '#64748b',
+            marginBottom: '24px'
+          }}>
+            📊 <span style={{ color: '#a5b4fc' }}>47 profesionales</span> ya descubrieron sus habilidades esta semana
+          </p>
 
-              {/* Narrativa */}
-              <div style={{ 
-                background: 'rgba(255,255,255,0.03)',
+          {/* Trust row — Más visible */}
+          <div style={{ 
+            display: 'flex', 
+            gap: '12px', 
+            flexWrap: 'wrap',
+            justifyContent: 'center',
+            marginBottom: '28px'
+          }}>
+            {['✓ Sin tarjeta', '✓ Mapa de Habilidades gratis', '✓ Roles con salarios reales'].map((item, i) => (
+              <span key={i} style={{ 
+                fontSize: '14px', 
+                color: '#94a3b8',
+                background: 'rgba(255,255,255,0.04)',
+                padding: '8px 14px',
+                borderRadius: '8px',
                 border: '1px solid rgba(255,255,255,0.08)',
-                borderRadius: '8px',
-                padding: '12px',
-                marginBottom: '20px'
+                fontWeight: '500'
               }}>
-                <p style={{ margin: 0, color: '#94a3b8', fontSize: '12px', lineHeight: '1.6' }}>
-                  María, en tus 11 años has desarrollado una capacidad excepcional para gestionar relaciones complejas y...{' '}
-                  <span style={{ color: '#a5b4fc' }}>[ver más]</span>
-                </p>
-              </div>
-
-              {/* Roles preview */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginBottom: '16px' }}>
-                {[
-                  { role: 'Customer Success Mgr', match: '87%', salary: '€38-52K' },
-                  { role: 'Operations Manager', match: '82%', salary: '€45-65K' },
-                  { role: 'Product Manager', match: '76%', salary: '€50-70K' }
-                ].map((r, i) => (
-                  <div key={i} style={{ 
-                    display: 'flex', 
-                    justifyContent: 'space-between', 
-                    alignItems: 'center',
-                    padding: '8px 10px',
-                    background: 'rgba(255,255,255,0.02)',
-                    borderRadius: '6px'
-                  }}>
-                    <span style={{ color: '#94a3b8', fontSize: '12px' }}>🔒 {r.role}</span>
-                    <span style={{ color: '#64748b', fontSize: '11px' }}>{r.match} · {r.salary}</span>
-                  </div>
-                ))}
-              </div>
-
-              {/* CTA mockup */}
-              <button style={{ 
-                width: '100%',
-                background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)',
-                color: '#fff',
-                border: 'none',
-                borderRadius: '8px',
-                padding: '12px',
-                fontSize: '13px',
-                fontWeight: '600',
-                cursor: 'pointer'
-              }}>
-                Desbloquear roles → €29
-              </button>
-            </div>
+                <span style={{ color: '#22c55e' }}>{item.slice(0, 1)}</span>{item.slice(1)}
+              </span>
+            ))}
           </div>
+
+          {/* CTA secundario */}
+          <a
+            href="#pricing"
+            style={{ 
+              color: '#a5b4fc',
+              fontSize: '14px',
+              textDecoration: 'none'
+            }}
+          >
+            Ver planes desde €29 ↓
+          </a>
         </div>
       </section>
 
