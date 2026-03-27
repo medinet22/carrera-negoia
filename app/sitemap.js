@@ -37,6 +37,7 @@ export default function sitemap() {
     '/como-pedir-aumento-de-sueldo',
     '/como-encontrar-vocacion-profesional',
     '/senales-trabajo-te-quema',
+    '/negociar-salario-entrevista',
   ]
 
   return routes.map((route) => ({

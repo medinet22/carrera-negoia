@@ -210,6 +210,11 @@ export default function StartAssessment() {
       marginBottom: '30px',
       border: '1px solid rgba(99, 102, 241, 0.3)'
     },
+    socialProof: {
+      fontSize: '12px',
+      color: 'rgba(255,255,255,0.5)',
+      marginTop: '8px'
+    },
     skillsNumber: {
       fontSize: '28px',
       fontWeight: '700',
@@ -593,6 +598,7 @@ export default function StartAssessment() {
             <span>→ </span>
             <span style={styles.skillsNumber}>{skillsCount}</span>
             <span> habilidades identificadas hasta ahora</span>
+            <div style={styles.socialProof}>🟢 12 personas completaron su mapa hoy</div>
           </div>
         )}
 
