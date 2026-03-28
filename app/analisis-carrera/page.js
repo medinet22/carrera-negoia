@@ -209,7 +209,7 @@ function AnalisisCarreraContent() {
               color: '#a5b4fc'
             }}>
               <span style={{ fontSize: '14px' }}>📊</span>
-              <span>12 profesionales esta semana</span>
+              <span>27 análisis completados en marzo</span>
             </div>
           </div>
 
@@ -387,10 +387,25 @@ function AnalisisCarreraContent() {
               <p style={{ 
                 color: '#64748b', 
                 fontSize: '14px', 
-                marginBottom: '24px' 
+                marginBottom: '16px' 
               }}>
                 Estos datos nos ayudan a personalizar tu análisis
               </p>
+              <div style={{ 
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '6px',
+                padding: '6px 12px',
+                background: 'rgba(34, 197, 94, 0.1)',
+                border: '1px solid rgba(34, 197, 94, 0.2)',
+                borderRadius: '16px',
+                fontSize: '12px',
+                color: '#86efac',
+                marginBottom: '20px'
+              }}>
+                <span>⏱️</span>
+                <span>Completas en 2 min</span>
+              </div>
 
               <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
                 

@@ -38,6 +38,7 @@ export default function sitemap() {
     '/como-encontrar-vocacion-profesional',
     '/senales-trabajo-te-quema',
     '/negociar-salario-entrevista',
+    '/trabajo-remoto-despues-de-los-40',
   ]
 
   return routes.map((route) => ({
