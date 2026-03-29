@@ -622,13 +622,18 @@ export default function StartAssessment() {
                 Siguiente →
               </button>
             ) : (
-              <button 
-                style={styles.buttonPrimary(!canProceed() || loading)}
-                onClick={handleSubmit}
-                disabled={!canProceed() || loading}
-              >
-                {loading ? 'Procesando...' : 'Generar mi Mapa de Habilidades →'}
-              </button>
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
+                <button 
+                  style={styles.buttonPrimary(!canProceed() || loading)}
+                  onClick={handleSubmit}
+                  disabled={!canProceed() || loading}
+                >
+                  {loading ? 'Procesando...' : 'Generar mi Mapa de Habilidades →'}
+                </button>
+                <span style={{ fontSize: '12px', color: '#6b7280', textAlign: 'center' }}>
+                  💰 Incluye: rango salarial por rol + habilidades que te hacen destacar
+                </span>
+              </div>
             )}
           </div>
         </div>
