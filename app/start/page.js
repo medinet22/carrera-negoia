@@ -630,8 +630,9 @@ export default function StartAssessment() {
                 >
                   {loading ? 'Procesando...' : 'Generar mi Mapa de Habilidades →'}
                 </button>
-                <span style={{ fontSize: '12px', color: '#6b7280', textAlign: 'center' }}>
-                  💰 Incluye: rango salarial por rol + habilidades que te hacen destacar
+                <span style={{ fontSize: '12px', color: '#6b7280', textAlign: 'center', lineHeight: '1.5' }}>
+                  💰 Incluye: rango salarial por rol + habilidades que te hacen destacar<br />
+                  📋 + preparación para entrevistas (qué van a preguntar y cómo responder)
                 </span>
               </div>
             )}
