@@ -554,11 +554,14 @@ function AnalisisCarreraContent() {
                     transition: 'all 0.2s'
                   }}
                 >
-                  {loading ? 'Procesando...' : `Pagar €${currentPlan.precio} → ${currentPlan.nombre}`}
+                  {loading ? 'Procesando...' : `Continuar al pago seguro (€${currentPlan.precio})`}
                 </button>
 
                 <p style={{ margin: 0, fontSize: '12px', color: '#64748b', textAlign: 'center', lineHeight: '1.4' }}>
                   Pago 100% seguro vía Stripe · No guardamos datos de tarjeta
+                </p>
+                <p style={{ margin: '4px 0 0 0', fontSize: '12px', color: '#86efac', textAlign: 'center', lineHeight: '1.4' }}>
+                  ✅ Recibes tu primer resultado en 24h (plan Starter)
                 </p>
 
                 {/* CRO: Reducción de fricción pre-compra */}

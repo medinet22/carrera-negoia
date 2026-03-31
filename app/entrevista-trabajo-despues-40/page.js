@@ -138,6 +138,19 @@ export default function EntrevistaTrabajoDespues40() {
             <li><strong>Haz una pregunta que demuestre que has investigado.</strong> "He leído que están migrando a [tecnología] — ¿cómo está siendo ese proceso?"</li>
           </ol>
 
+          <h3>Guion de 90 segundos (para no quedarte en blanco)</h3>
+          <p>
+            Si te pones nervioso al arrancar, memoriza este esquema simple. Te toma menos de 2 minutos practicarlo y te evita improvisar.
+          </p>
+          <blockquote>
+            "Soy [tu rol] con [X años] de experiencia en [sector]. En mi último puesto conseguí [resultado con número].
+            Ahora busco un equipo donde aportar eso en [reto del puesto], porque me interesa especialmente [motivo real de esa empresa]."
+          </blockquote>
+          <p>
+            Ejemplo real: "Soy project manager con 14 años en retail. En 2025 reduje retrasos de entrega un 28% en 6 meses.
+            Ahora quiero aplicar esa experiencia en operaciones e-commerce, porque estáis en fase de crecimiento y sé lo que se rompe cuando se escala rápido."
+          </p>
+
           {/* Sección 4 */}
           <h2>Tu ventaja competitiva real (que probablemente infravaloras)</h2>
           

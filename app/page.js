@@ -126,6 +126,19 @@ export default function Home() {
           >
             Ver planes desde €29 ↓
           </a>
+
+          <div style={{ marginTop: '16px' }}>
+            <Link
+              href="/entrevista-trabajo-despues-40?utm_source=owned&utm_medium=home&utm_campaign=growth_loop_mar31&utm_content=hero_link"
+              style={{
+                color: '#c7d2fe',
+                fontSize: '13px',
+                textDecoration: 'underline'
+              }}
+            >
+              Nueva guía: 5 preguntas trampa en entrevistas +40 (con respuestas reales)
+            </Link>
+          </div>
         </div>
       </section>
 
