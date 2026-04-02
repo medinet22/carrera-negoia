@@ -78,10 +78,13 @@ export default function StartAssessment() {
         handleInputChange('cv_url', result.url)
         handleInputChange('cv_text', result.text || '')
         handleInputChange('cv_file', file.name)
+      } else {
+        // Upload failed silently — show error
+        alert('No se pudo subir el CV. Intenta de nuevo o describe tu experiencia en el campo de texto.')
       }
     } catch (err) {
       console.error('Upload error:', err)
-      alert('Error subiendo el CV')
+      alert('Error subiendo el CV. Por favor, describe tu experiencia en el campo de texto.')
     } finally {
       setCvUploading(false)
     }
