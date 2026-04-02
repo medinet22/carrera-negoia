@@ -235,10 +235,11 @@ export default function Encuesta() {
                 </>
               )}
 
+              <p className={styles.hint}>📬 Te enviaremos solo el resumen + siguientes pasos. Cero spam.</p>
               <div className={styles.btnGroup}>
                 <button type="button" className={`${styles.btn} ${styles.btnBack}`} onClick={() => { track('cta_click', { cta_id: 'encuesta_step3_back' }); setStep(2) }}>← Atrás</button>
                 <button type="button" className={`${styles.btn} ${styles.btnSubmit}`} onClick={() => { track('cta_click', { cta_id: 'encuesta_submit' }); handleSubmit() }} disabled={loading || !answers.would_pay || !answers.goal || !answers.email}>
-                  {loading ? 'Enviando...' : 'Enviar respuestas'}
+                  {loading ? 'Enviando...' : 'Enviar y recibir próximos pasos'}
                 </button>
               </div>
             </>

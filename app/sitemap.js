@@ -39,6 +39,9 @@ export default function sitemap() {
     '/senales-trabajo-te-quema',
     '/negociar-salario-entrevista',
     '/trabajo-remoto-despues-de-los-40',
+    '/cuanto-pedir-de-sueldo',
+    '/entrevista-trabajo-despues-40',
+    '/como-hacer-cv-cambio-carrera',
   ]
 
   return routes.map((route) => ({

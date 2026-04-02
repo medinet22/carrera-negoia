@@ -129,14 +129,14 @@ export default function Home() {
 
           <div style={{ marginTop: '16px' }}>
             <Link
-              href="/entrevista-trabajo-despues-40?utm_source=owned&utm_medium=home&utm_campaign=growth_loop_mar31&utm_content=hero_link"
+              href="/como-saber-si-cambiar-de-trabajo?utm_source=owned&utm_medium=home&utm_campaign=growth_loop_apr01&utm_content=hero_guide"
               style={{
                 color: '#c7d2fe',
                 fontSize: '13px',
                 textDecoration: 'underline'
               }}
             >
-              Nueva guía: 5 preguntas trampa en entrevistas +40 (con respuestas reales)
+              Nueva guía: 7 señales de que ya toca cambiar de trabajo (sin dramatizar)
             </Link>
           </div>
         </div>

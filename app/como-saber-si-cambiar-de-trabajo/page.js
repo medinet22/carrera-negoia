@@ -161,6 +161,20 @@ export default function ComoSaberSiCambiarDeTrabajo() {
             Es una decisión pendiente.
           </p>
 
+          <h2>Plan rápido (10 minutos) para salir del bucle</h2>
+          <p>
+            Si hoy estás bloqueado, no necesitas decidir tu vida completa. Necesitas un 
+            primer movimiento claro:
+          </p>
+          <ol>
+            <li><strong>Escribe 3 tareas</strong> de esta semana que te dieron energía (aunque sean pequeñas).</li>
+            <li><strong>Escribe 3 tareas</strong> que te drenaron por completo.</li>
+            <li><strong>Marca patrones:</strong> ahí tienes pistas reales de qué sí y qué no deberías buscar en tu siguiente paso.</li>
+          </ol>
+          <p>
+            No resuelve todo, pero te saca del ruido mental y te devuelve dirección.
+          </p>
+
           <h2>¿Y Ahora Qué?</h2>
           <p>
             Saber que necesitas cambiar es solo el primer paso. El problema real es: 
