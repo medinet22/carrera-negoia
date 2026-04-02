@@ -16,6 +16,53 @@ function ProcessingContent() {
   const [dots, setDots] = useState('')
   const [elapsedSeconds, setElapsedSeconds] = useState(0)
   const [showSlowMessage, setShowSlowMessage] = useState(false)
+  
+  // Animated visual steps
+  const [visibleSteps, setVisibleSteps] = useState([0]) // indices of visible animated steps
+  const [completedAnimSteps, setCompletedAnimSteps] = useState([])
+  const [motivationalIndex, setMotivationalIndex] = useState(0)
+  
+  const animatedSteps = [
+    { text: 'Analizando tu trayectoria profesional...', delay: 0 },
+    { text: 'Identificando tus habilidades clave...', delay: 3000 },
+    { text: 'Calculando compatibilidad con 20+ roles...', delay: 8000 },
+    { text: 'Generando tu mapa personalizado...', delay: 15000 }
+  ]
+  
+  const motivationalMessages = [
+    'La mayoría descubre habilidades que nunca había considerado',
+    'El 73% de usuarios dice que el análisis les sorprendió',
+    'Tu mapa incluirá roles específicos con sueldo estimado'
+  ]
+  
+  // Show animated steps progressively
+  useEffect(() => {
+    const timers = animatedSteps.slice(1).map((step, idx) => 
+      setTimeout(() => {
+        setVisibleSteps(prev => [...prev, idx + 1])
+      }, step.delay)
+    )
+    
+    // Mark steps as completed (checkmark) 2s after appearing, except the last one
+    const completionTimers = animatedSteps.slice(0, -1).map((step, idx) =>
+      setTimeout(() => {
+        setCompletedAnimSteps(prev => [...prev, idx])
+      }, step.delay + 2000)
+    )
+    
+    return () => {
+      timers.forEach(t => clearTimeout(t))
+      completionTimers.forEach(t => clearTimeout(t))
+    }
+  }, [])
+  
+  // Rotate motivational messages every 20s
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setMotivationalIndex(prev => (prev + 1) % motivationalMessages.length)
+    }, 20000)
+    return () => clearInterval(interval)
+  }, [])
 
   // Animate dots
   useEffect(() => {
@@ -291,6 +338,10 @@ function ProcessingContent() {
           0%, 100% { transform: scale(1); opacity: 1; }
           50% { transform: scale(1.05); opacity: 0.8; }
         }
+        @keyframes fadeIn {
+          from { opacity: 0; transform: translateY(-8px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
       `}</style>
       
       <div style={styles.card}>
@@ -306,6 +357,88 @@ function ProcessingContent() {
             ? 'Tu Mapa de Habilidades está listo. Redirigiendo...' 
             : 'Nuestra IA está trabajando en tu Mapa de Habilidades'}
         </p>
+
+        {/* Animated visual steps */}
+        {status !== 'done' && (
+          <div style={{ 
+            textAlign: 'left', 
+            marginBottom: '24px',
+            padding: '20px',
+            background: 'rgba(99, 102, 241, 0.05)',
+            borderRadius: '12px',
+            border: '1px solid rgba(99, 102, 241, 0.1)'
+          }}>
+            {animatedSteps.map((step, idx) => (
+              visibleSteps.includes(idx) && (
+                <div 
+                  key={idx} 
+                  style={{ 
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    gap: '12px',
+                    marginBottom: idx < animatedSteps.length - 1 ? '12px' : '0',
+                    opacity: 1,
+                    animation: 'fadeIn 0.5s ease-in'
+                  }}
+                >
+                  <span style={{ 
+                    color: completedAnimSteps.includes(idx) ? '#10b981' : 'rgba(255,255,255,0.6)',
+                    fontSize: '16px',
+                    width: '20px'
+                  }}>
+                    {completedAnimSteps.includes(idx) ? '✓' : '○'}
+                  </span>
+                  <span style={{ 
+                    color: completedAnimSteps.includes(idx) ? 'rgba(255,255,255,0.5)' : '#f8fafc',
+                    fontSize: '14px',
+                    textDecoration: completedAnimSteps.includes(idx) ? 'line-through' : 'none'
+                  }}>
+                    {step.text}
+                  </span>
+                </div>
+              )
+            ))}
+          </div>
+        )}
+
+        {/* Estimated time */}
+        {status !== 'done' && (
+          <div style={{
+            padding: '12px 20px',
+            background: 'rgba(251, 191, 36, 0.1)',
+            borderRadius: '8px',
+            border: '1px solid rgba(251, 191, 36, 0.2)',
+            marginBottom: '20px',
+            textAlign: 'center'
+          }}>
+            <span style={{ fontSize: '14px', color: '#fbbf24' }}>
+              ⏱️ Esto tarda entre 1 y 3 minutos — es normal
+            </span>
+          </div>
+        )}
+
+        {/* Motivational message */}
+        {status !== 'done' && (
+          <div style={{
+            padding: '16px 20px',
+            background: 'rgba(16, 185, 129, 0.08)',
+            borderRadius: '10px',
+            marginBottom: '24px',
+            textAlign: 'center',
+            minHeight: '52px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}>
+            <span style={{ 
+              fontSize: '14px', 
+              color: '#10b981',
+              fontStyle: 'italic'
+            }}>
+              💡 {motivationalMessages[motivationalIndex]}
+            </span>
+          </div>
+        )}
 
         <div style={styles.stepsContainer}>
           {steps.map((step) => {

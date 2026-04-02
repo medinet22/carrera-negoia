@@ -17,6 +17,7 @@ function RolesContent() {
   const [userCountry, setUserCountry] = useState('ES')
   const [userSalary, setUserSalary] = useState(null)
   const [showOnboarding, setShowOnboarding] = useState(false)
+  const [shareCopied, setShareCopied] = useState(false)
 
   useEffect(() => {
     if (!userId) {
@@ -29,21 +30,19 @@ function RolesContent() {
         const res = await fetch(`/api/roles?userId=${userId}`)
         const data = await res.json()
 
-        if (!data.hasPaid) {
-          router.push(`/upgrade?userId=${userId}`)
-          return
-        }
-
+        // Don't redirect - show teaser instead
         setRoles(data.roles || [])
-        setHasPaid(data.hasPaid)
+        setHasPaid(data.hasPaid || false)
         setPaidPlan(data.paidPlan)
         setUserCountry(data.userCountry || 'ES')
         setUserSalary(data.userSalary || null)
         
-        // Show onboarding tooltip on first visit
-        const hasSeenOnboarding = typeof window !== 'undefined' && localStorage.getItem('carrera_roles_onboarding')
-        if (!hasSeenOnboarding) {
-          setShowOnboarding(true)
+        // Show onboarding tooltip on first visit (only if paid)
+        if (data.hasPaid) {
+          const hasSeenOnboarding = typeof window !== 'undefined' && localStorage.getItem('carrera_roles_onboarding')
+          if (!hasSeenOnboarding) {
+            setShowOnboarding(true)
+          }
         }
       } catch (err) {
         if (process.env.NODE_ENV !== 'production') {
@@ -63,6 +62,45 @@ function RolesContent() {
       localStorage.setItem('carrera_roles_onboarding', 'true')
     }
   }
+
+  // Share functionality with Web Share API + clipboard fallback
+  const handleShare = async () => {
+    const shareUrl = typeof window !== 'undefined' ? window.location.href : ''
+    const shareText = 'Descubre qué roles profesionales encajan contigo con Carrera IA'
+    
+    if (typeof navigator !== 'undefined' && navigator.share) {
+      try {
+        await navigator.share({
+          title: 'Mi Mapa de Carrera',
+          text: shareText,
+          url: shareUrl
+        })
+      } catch (err) {
+        // User cancelled or error - fall back to clipboard
+        copyToClipboard(shareUrl)
+      }
+    } else {
+      copyToClipboard(shareUrl)
+    }
+  }
+  
+  const copyToClipboard = async (text) => {
+    try {
+      await navigator.clipboard.writeText(text)
+      setShareCopied(true)
+      setTimeout(() => setShareCopied(false), 2000)
+    } catch (err) {
+      console.error('Failed to copy:', err)
+    }
+  }
+
+  // Get the best role (highest match) for teaser
+  const bestRole = roles.length > 0 
+    ? roles.reduce((best, role) => role.match_percentage > best.match_percentage ? role : best, roles[0])
+    : null
+  
+  // Count of locked roles (all except the best one when not paid)
+  const lockedRolesCount = hasPaid ? 0 : Math.max(0, roles.length - 1)
 
   // Calculate salary delta for a role
   const getSalaryDelta = (salaryRanges, country) => {
@@ -354,6 +392,76 @@ function RolesContent() {
       fontSize: '15px',
       fontWeight: '600',
       textDecoration: 'none'
+    },
+    lockedCard: {
+      position: 'relative',
+      overflow: 'hidden'
+    },
+    lockedOverlay: {
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      background: 'rgba(15, 23, 42, 0.85)',
+      backdropFilter: 'blur(4px)',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      zIndex: 10,
+      borderRadius: '16px'
+    },
+    lockedIcon: {
+      fontSize: '32px',
+      marginRight: '12px'
+    },
+    lockedText: {
+      fontSize: '15px',
+      color: 'rgba(255,255,255,0.7)'
+    },
+    unlockCta: {
+      padding: '20px 32px',
+      borderRadius: '14px',
+      border: 'none',
+      background: 'linear-gradient(135deg, #6366f1, #a855f7)',
+      color: '#fff',
+      fontSize: '18px',
+      fontWeight: '700',
+      cursor: 'pointer',
+      display: 'flex',
+      alignItems: 'center',
+      gap: '10px',
+      justifyContent: 'center',
+      width: '100%',
+      marginBottom: '24px',
+      boxShadow: '0 4px 20px rgba(99, 102, 241, 0.3)'
+    },
+    shareBtn: {
+      padding: '12px 24px',
+      borderRadius: '10px',
+      border: '1px solid rgba(255,255,255,0.2)',
+      background: 'transparent',
+      color: '#fff',
+      fontSize: '14px',
+      fontWeight: '600',
+      cursor: 'pointer',
+      display: 'flex',
+      alignItems: 'center',
+      gap: '8px'
+    },
+    shareCopiedToast: {
+      position: 'fixed',
+      bottom: '24px',
+      left: '50%',
+      transform: 'translateX(-50%)',
+      padding: '12px 24px',
+      background: '#10b981',
+      color: '#fff',
+      borderRadius: '10px',
+      fontSize: '14px',
+      fontWeight: '600',
+      zIndex: 1000,
+      animation: 'fadeIn 0.3s ease'
     }
   }
 
@@ -371,14 +479,35 @@ function RolesContent() {
 
   return (
     <div style={styles.container}>
+      <style jsx global>{`
+        @keyframes fadeIn {
+          from { opacity: 0; transform: translateY(-8px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+      `}</style>
       <div style={styles.inner}>
         {/* Header */}
         <div style={styles.header}>
-          <h1 style={styles.title}>Explora tus Roles</h1>
-          <p style={styles.subtitle}>
-            {roles.length} roles compatibles con tu perfil
-          </p>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '16px' }}>
+            <div>
+              <h1 style={styles.title}>Explora tus Roles</h1>
+              <p style={styles.subtitle}>
+                {roles.length} roles compatibles con tu perfil
+              </p>
+            </div>
+            {/* Share button - always functional */}
+            <button style={styles.shareBtn} onClick={handleShare}>
+              📤 Compartir
+            </button>
+          </div>
         </div>
+        
+        {/* Share copied toast */}
+        {shareCopied && (
+          <div style={styles.shareCopiedToast}>
+            ✅ ¡Enlace copiado!
+          </div>
+        )}
 
         {/* Onboarding tooltip - first visit */}
         {showOnboarding && (
@@ -428,43 +557,105 @@ function RolesContent() {
           </div>
         )}
 
-        {/* Filters */}
-        <div style={styles.filters}>
-          <button 
-            style={styles.filterBtn(filter === 'all')}
-            onClick={() => setFilter('all')}
-          >
-            Todos ({roles.filter(r => r.user_status !== 'discarded').length})
-          </button>
-          <button 
-            style={styles.filterBtn(filter === 'interested')}
-            onClick={() => setFilter('interested')}
-          >
-            ❤️ Favoritos ({interestedCount})
-          </button>
-          <button 
-            style={styles.filterBtn(filter === 'priority')}
-            onClick={() => setFilter('priority')}
-          >
-            ⭐ Prioridad ({roles.filter(r => r.user_status === 'priority').length})
-          </button>
-          <button 
-            style={styles.filterBtn(filter === 'discarded')}
-            onClick={() => setFilter('discarded')}
-          >
-            Descartados ({roles.filter(r => r.user_status === 'discarded').length})
-          </button>
-        </div>
+        {/* Filters - only show if paid */}
+        {hasPaid && (
+          <div style={styles.filters}>
+            <button 
+              style={styles.filterBtn(filter === 'all')}
+              onClick={() => setFilter('all')}
+            >
+              Todos ({roles.filter(r => r.user_status !== 'discarded').length})
+            </button>
+            <button 
+              style={styles.filterBtn(filter === 'interested')}
+              onClick={() => setFilter('interested')}
+            >
+              ❤️ Favoritos ({interestedCount})
+            </button>
+            <button 
+              style={styles.filterBtn(filter === 'priority')}
+              onClick={() => setFilter('priority')}
+            >
+              ⭐ Prioridad ({roles.filter(r => r.user_status === 'priority').length})
+            </button>
+            <button 
+              style={styles.filterBtn(filter === 'discarded')}
+              onClick={() => setFilter('discarded')}
+            >
+              Descartados ({roles.filter(r => r.user_status === 'discarded').length})
+            </button>
+          </div>
+        )}
+
+        {/* Teaser message when not paid */}
+        {!hasPaid && bestRole && (
+          <div style={{
+            padding: '20px 24px',
+            background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(168, 85, 247, 0.1))',
+            borderRadius: '16px',
+            border: '1px solid rgba(99, 102, 241, 0.3)',
+            marginBottom: '24px',
+            textAlign: 'center'
+          }}>
+            <p style={{ fontSize: '16px', color: '#f8fafc', marginBottom: '8px' }}>
+              🎯 <strong>Tu mejor match: {bestRole.title_es || bestRole.title}</strong> con {bestRole.match_percentage}% de compatibilidad
+            </p>
+            <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.6)' }}>
+              Mira el análisis completo de tu primer rol gratis. Desbloquea los {lockedRolesCount} roles restantes para ver todo tu potencial.
+            </p>
+          </div>
+        )}
 
         {/* Roles List */}
-        {filteredRoles.map(role => {
-          const isExpanded = expandedRole === role.id
+        {filteredRoles.map((role, roleIndex) => {
+          const isBestRole = bestRole && role.id === bestRole.id
+          const isLocked = !hasPaid && !isBestRole
+          const isExpanded = expandedRole === role.id || (isBestRole && !hasPaid)
+          
           return (
-            <div key={role.id} style={styles.roleCard(isExpanded)}>
-              <div 
-                style={styles.roleHeader}
-                onClick={() => setExpandedRole(isExpanded ? null : role.id)}
-              >
+            <div key={role.id}>
+              {/* Show CTA after the first (best) role when not paid */}
+              {!hasPaid && roleIndex === 1 && lockedRolesCount > 0 && (
+                <button 
+                  style={styles.unlockCta}
+                  onClick={() => router.push(`/upgrade?userId=${userId}`)}
+                >
+                  🔓 Ver análisis completo de los {lockedRolesCount} roles →
+                </button>
+              )}
+              
+              <div style={{ ...styles.roleCard(isExpanded), ...(isLocked ? styles.lockedCard : {}) }}>
+                {/* Locked overlay */}
+                {isLocked && (
+                  <div style={styles.lockedOverlay}>
+                    <span style={styles.lockedIcon}>🔒</span>
+                    <div>
+                      <p style={{ ...styles.lockedText, fontWeight: '600', marginBottom: '4px' }}>
+                        {role.title_es || role.title} — {role.match_percentage}% match
+                      </p>
+                      <button 
+                        onClick={() => router.push(`/upgrade?userId=${userId}`)}
+                        style={{
+                          padding: '8px 16px',
+                          borderRadius: '8px',
+                          border: 'none',
+                          background: 'rgba(99, 102, 241, 0.3)',
+                          color: '#a5b4fc',
+                          fontSize: '13px',
+                          cursor: 'pointer',
+                          marginTop: '8px'
+                        }}
+                      >
+                        Ver análisis
+                      </button>
+                    </div>
+                  </div>
+                )}
+                
+                <div 
+                  style={{ ...styles.roleHeader, opacity: isLocked ? 0.3 : 1 }}
+                  onClick={() => !isLocked && setExpandedRole(isExpanded ? null : role.id)}
+                >
                 <div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '8px' }}>
                     {role.user_status === 'priority' && <span>⭐</span>}
@@ -615,12 +806,28 @@ function RolesContent() {
                   </div>
                 </div>
               )}
+              </div>
             </div>
           )
         })}
 
-        {/* Navigation */}
-        {interestedCount > 0 && (
+        {/* Bottom CTA when not paid */}
+        {!hasPaid && lockedRolesCount > 0 && (
+          <div style={{ marginTop: '32px', textAlign: 'center' }}>
+            <button 
+              style={styles.unlockCta}
+              onClick={() => router.push(`/upgrade?userId=${userId}`)}
+            >
+              🔓 Desbloquear análisis completo →
+            </button>
+            <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.5)', marginTop: '12px' }}>
+              Incluye: salarios por país, pros/contras honestos, gap analysis y plan de acción
+            </p>
+          </div>
+        )}
+
+        {/* Navigation - only when paid */}
+        {hasPaid && interestedCount > 0 && (
           <div style={styles.nav}>
             <Link href={`/selected?userId=${userId}`} style={styles.navLink}>
               Ver mis selecciones ({interestedCount}) →

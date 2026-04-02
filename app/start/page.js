@@ -471,10 +471,10 @@ export default function StartAssessment() {
             </div>
 
             <div style={styles.inputGroup}>
-              <label style={styles.label}>¿Qué hace tu trabajo actual diferente al de tus compañeros?</label>
+              <label style={styles.label}>¿En qué eres mejor que tus compañeros? (aunque no lo digas en voz alta)</label>
               <textarea
                 style={styles.textarea}
-                placeholder="Ej: Soy el único que conecta con clientes difíciles, todos me pasan sus casos..."
+                placeholder="Ej: Yo resuelvo problemas técnicos que mis compañeros evitan, o los clientes difíciles siempre me los pasan a mí porque saben que los gestiono mejor..."
                 value={formData.what_makes_different}
                 onChange={(e) => handleInputChange('what_makes_different', e.target.value)}
               />
