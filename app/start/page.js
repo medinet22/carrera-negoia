@@ -471,10 +471,10 @@ export default function StartAssessment() {
             </div>
 
             <div style={styles.inputGroup}>
-              <label style={styles.label}>¿En qué destacas dentro de tu equipo?</label>
+              <label style={styles.label}>¿En qué destacas profesionalmente?</label>
               <textarea
                 style={styles.textarea}
-                placeholder="Ej: Se me da bien conectar con clientes difíciles, o soy el que resuelve los problemas técnicos que otros evitan..."
+                placeholder="Ej: Se me da bien conectar con personas, tengo facilidad para resolver problemas complejos, o siempre termino lo que empiezo aunque nadie más lo haga..."
                 value={formData.what_makes_different}
                 onChange={(e) => handleInputChange('what_makes_different', e.target.value)}
               />
