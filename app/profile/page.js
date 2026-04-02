@@ -79,11 +79,14 @@ function ProfileContent() {
       minHeight: '100vh',
       background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)',
       color: '#f8fafc',
-      padding: '20px'
+      padding: '20px',
+      overflowX: 'hidden'
     },
     inner: {
       maxWidth: '900px',
-      margin: '0 auto'
+      margin: '0 auto',
+      maxWidth: '100%',
+      boxSizing: 'border-box'
     },
     header: {
       display: 'flex',
@@ -94,8 +97,9 @@ function ProfileContent() {
       gap: '16px'
     },
     title: {
-      fontSize: '32px',
-      fontWeight: '800'
+      fontSize: 'clamp(24px, 6vw, 32px)',
+      fontWeight: '800',
+      wordBreak: 'break-word'
     },
     shareBtn: {
       padding: '12px 24px',
@@ -119,9 +123,12 @@ function ProfileContent() {
     card: {
       background: 'rgba(255,255,255,0.03)',
       borderRadius: '20px',
-      padding: '32px',
+      padding: 'clamp(16px, 4vw, 32px)',
       border: '1px solid rgba(255,255,255,0.05)',
-      marginBottom: '24px'
+      marginBottom: '24px',
+      maxWidth: '100%',
+      boxSizing: 'border-box',
+      wordBreak: 'break-word'
     },
     cardTitle: {
       fontSize: '20px',
@@ -193,7 +200,7 @@ function ProfileContent() {
       marginBottom: '24px'
     },
     employabilityScore: {
-      fontSize: '56px',
+      fontSize: 'clamp(36px, 10vw, 56px)',
       fontWeight: '800',
       background: 'linear-gradient(135deg, #10b981, #06b6d4)',
       WebkitBackgroundClip: 'text',
@@ -362,7 +369,7 @@ function ProfileContent() {
     },
     rolesPreview: {
       display: 'grid',
-      gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+      gridTemplateColumns: 'repeat(auto-fit, minmax(min(280px, 100%), 1fr))',
       gap: '16px'
     },
     roleCard: (locked) => ({
@@ -395,7 +402,7 @@ function ProfileContent() {
       marginBottom: '8px'
     },
     roleMatch: {
-      fontSize: '32px',
+      fontSize: 'clamp(24px, 6vw, 32px)',
       fontWeight: '800',
       background: 'linear-gradient(135deg, #6366f1, #a855f7)',
       WebkitBackgroundClip: 'text',
@@ -696,9 +703,9 @@ function ProfileContent() {
           <div style={styles.card}>
             <h3 style={styles.cardTitle}>💪 Tus habilidades principales</h3>
             <div style={styles.skillsList}>
-              {allSkills.map((skill, i) => {
+              {/* First 3 skills — fully visible (or all if hasPaid) */}
+              {(hasPaid ? allSkills : allSkills.slice(0, 3)).map((skill, i) => {
                 const levelInfo = getLevelLabel(skill.level)
-                // Calculate market percentile based on level (estimation)
                 const getMarketPercentile = (level) => {
                   if (level >= 5) return 95
                   if (level >= 4) return 82
@@ -709,19 +716,18 @@ function ProfileContent() {
                 const percentile = getMarketPercentile(skill.level)
                 return (
                   <div key={i} style={styles.skillItem}>
-                    <div>
+                    <div style={{ flex: 1, minWidth: 0 }}>
                       <div style={styles.skillName}>{skill.name_es || skill.name}</div>
                       {skill.evidence && (
                         <div style={styles.skillEvidence}>{skill.evidence}</div>
                       )}
-                      {/* Market Comparison - NEW */}
                       {skill.level >= 3 && (
                         <div style={styles.marketComparison}>
                           📊 Por encima del {percentile}% de profesionales en tu sector
                         </div>
                       )}
                     </div>
-                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', flexShrink: 0 }}>
                       <div style={styles.skillBar(skill.level, levelInfo.color)}>
                         <div style={styles.skillBarFill(skill.level, levelInfo.color)} />
                       </div>
@@ -730,6 +736,39 @@ function ProfileContent() {
                   </div>
                 )
               })}
+              
+              {/* Locked skills 4-8 (only if !hasPaid) */}
+              {!hasPaid && allSkills.slice(3).map((skill, i) => {
+                const levelInfo = getLevelLabel(skill.level)
+                return (
+                  <div key={`locked-skill-${i}`} style={{ ...styles.skillItem, position: 'relative', overflow: 'hidden' }}>
+                    <div style={{ filter: 'blur(5px)', pointerEvents: 'none', userSelect: 'none', display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+                      <div>
+                        <div style={styles.skillName}>{skill.name_es || skill.name}</div>
+                        {skill.evidence && (
+                          <div style={styles.skillEvidence}>{skill.evidence}</div>
+                        )}
+                      </div>
+                      <div style={{ display: 'flex', alignItems: 'center' }}>
+                        <div style={styles.skillBar(skill.level, levelInfo.color)}>
+                          <div style={styles.skillBarFill(skill.level, levelInfo.color)} />
+                        </div>
+                        <span style={styles.skillLevel(levelInfo.color)}>{levelInfo.text}</span>
+                      </div>
+                    </div>
+                    <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      <span style={{ fontSize: '18px' }}>🔒</span>
+                    </div>
+                  </div>
+                )
+              })}
+              
+              {/* "Y X habilidades más" text */}
+              {!hasPaid && allSkills.length > 3 && (
+                <div style={{ textAlign: 'center', marginTop: '12px', fontSize: '14px', color: 'rgba(255,255,255,0.5)' }}>
+                  Y {allSkills.length - 3} habilidades más en tu análisis completo
+                </div>
+              )}
             </div>
           </div>
         )}
@@ -738,18 +777,26 @@ function ProfileContent() {
         <div style={styles.card}>
           <h3 style={styles.cardTitle}>🎯 Roles donde encajas</h3>
           <div style={styles.rolesPreview}>
-            {topRoles.slice(0, 3).map((role, i) => (
-              <div key={i} style={styles.roleCard(false)}>
-                <div style={styles.roleTitle}>{role.title_es || role.title}</div>
-                <div style={styles.roleMatch}>{role.match_percentage}% match</div>
+            {/* First role — fully visible */}
+            {topRoles[0] && (
+              <div style={styles.roleCard(false)}>
+                <div style={styles.roleTitle}>{topRoles[0].title_es || topRoles[0].title}</div>
+                <div style={styles.roleMatch}>{topRoles[0].match_percentage}% match</div>
                 <div style={styles.roleSalary}>
-                  {role.salary_range || 'Ver detalles de salario'}
+                  {topRoles[0].salary_range || (
+                    <span 
+                      onClick={() => document.getElementById('cta-section')?.scrollIntoView({ behavior: 'smooth' })}
+                      style={{ color: '#818cf8', textDecoration: 'underline', cursor: 'pointer' }}
+                    >
+                      Ver detalles de salario
+                    </span>
+                  )}
                 </div>
               </div>
-            ))}
+            )}
             
-            {/* Locked cards — show real data blurred */}
-            {topRoles.slice(3, 5).map((role, i) => (
+            {/* Roles 2 & 3 — blurred with lock */}
+            {topRoles.slice(1, 3).map((role, i) => (
               <div key={`locked-${i}`} style={{ ...styles.roleCard(true), position: 'relative', overflow: 'hidden' }}>
                 <div style={{ filter: 'blur(5px)', pointerEvents: 'none', userSelect: 'none' }}>
                   <div style={styles.roleTitle}>{role.title_es || role.title}</div>
@@ -766,7 +813,7 @@ function ProfileContent() {
 
         {/* CTA */}
         {hasPaid ? (
-          <div style={styles.ctaSection}>
+          <div id="cta-section" style={styles.ctaSection}>
             <h3 style={styles.ctaTitle}>¡Ya tienes acceso completo!</h3>
             <p style={styles.ctaSubtitle}>Explora todos tus roles compatibles</p>
             <Link href={`/roles?userId=${userId}`} style={styles.ctaButton}>
@@ -774,7 +821,7 @@ function ProfileContent() {
             </Link>
           </div>
         ) : (
-          <div style={styles.ctaSection}>
+          <div id="cta-section" style={styles.ctaSection}>
             <h3 style={styles.ctaTitle}>Ve qué roles encajan contigo de verdad</h3>
             <p style={styles.ctaSubtitle}>
               Análisis completo de 26+ roles con tu % de compatibilidad, rango salarial real y plan de transición paso a paso
