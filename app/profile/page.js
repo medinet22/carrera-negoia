@@ -14,6 +14,26 @@ function ProfileContent() {
   const [user, setUser] = useState(null)
   const [hasPaid, setHasPaid] = useState(false)
   const [error, setError] = useState(null)
+  const [shareCopied, setShareCopied] = useState(false)
+
+  const handleShare = async () => {
+    const url = typeof window !== 'undefined' ? window.location.href : ''
+    try {
+      if (navigator.share) {
+        await navigator.share({ title: 'Mi Mapa de Habilidades', url })
+      } else {
+        await navigator.clipboard.writeText(url)
+        setShareCopied(true)
+        setTimeout(() => setShareCopied(false), 2000)
+      }
+    } catch {
+      try {
+        await navigator.clipboard.writeText(url)
+        setShareCopied(true)
+        setTimeout(() => setShareCopied(false), 2000)
+      } catch {}
+    }
+  }
 
   useEffect(() => {
     if (!userId) {
@@ -552,8 +572,8 @@ function ProfileContent() {
         {/* Header */}
         <div style={styles.header}>
           <h1 style={styles.title}>Tu Mapa de Habilidades</h1>
-          <button style={styles.shareBtn}>
-            🔗 Compartir
+          <button style={styles.shareBtn} onClick={handleShare}>
+            {shareCopied ? '✅ ¡Enlace copiado!' : '🔗 Compartir'}
           </button>
         </div>
 
@@ -728,15 +748,17 @@ function ProfileContent() {
               </div>
             ))}
             
-            {/* Locked cards */}
-            {[1, 2].map(i => (
-              <div key={`locked-${i}`} style={styles.roleCard(true)}>
-                <div style={styles.roleBlur}>
-                  <span style={styles.lockIcon}>🔒</span>
+            {/* Locked cards — show real data blurred */}
+            {topRoles.slice(3, 5).map((role, i) => (
+              <div key={`locked-${i}`} style={{ ...styles.roleCard(true), position: 'relative', overflow: 'hidden' }}>
+                <div style={{ filter: 'blur(5px)', pointerEvents: 'none', userSelect: 'none' }}>
+                  <div style={styles.roleTitle}>{role.title_es || role.title}</div>
+                  <div style={styles.roleMatch}>{role.match_percentage}% match</div>
+                  <div style={styles.roleSalary}>{role.salary_range || 'Ver detalles'}</div>
                 </div>
-                <div style={styles.roleTitle}>Rol bloqueado</div>
-                <div style={styles.roleMatch}>??%</div>
-                <div style={styles.roleSalary}>€??K - €??K</div>
+                <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <span style={{ fontSize: '20px' }}>🔒</span>
+                </div>
               </div>
             ))}
           </div>
@@ -753,13 +775,12 @@ function ProfileContent() {
           </div>
         ) : (
           <div style={styles.ctaSection}>
-            <h3 style={styles.ctaTitle}>Desbloquea todos los roles</h3>
+            <h3 style={styles.ctaTitle}>Ve qué roles encajan contigo de verdad</h3>
             <p style={styles.ctaSubtitle}>
-              Accede a {topRoles.length > 0 ? '26+' : 'todos los'} roles compatibles con tu perfil,
-              datos de salario por país, y plan de transición personalizado
+              Análisis completo de 26+ roles con tu % de compatibilidad, rango salarial real y plan de transición paso a paso
             </p>
             <Link href={`/upgrade?userId=${userId}`} style={styles.ctaButton}>
-              Desbloquear desde €29 →
+              Ver mi análisis completo desde €29 →
             </Link>
           </div>
         )}
