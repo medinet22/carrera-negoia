@@ -38,11 +38,26 @@ export async function GET(request) {
       .eq('id', userId)
       .single()
 
-    // Get all role matches for user
+    // Get profile_id from assessment_jobs (links user_id to profile_id)
+    const { data: assessmentJob } = await supabase
+      .from('assessment_jobs')
+      .select('profile_id')
+      .eq('user_id', userId)
+      .order('created_at', { ascending: false })
+      .limit(1)
+      .single()
+
+    const profileId = assessmentJob?.profile_id
+
+    if (!profileId) {
+      return Response.json({ hasPaid, paidPlan, userCountry: user?.country || 'ES', roles: [] })
+    }
+
+    // Get all role matches by profile_id
     const { data: roleMatches, error: matchError } = await supabase
       .from('role_matches')
       .select('*')
-      .eq('user_id', userId)
+      .eq('profile_id', profileId)
       .order('match_percentage', { ascending: false })
 
     if (matchError) {

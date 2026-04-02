@@ -25,22 +25,41 @@ export async function GET(request) {
       return Response.json({ error: 'Usuario no encontrado' }, { status: 404 })
     }
 
-    // Get skills map
-    const { data: skillsMap, error: mapError } = await supabase
-      .from('skills_maps')
-      .select('*')
+    // Get profile_id from assessment_jobs (links user_id to profile_id)
+    const { data: assessmentJob } = await supabase
+      .from('assessment_jobs')
+      .select('profile_id')
       .eq('user_id', userId)
       .order('created_at', { ascending: false })
       .limit(1)
       .single()
 
-    // Get top role matches
-    const { data: roleMatches, error: matchError } = await supabase
-      .from('role_matches')
-      .select('*')
-      .eq('user_id', userId)
-      .order('match_percentage', { ascending: false })
-      .limit(20)
+    const profileId = assessmentJob?.profile_id
+
+    // Get skills map by profile_id
+    let skillsMap = null
+    if (profileId) {
+      const { data: map } = await supabase
+        .from('skills_maps')
+        .select('*')
+        .eq('profile_id', profileId)
+        .order('created_at', { ascending: false })
+        .limit(1)
+        .single()
+      skillsMap = map
+    }
+
+    // Get top role matches by profile_id
+    let roleMatches = []
+    if (profileId) {
+      const { data: matches } = await supabase
+        .from('role_matches')
+        .select('*')
+        .eq('profile_id', profileId)
+        .order('match_percentage', { ascending: false })
+        .limit(20)
+      roleMatches = matches || []
+    }
 
     // Check if user has paid
     const { data: orders, error: orderError } = await supabase
