@@ -916,7 +916,7 @@ function ProfileContent() {
                 <div style={styles.roleSalary}>
                   {topRoles[0].salary_range || (
                     <span 
-                      onClick={() => document.getElementById('cta-section')?.scrollIntoView({ behavior: 'smooth' })}
+                      onClick={() => window.location.href = `/upgrade?userId=${userId}`}
                       style={{ color: '#818cf8', textDecoration: 'underline', cursor: 'pointer' }}
                     >
                       Ver detalles de salario
@@ -1080,7 +1080,7 @@ function ProfileContent() {
                 
                 {/* Unlock button */}
                 <div 
-                  onClick={() => document.getElementById('cta-section')?.scrollIntoView({ behavior: 'smooth' })}
+                  onClick={() => window.location.href = `/upgrade?userId=${userId}`}
                   style={{ 
                     display: 'flex',
                     alignItems: 'center',
