@@ -336,7 +336,10 @@ function ProfileContent() {
       fontSize: '15px',
       fontWeight: '600',
       color: 'white',
-      wordBreak: 'break-word'
+      wordBreak: 'keep-all',
+      overflowWrap: 'break-word',
+      minWidth: 0,
+      flex: 1
     },
     skillLevel: (color) => ({
       flexShrink: 0,
