@@ -562,9 +562,23 @@ function ProfileContent() {
     )
   }
 
+  // Handle both string arrays and object arrays for skills
+  const parseSkill = (s, type, index) => {
+    if (typeof s === 'string') {
+      // Parse strings like "Innovation Strategy (expert level)" or just "Innovation Strategy"
+      const match = s.match(/^(.+?)(?:\s*\(([^)]+)\))?$/)
+      const name = match ? match[1].trim() : s
+      const evidence = match && match[2] ? match[2] : null
+      // Assign decreasing levels based on position (first = highest)
+      const level = Math.max(5 - Math.floor(index / 2), 2)
+      return { name, name_es: name, level, evidence, type }
+    }
+    return { ...s, type, level: s.level || 3 }
+  }
+  
   const allSkills = [
-    ...(skillsMap?.hard_skills || []).map(s => ({ ...s, type: 'hard' })),
-    ...(skillsMap?.soft_skills || []).map(s => ({ ...s, type: 'soft' }))
+    ...(skillsMap?.hard_skills || []).map((s, i) => parseSkill(s, 'hard', i)),
+    ...(skillsMap?.soft_skills || []).map((s, i) => parseSkill(s, 'soft', i))
   ].sort((a, b) => b.level - a.level).slice(0, 8)
 
   // Extract superpower, employability, and fear from skillsMap
@@ -589,25 +603,38 @@ function ProfileContent() {
           <p style={styles.oneLiner}>"{skillsMap.summary_one_liner}"</p>
         )}
 
-        {/* SUPERPOWER SECTION - NEW */}
+        {/* SUPERPOWER SECTION - Handles both string and object format */}
         {superpower && (
           <div style={styles.superpowerCard}>
             <div style={styles.superpowerGlow} />
             <h3 style={styles.cardTitle}>⚡ Tu Superpoder</h3>
-            <div style={styles.superpowerTitle}>
-              {superpower.title_es || superpower.title}
-            </div>
-            <p style={styles.superpowerDescription}>
-              {superpower.description_short || superpower.description}
-            </p>
-            {superpower.rare_combination && (
-              <div style={styles.superpowerSkills}>
-                {superpower.rare_combination.map((skill, i) => (
-                  <span key={i} style={styles.superpowerSkillChip}>
-                    {skill}
-                  </span>
-                ))}
-              </div>
+            {typeof superpower === 'string' ? (
+              <>
+                <div style={styles.superpowerTitle}>
+                  Tu combinación única
+                </div>
+                <p style={styles.superpowerDescription}>
+                  {superpower}
+                </p>
+              </>
+            ) : (
+              <>
+                <div style={styles.superpowerTitle}>
+                  {superpower.title_es || superpower.title}
+                </div>
+                <p style={styles.superpowerDescription}>
+                  {superpower.description_short || superpower.description}
+                </p>
+                {superpower.rare_combination && (
+                  <div style={styles.superpowerSkills}>
+                    {superpower.rare_combination.map((skill, i) => (
+                      <span key={i} style={styles.superpowerSkillChip}>
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
+                )}
+              </>
             )}
           </div>
         )}
@@ -703,11 +730,52 @@ function ProfileContent() {
           </div>
         )}
 
-        {/* Narrative */}
+        {/* Historia profesional con chips de skills */}
         {skillsMap?.narrative_text && (
           <div style={styles.card}>
             <h3 style={styles.cardTitle}>📝 Tu historia profesional</h3>
-            <p style={styles.narrativeText}>{skillsMap.narrative_text}</p>
+            <p style={{ fontSize: '15px', color: 'rgba(255,255,255,0.85)', lineHeight: '1.7', marginBottom: '20px' }}>
+              {skillsMap.narrative_text}
+            </p>
+            
+            {/* Skills chips */}
+            {(skillsMap?.hard_skills?.length > 0 || skillsMap?.soft_skills?.length > 0) && (
+              <div style={{ marginTop: '16px' }}>
+                <div style={{ fontSize: '12px', color: 'rgba(255,255,255,0.5)', marginBottom: '10px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                  Skills destacadas
+                </div>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+                  {(skillsMap.hard_skills || []).slice(0, 6).map((skill, i) => {
+                    const skillName = typeof skill === 'string' ? skill.split('(')[0].trim() : (skill.name_es || skill.name || skill)
+                    return (
+                      <span key={`hard-${i}`} style={{
+                        padding: '4px 12px',
+                        borderRadius: '20px',
+                        fontSize: '12px',
+                        fontWeight: '500',
+                        background: 'rgba(99, 102, 241, 0.15)',
+                        color: 'rgba(165, 180, 252, 0.9)',
+                        border: '1px solid rgba(99, 102, 241, 0.3)'
+                      }}>{skillName}</span>
+                    )
+                  })}
+                  {(skillsMap.soft_skills || []).slice(0, 4).map((skill, i) => {
+                    const skillName = typeof skill === 'string' ? skill.split('(')[0].trim() : (skill.name_es || skill.name || skill)
+                    return (
+                      <span key={`soft-${i}`} style={{
+                        padding: '4px 12px',
+                        borderRadius: '20px',
+                        fontSize: '12px',
+                        fontWeight: '500',
+                        background: 'rgba(16, 185, 129, 0.12)',
+                        color: 'rgba(110, 231, 183, 0.9)',
+                        border: '1px solid rgba(16, 185, 129, 0.25)'
+                      }}>{skillName}</span>
+                    )
+                  })}
+                </div>
+              </div>
+            )}
           </div>
         )}
 
@@ -897,27 +965,82 @@ function ProfileContent() {
               </div>
             )}
             
-            {/* Roles 2 & 3 — blurred with lock + FIX C context */}
+            {/* Roles 2 & 3 — teaser cards that sell */}
             {topRoles.slice(1, 3).map((role, i) => (
-              <div key={`locked-${i}`} style={{ ...styles.roleCard(true), position: 'relative', overflow: 'hidden' }}>
-                <div style={{ filter: 'blur(5px)', pointerEvents: 'none', userSelect: 'none' }}>
-                  <div style={styles.roleTitle}>{role.title_es || role.title}</div>
-                  <div style={styles.roleMatch}>{role.match_percentage}% match</div>
+              <div key={`locked-${i}`} style={{ 
+                ...styles.roleCard(true), 
+                position: 'relative', 
+                overflow: 'hidden',
+                background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.08), rgba(168, 85, 247, 0.08))',
+                border: '1px solid rgba(99, 102, 241, 0.2)'
+              }}>
+                {/* Visible teaser content */}
+                <div style={{ marginBottom: '16px' }}>
+                  <div style={{ ...styles.roleTitle, filter: 'blur(3px)' }}>{role.title_es || role.title}</div>
+                  <div style={{ 
+                    fontSize: 'clamp(20px, 5vw, 28px)', 
+                    fontWeight: '700', 
+                    color: '#a78bfa',
+                    marginBottom: '8px' 
+                  }}>
+                    {role.match_percentage}% match
+                  </div>
                   <div style={{ 
                     fontSize: '13px', 
-                    marginBottom: '8px',
+                    marginBottom: '12px',
                     color: role.match_percentage >= 80 ? '#10b981' : 
-                           role.match_percentage >= 60 ? '#fbbf24' : 
-                           role.match_percentage >= 40 ? '#fb923c' : '#ef4444'
+                           role.match_percentage >= 60 ? '#fbbf24' : '#fb923c'
                   }}>
                     {role.match_percentage >= 80 ? '🟢 Encaje excelente' : 
-                     role.match_percentage >= 60 ? '🟡 Buen encaje' : 
-                     role.match_percentage >= 40 ? '🟠 Encaje moderado' : '🔴 Requiere transición'}
+                     role.match_percentage >= 60 ? '🟡 Buen encaje' : '🟠 Encaje moderado'}
                   </div>
-                  <div style={styles.roleSalary}>{role.salary_range || 'Ver detalles'}</div>
+                  
+                  {/* Why you fit teaser - visible! */}
+                  {role.why_you_fit && (
+                    <p style={{ 
+                      fontSize: '13px', 
+                      color: 'rgba(255,255,255,0.7)', 
+                      lineHeight: '1.5',
+                      marginBottom: '12px'
+                    }}>
+                      {role.why_you_fit.length > 100 
+                        ? role.why_you_fit.substring(0, 100) + '...' 
+                        : role.why_you_fit}
+                    </p>
+                  )}
+                  
+                  {/* Salary range - visible! This sells */}
+                  {role.salary_range && (
+                    <div style={{ 
+                      fontSize: '14px', 
+                      fontWeight: '600',
+                      color: '#10b981',
+                      marginBottom: '12px'
+                    }}>
+                      💰 {role.salary_range}
+                    </div>
+                  )}
                 </div>
-                <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  <span style={{ fontSize: '20px' }}>🔒</span>
+                
+                {/* Unlock button */}
+                <div 
+                  onClick={() => document.getElementById('cta-section')?.scrollIntoView({ behavior: 'smooth' })}
+                  style={{ 
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: '8px',
+                    padding: '10px 16px',
+                    background: 'rgba(99, 102, 241, 0.2)',
+                    borderRadius: '8px',
+                    cursor: 'pointer',
+                    border: '1px solid rgba(99, 102, 241, 0.3)'
+                  }}
+                >
+                  <span style={{ fontSize: '14px' }}>🔓</span>
+                  <span style={{ fontSize: '13px', fontWeight: '600', color: '#a78bfa' }}>
+                    Desbloquear → €29
+                  </span>
                 </div>
               </div>
             ))}
