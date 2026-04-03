@@ -612,32 +612,45 @@ function ProfileContent() {
           </div>
         )}
 
-        {/* EMPLOYABILITY INDEX - NEW */}
+        {/* EMPLOYABILITY INDEX - IMPROVED UX */}
         {employabilityIndex && (
           <div style={styles.employabilityCard}>
+            <h3 style={styles.cardTitle}>📈 ¿Qué tan empleable eres ahora mismo?</h3>
             <div style={styles.employabilityHeader}>
               <div>
-                <div style={styles.employabilityLabel}>Índice de Empleabilidad</div>
-                <div style={styles.employabilityScore}>{employabilityIndex.score}/100</div>
-              </div>
-              <div style={{ textAlign: 'right' }}>
-                <div style={{ fontSize: '14px', color: 'rgba(255,255,255,0.5)', marginBottom: '4px' }}>
-                  Para roles:
+                <div style={styles.employabilityScore}>
+                  {typeof employabilityIndex === 'number' ? employabilityIndex : employabilityIndex.score}/100
                 </div>
-                <div style={{ fontSize: '14px' }}>
-                  {employabilityIndex.target_roles?.slice(0, 3).join(', ')}
+                <div style={{ 
+                  fontSize: '18px', 
+                  fontWeight: '600', 
+                  color: (typeof employabilityIndex === 'number' ? employabilityIndex : employabilityIndex.score) >= 75 ? '#10b981' : 
+                         (typeof employabilityIndex === 'number' ? employabilityIndex : employabilityIndex.score) >= 50 ? '#f59e0b' : '#ef4444',
+                  marginTop: '4px'
+                }}>
+                  {(typeof employabilityIndex === 'number' ? employabilityIndex : employabilityIndex.score) >= 80 ? '🔥 Muy demandado' : 
+                   (typeof employabilityIndex === 'number' ? employabilityIndex : employabilityIndex.score) >= 65 ? '✅ Muy empleable' : 
+                   (typeof employabilityIndex === 'number' ? employabilityIndex : employabilityIndex.score) >= 50 ? '💪 Empleable' : '📚 En desarrollo'}
                 </div>
               </div>
             </div>
             
-            <div style={styles.employabilityBar}>
-              <div style={styles.employabilityBarFill(employabilityIndex.score)} />
+            <div style={{ 
+              fontSize: '15px', 
+              color: 'rgba(255,255,255,0.7)', 
+              marginTop: '16px',
+              padding: '12px 16px',
+              background: 'rgba(16, 185, 129, 0.1)',
+              borderRadius: '10px',
+              border: '1px solid rgba(16, 185, 129, 0.2)'
+            }}>
+              Estás por encima del <strong style={{ color: '#10b981' }}>{typeof employabilityIndex === 'number' ? employabilityIndex : employabilityIndex.score}%</strong> de candidatos para los roles que encajan con tu perfil
             </div>
 
-            {employabilityIndex.improvements && employabilityIndex.improvements.length > 0 && (
+            {typeof employabilityIndex === 'object' && employabilityIndex.improvements && employabilityIndex.improvements.length > 0 && (
               <>
-                <h4 style={{ fontSize: '14px', color: 'rgba(255,255,255,0.6)', marginBottom: '12px' }}>
-                  Cómo mejorar tu score:
+                <h4 style={{ fontSize: '14px', color: 'rgba(255,255,255,0.6)', marginBottom: '12px', marginTop: '20px' }}>
+                  Acciones para subir tu score:
                 </h4>
                 <div style={styles.improvementsList}>
                   {employabilityIndex.improvements.slice(0, 3).map((imp, i) => (
@@ -776,12 +789,37 @@ function ProfileContent() {
         {/* Roles Preview */}
         <div style={styles.card}>
           <h3 style={styles.cardTitle}>🎯 Roles donde encajas</h3>
+          
+          {/* Dynamic roles summary - FIX B */}
+          {topRoles.length > 0 && (
+            <p style={{ fontSize: '15px', color: 'rgba(255,255,255,0.7)', marginBottom: '20px' }}>
+              {topRoles.length >= 3 
+                ? `Encontramos ${topRoles.length} roles compatibles con tu perfil — el mejor match al ${topRoles[0]?.match_percentage}%`
+                : `Tu mejor match: ${topRoles[0]?.title_es || topRoles[0]?.title} con un ${topRoles[0]?.match_percentage}% de compatibilidad`
+              }
+            </p>
+          )}
+          
           <div style={styles.rolesPreview}>
-            {/* First role — fully visible */}
+            {/* First role — fully visible with extra content - FIX D */}
             {topRoles[0] && (
               <div style={styles.roleCard(false)}>
                 <div style={styles.roleTitle}>{topRoles[0].title_es || topRoles[0].title}</div>
                 <div style={styles.roleMatch}>{topRoles[0].match_percentage}% match</div>
+                
+                {/* FIX C: Match context */}
+                <div style={{ 
+                  fontSize: '13px', 
+                  marginBottom: '12px',
+                  color: topRoles[0].match_percentage >= 80 ? '#10b981' : 
+                         topRoles[0].match_percentage >= 60 ? '#fbbf24' : 
+                         topRoles[0].match_percentage >= 40 ? '#fb923c' : '#ef4444'
+                }}>
+                  {topRoles[0].match_percentage >= 80 ? '🟢 Encaje excelente' : 
+                   topRoles[0].match_percentage >= 60 ? '🟡 Buen encaje' : 
+                   topRoles[0].match_percentage >= 40 ? '🟠 Encaje moderado' : '🔴 Requiere transición'}
+                </div>
+                
                 <div style={styles.roleSalary}>
                   {topRoles[0].salary_range || (
                     <span 
@@ -792,15 +830,64 @@ function ProfileContent() {
                     </span>
                   )}
                 </div>
+                
+                {/* FIX D: Why you fit */}
+                {topRoles[0].why_you_fit && (
+                  <div style={{ 
+                    marginTop: '16px', 
+                    paddingTop: '16px', 
+                    borderTop: '1px solid rgba(255,255,255,0.1)' 
+                  }}>
+                    <div style={{ fontSize: '12px', color: 'rgba(255,255,255,0.5)', marginBottom: '6px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                      Por qué encajas
+                    </div>
+                    <div style={{ fontSize: '14px', lineHeight: '1.6', color: 'rgba(255,255,255,0.85)' }}>
+                      {topRoles[0].why_you_fit}
+                    </div>
+                  </div>
+                )}
+                
+                {/* FIX D: Strengths */}
+                {topRoles[0].strengths && topRoles[0].strengths.length > 0 && (
+                  <div style={{ marginTop: '12px' }}>
+                    <div style={{ fontSize: '12px', color: 'rgba(255,255,255,0.5)', marginBottom: '6px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                      Tus fortalezas para este rol
+                    </div>
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+                      {topRoles[0].strengths.slice(0, 3).map((s, i) => (
+                        <span key={i} style={{ 
+                          fontSize: '12px', 
+                          padding: '4px 10px', 
+                          background: 'rgba(99, 102, 241, 0.2)', 
+                          borderRadius: '6px',
+                          border: '1px solid rgba(99, 102, 241, 0.3)'
+                        }}>
+                          ✓ {s}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
             )}
             
-            {/* Roles 2 & 3 — blurred with lock */}
+            {/* Roles 2 & 3 — blurred with lock + FIX C context */}
             {topRoles.slice(1, 3).map((role, i) => (
               <div key={`locked-${i}`} style={{ ...styles.roleCard(true), position: 'relative', overflow: 'hidden' }}>
                 <div style={{ filter: 'blur(5px)', pointerEvents: 'none', userSelect: 'none' }}>
                   <div style={styles.roleTitle}>{role.title_es || role.title}</div>
                   <div style={styles.roleMatch}>{role.match_percentage}% match</div>
+                  <div style={{ 
+                    fontSize: '13px', 
+                    marginBottom: '8px',
+                    color: role.match_percentage >= 80 ? '#10b981' : 
+                           role.match_percentage >= 60 ? '#fbbf24' : 
+                           role.match_percentage >= 40 ? '#fb923c' : '#ef4444'
+                  }}>
+                    {role.match_percentage >= 80 ? '🟢 Encaje excelente' : 
+                     role.match_percentage >= 60 ? '🟡 Buen encaje' : 
+                     role.match_percentage >= 40 ? '🟠 Encaje moderado' : '🔴 Requiere transición'}
+                  </div>
                   <div style={styles.roleSalary}>{role.salary_range || 'Ver detalles'}</div>
                 </div>
                 <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
