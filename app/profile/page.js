@@ -317,55 +317,70 @@ function ProfileContent() {
       flexDirection: 'column',
       gap: '16px'
     },
+    // SKILL CARD - Layout vertical para mobile-first
     skillItem: {
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'space-between',
-      padding: '16px',
-      background: 'rgba(255,255,255,0.03)',
+      background: 'rgba(255,255,255,0.05)',
       borderRadius: '12px',
-      border: '1px solid rgba(255,255,255,0.05)'
+      padding: '16px',
+      marginBottom: '4px',
+      border: '1px solid rgba(255,255,255,0.08)'
+    },
+    skillHeader: {
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'flex-start',
+      marginBottom: '10px',
+      gap: '12px'
     },
     skillName: {
       fontSize: '15px',
-      fontWeight: '600'
+      fontWeight: '600',
+      color: 'white',
+      wordBreak: 'break-word'
     },
     skillLevel: (color) => ({
-      fontSize: '12px',
-      fontWeight: '700',
-      color: color,
+      flexShrink: 0,
       padding: '4px 10px',
-      background: `${color}20`,
-      borderRadius: '6px'
+      borderRadius: '20px',
+      fontSize: '11px',
+      fontWeight: '700',
+      letterSpacing: '0.5px',
+      background: `${color}33`,
+      color: color,
+      border: `1px solid ${color}66`,
+      whiteSpace: 'nowrap'
     }),
     skillBar: (level, color) => ({
-      width: '120px',
-      height: '8px',
+      width: '100%',
+      height: '6px',
       background: 'rgba(255,255,255,0.1)',
       borderRadius: '4px',
       overflow: 'hidden',
-      marginRight: '12px'
+      marginBottom: '10px'
     }),
     skillBarFill: (level, color) => ({
       width: `${(level / 5) * 100}%`,
       height: '100%',
-      background: color,
-      borderRadius: '4px'
+      background: `linear-gradient(90deg, ${color}, ${color}dd)`,
+      borderRadius: '4px',
+      transition: 'width 0.8s ease'
     }),
     skillEvidence: {
-      fontSize: '13px',
+      fontSize: '12px',
       color: 'rgba(255,255,255,0.5)',
-      marginTop: '6px'
+      marginBottom: '8px'
     },
-    // Market Comparison Badge - NEW
+    // Market Comparison Badge - inline-flex
     marketComparison: {
-      fontSize: '11px',
-      color: '#10b981',
-      background: 'rgba(16, 185, 129, 0.15)',
-      padding: '3px 8px',
-      borderRadius: '4px',
-      marginTop: '6px',
-      display: 'inline-block'
+      display: 'inline-flex',
+      alignItems: 'center',
+      gap: '4px',
+      padding: '4px 10px',
+      borderRadius: '20px',
+      fontSize: '12px',
+      background: 'rgba(16, 185, 129, 0.12)',
+      color: '#6EE7B7',
+      border: '1px solid rgba(16, 185, 129, 0.2)'
     },
     rolesPreview: {
       display: 'grid',
@@ -797,23 +812,28 @@ function ProfileContent() {
                 const percentile = getMarketPercentile(skill.level)
                 return (
                   <div key={i} style={styles.skillItem}>
-                    <div style={{ flex: 1, minWidth: 0 }}>
-                      <div style={styles.skillName}>{skill.name_es || skill.name}</div>
-                      {skill.evidence && (
-                        <div style={styles.skillEvidence}>{skill.evidence}</div>
-                      )}
-                      {skill.level >= 3 && (
-                        <div style={styles.marketComparison}>
-                          📊 Por encima del {percentile}% de profesionales en tu sector
-                        </div>
-                      )}
-                    </div>
-                    <div style={{ display: 'flex', alignItems: 'center', flexShrink: 0 }}>
-                      <div style={styles.skillBar(skill.level, levelInfo.color)}>
-                        <div style={styles.skillBarFill(skill.level, levelInfo.color)} />
+                    {/* Header: nombre + badge nivel */}
+                    <div style={styles.skillHeader}>
+                      <div style={{ flex: 1, minWidth: 0 }}>
+                        <div style={styles.skillName}>{skill.name_es || skill.name}</div>
+                        {skill.evidence && (
+                          <div style={styles.skillEvidence}>{skill.evidence}</div>
+                        )}
                       </div>
                       <span style={styles.skillLevel(levelInfo.color)}>{levelInfo.text}</span>
                     </div>
+                    
+                    {/* Barra de progreso - ancho completo */}
+                    <div style={styles.skillBar(skill.level, levelInfo.color)}>
+                      <div style={styles.skillBarFill(skill.level, levelInfo.color)} />
+                    </div>
+                    
+                    {/* Badge percentil */}
+                    {skill.level >= 3 && (
+                      <div style={styles.marketComparison}>
+                        📊 Por encima del {percentile}% de profesionales en tu sector
+                      </div>
+                    )}
                   </div>
                 )
               })}
@@ -823,18 +843,20 @@ function ProfileContent() {
                 const levelInfo = getLevelLabel(skill.level)
                 return (
                   <div key={`locked-skill-${i}`} style={{ ...styles.skillItem, position: 'relative', overflow: 'hidden' }}>
-                    <div style={{ filter: 'blur(5px)', pointerEvents: 'none', userSelect: 'none', display: 'flex', justifyContent: 'space-between', width: '100%' }}>
-                      <div>
-                        <div style={styles.skillName}>{skill.name_es || skill.name}</div>
-                        {skill.evidence && (
-                          <div style={styles.skillEvidence}>{skill.evidence}</div>
-                        )}
-                      </div>
-                      <div style={{ display: 'flex', alignItems: 'center' }}>
-                        <div style={styles.skillBar(skill.level, levelInfo.color)}>
-                          <div style={styles.skillBarFill(skill.level, levelInfo.color)} />
+                    <div style={{ filter: 'blur(5px)', pointerEvents: 'none', userSelect: 'none' }}>
+                      {/* Header: nombre + badge nivel */}
+                      <div style={styles.skillHeader}>
+                        <div style={{ flex: 1, minWidth: 0 }}>
+                          <div style={styles.skillName}>{skill.name_es || skill.name}</div>
+                          {skill.evidence && (
+                            <div style={styles.skillEvidence}>{skill.evidence}</div>
+                          )}
                         </div>
                         <span style={styles.skillLevel(levelInfo.color)}>{levelInfo.text}</span>
+                      </div>
+                      {/* Barra de progreso */}
+                      <div style={styles.skillBar(skill.level, levelInfo.color)}>
+                        <div style={styles.skillBarFill(skill.level, levelInfo.color)} />
                       </div>
                     </div>
                     <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -962,6 +984,26 @@ function ProfileContent() {
                     </ul>
                   </div>
                 )}
+                
+                {/* Empresas que contratan este perfil */}
+                <div style={{ marginTop: '16px', paddingTop: '16px', borderTop: '1px solid rgba(255,255,255,0.08)' }}>
+                  <div style={{ fontSize: '12px', color: 'rgba(255,255,255,0.4)', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                    🏢 Empresas que contratan este perfil
+                  </div>
+                  <div style={{ fontSize: '13px', color: 'rgba(255,255,255,0.7)' }}>
+                    {topRoles[0]?.companies_hiring?.join(', ') || topRoles[0]?.hiring_companies || 'Accenture, Deloitte, McKinsey, Telefónica, BBVA, Santander'}
+                  </div>
+                </div>
+                
+                {/* Tendencia del mercado */}
+                {(topRoles[0]?.growth_trend || topRoles[0]?.market_trend) && (
+                  <div style={{ marginTop: '12px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <span style={{ fontSize: '16px' }}>📈</span>
+                    <span style={{ fontSize: '13px', color: 'rgba(110, 231, 183, 0.9)' }}>
+                      {topRoles[0].market_trend || (topRoles[0].growth_percentage ? `Demanda creciendo ${topRoles[0].growth_percentage}% anual` : 'Alta demanda en el mercado')}
+                    </span>
+                  </div>
+                )}
               </div>
             )}
             
@@ -1018,6 +1060,17 @@ function ProfileContent() {
                       marginBottom: '12px'
                     }}>
                       💰 {role.salary_range}
+                    </div>
+                  )}
+                  
+                  {/* Empresas que contratan - visible como gancho */}
+                  {(role.companies_hiring || role.hiring_companies) && (
+                    <div style={{ 
+                      fontSize: '12px', 
+                      color: 'rgba(255,255,255,0.5)',
+                      marginBottom: '8px'
+                    }}>
+                      🏢 {(role.companies_hiring || role.hiring_companies).slice(0, 3).join(', ')}...
                     </div>
                   )}
                 </div>
