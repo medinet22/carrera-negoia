@@ -636,7 +636,8 @@ export default function StartAssessment() {
                 <span style={{ fontSize: '12px', color: '#6b7280', textAlign: 'center', lineHeight: '1.5' }}>
                   💰 Incluye: rango salarial por rol + habilidades que te hacen destacar<br />
                   📋 + preparación para entrevistas (qué van a preguntar y cómo responder)<br />
-                  🔄 + tus habilidades traducidas al lenguaje de cada sector
+                  🔄 + tus habilidades traducidas al lenguaje de cada sector<br />
+                  🎯 + claridad sobre tus opciones reales (menos miedo, más acción)
                 </span>
               </div>
             )}
