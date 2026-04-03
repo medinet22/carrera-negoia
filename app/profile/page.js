@@ -868,6 +868,32 @@ function ProfileContent() {
                     </div>
                   </div>
                 )}
+                
+                {/* Day to Day - Un día en este rol */}
+                {topRoles[0].day_to_day && (
+                  <div style={{ marginTop: '16px', paddingTop: '16px', borderTop: '1px solid rgba(255,255,255,0.1)' }}>
+                    <div style={{ fontSize: '12px', color: 'rgba(255,255,255,0.5)', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                      ☀️ Un día en este rol
+                    </div>
+                    <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.8)', lineHeight: '1.6', margin: 0 }}>
+                      {topRoles[0].day_to_day.length > 280 
+                        ? topRoles[0].day_to_day.substring(0, 280) + '...' 
+                        : topRoles[0].day_to_day}
+                    </p>
+                  </div>
+                )}
+                
+                {/* Pros del rol */}
+                {topRoles[0].pros && topRoles[0].pros.length > 0 && (
+                  <div style={{ marginTop: '12px' }}>
+                    <div style={{ fontSize: '12px', color: 'rgba(255,255,255,0.5)', marginBottom: '6px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                      ✅ Lo mejor
+                    </div>
+                    <ul style={{ margin: 0, paddingLeft: '16px', color: 'rgba(255,255,255,0.8)', fontSize: '13px', lineHeight: '1.7' }}>
+                      {topRoles[0].pros.slice(0, 2).map((p, i) => <li key={i}>{p}</li>)}
+                    </ul>
+                  </div>
+                )}
               </div>
             )}
             

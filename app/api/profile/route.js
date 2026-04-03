@@ -91,7 +91,10 @@ export async function GET(request) {
             ...match,
             title: roleFromJson?.title || 'Rol',
             title_es: roleFromJson?.title_es || 'Rol',
-            salary_range: getSalaryRange(roleFromJson, user.country)
+            salary_range: getSalaryRange(roleFromJson, user.country),
+            day_to_day: roleFromJson?.day_to_day || null,
+            pros: roleFromJson?.pros || [],
+            cons: roleFromJson?.cons || []
           }
         }
 
@@ -99,7 +102,10 @@ export async function GET(request) {
           ...match,
           title: role.title,
           title_es: role.title_es,
-          salary_range: getSalaryRange(role, user.country)
+          salary_range: getSalaryRange(role, user.country),
+          day_to_day: role.day_to_day || null,
+          pros: role.pros || [],
+          cons: role.cons || []
         }
       })
     )
