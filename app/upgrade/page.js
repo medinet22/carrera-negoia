@@ -1,24 +1,139 @@
 'use client'
 import { useState, useEffect, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
+import { loadStripe } from '@stripe/stripe-js'
+import { Elements, PaymentElement, useStripe, useElements } from '@stripe/react-stripe-js'
+
+const appearance = {
+  theme: 'night',
+  variables: {
+    colorPrimary: '#6366f1',
+    colorBackground: '#0f172a',
+    colorText: '#f8fafc',
+    colorTextSecondary: '#94a3b8',
+    fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+    borderRadius: '8px',
+  },
+  rules: {
+    '.Input': {
+      backgroundColor: '#1e293b',
+      border: '1px solid #334155',
+      padding: '14px 16px'
+    },
+    '.Input:focus': {
+      borderColor: '#6366f1',
+      boxShadow: 'none'
+    },
+    '.Label': {
+      color: '#94a3b8',
+      fontSize: '13px',
+      fontWeight: '600',
+      marginBottom: '8px'
+    }
+  }
+}
+
+function InlinePaymentForm({ plan, userId }) {
+  const stripe = useStripe()
+  const elements = useElements()
+  const router = useRouter()
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(null)
+  
+  const price = plan === 'complete' ? 39 : 29
+  
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    if (!stripe || !elements) return
+    setLoading(true)
+    setError(null)
+    
+    const { error: submitError, paymentIntent } = await stripe.confirmPayment({
+      elements,
+      confirmParams: {
+        return_url: `${window.location.origin}/success?userId=${userId}&plan=${plan}`,
+      },
+      redirect: 'if_required'
+    })
+    
+    if (submitError) {
+      setError(submitError.message)
+      setLoading(false)
+    } else if (paymentIntent?.status === 'succeeded') {
+      router.push(`/success?userId=${userId}&plan=${plan}&pi=${paymentIntent.id}`)
+    }
+  }
+  
+  return (
+    <form onSubmit={handleSubmit}>
+      <PaymentElement options={{
+        layout: { type: 'tabs', defaultCollapsed: false },
+        defaultValues: { billingDetails: { address: { country: 'ES' } } }
+      }} />
+      
+      {error && (
+        <div style={{ 
+          color: '#f87171', 
+          marginTop: '16px', 
+          fontSize: '14px',
+          padding: '12px 16px',
+          background: 'rgba(239, 68, 68, 0.1)',
+          borderRadius: '8px',
+          border: '1px solid rgba(239, 68, 68, 0.3)'
+        }}>
+          ⚠️ {error}
+        </div>
+      )}
+      
+      <button
+        type="submit"
+        disabled={!stripe || loading}
+        style={{
+          width: '100%',
+          marginTop: '24px',
+          padding: '20px',
+          background: loading ? '#4b5563' : 'linear-gradient(135deg, #10b981, #059669)',
+          color: '#fff',
+          border: 'none',
+          borderRadius: '12px',
+          fontSize: '18px',
+          fontWeight: '700',
+          cursor: loading ? 'wait' : 'pointer',
+          boxShadow: loading ? 'none' : '0 4px 20px rgba(16, 185, 129, 0.4)',
+          transition: 'all 0.2s'
+        }}
+      >
+        {loading ? 'Procesando pago...' : `💳 Pagar €${price} ahora`}
+      </button>
+      
+      <p style={{ textAlign: 'center', marginTop: '12px', fontSize: '13px', color: 'rgba(255,255,255,0.5)' }}>
+        🔒 Seguro · Sin suscripción · Acceso permanente
+      </p>
+    </form>
+  )
+}
 
 function UpgradeContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const userId = searchParams.get('userId') || (typeof window !== 'undefined' ? localStorage.getItem('carrera_user_id') : null)
   
-  const [loading, setLoading] = useState(false)
   const [selectedPlan, setSelectedPlan] = useState('complete')
   const [timeLeft, setTimeLeft] = useState({ hours: 47, minutes: 59, seconds: 59 })
   const [showTimer, setShowTimer] = useState(false)
   const [showTooltip, setShowTooltip] = useState(false)
+  
+  // Checkout inline state
+  const [checkoutPlan, setCheckoutPlan] = useState(null)
+  const [stripePromise, setStripePromise] = useState(null)
+  const [clientSecret, setClientSecret] = useState(null)
+  const [checkoutLoading, setCheckoutLoading] = useState(false)
+  const [checkoutError, setCheckoutError] = useState(null)
 
   // Timer de expiración real (48h desde que se guardó el jobId)
-  // Solo mostrar si hay fecha guardada en localStorage
   useEffect(() => {
     const jobCreated = typeof window !== 'undefined' ? localStorage.getItem('carrera_job_created') : null
     
-    // Si no hay fecha guardada, NO mostrar el timer
     if (!jobCreated) {
       setShowTimer(false)
       return
@@ -32,7 +147,7 @@ function UpgradeContent() {
       
       if (diff <= 0) {
         setTimeLeft({ hours: 0, minutes: 0, seconds: 0 })
-        setShowTimer(false) // Ocultar si expiró
+        setShowTimer(false)
         return
       }
       
@@ -54,7 +169,7 @@ function UpgradeContent() {
       id: 'basic',
       name: 'Plan Básico',
       price: 29,
-      priceId: 'price_basic_platform', // Replace with actual Stripe price ID
+      priceId: 'price_basic_platform',
       features: [
         'Acceso completo a todos los roles compatibles',
         'Datos detallados: día a día, pros/contras, salarios',
@@ -68,7 +183,7 @@ function UpgradeContent() {
       id: 'complete',
       name: 'Plan Completo',
       price: 39,
-      priceId: 'price_complete_platform', // Replace with actual Stripe price ID
+      priceId: 'price_complete_platform',
       popular: true,
       features: [
         'Todo lo del Plan Básico +',
@@ -82,14 +197,45 @@ function UpgradeContent() {
     }
   }
 
-  const handleCheckout = (plan) => {
+  const handleCheckout = async (plan) => {
     if (!userId) {
       router.push('/start')
       return
     }
-
-    // Redirect to integrated checkout page
-    router.push(`/checkout?plan=${plan}&userId=${userId}`)
+    
+    // Reset previous state
+    setCheckoutPlan(plan)
+    setCheckoutLoading(true)
+    setCheckoutError(null)
+    setClientSecret(null)
+    setStripePromise(null)
+    
+    // Scroll suave al formulario
+    setTimeout(() => {
+      document.getElementById('payment-section')?.scrollIntoView({ behavior: 'smooth' })
+    }, 100)
+    
+    try {
+      const res = await fetch('/api/create-payment-intent', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ userId, plan })
+      })
+      const data = await res.json()
+      
+      if (data.error) {
+        setCheckoutError(data.error)
+        setCheckoutLoading(false)
+        return
+      }
+      
+      setStripePromise(loadStripe(data.publishableKey))
+      setClientSecret(data.clientSecret)
+      setCheckoutLoading(false)
+    } catch (err) {
+      setCheckoutError('Error de conexión. Inténtalo de nuevo.')
+      setCheckoutLoading(false)
+    }
   }
 
   const styles = {
@@ -262,7 +408,7 @@ function UpgradeContent() {
   return (
     <div style={styles.container}>
       <div style={styles.inner}>
-        {/* Timer de expiración + sunk cost message - solo mostrar si hay fecha guardada */}
+        {/* Timer de expiración + sunk cost message */}
         {showTimer && (
           <div style={{
             textAlign: 'center',
@@ -371,18 +517,109 @@ function UpgradeContent() {
               </ul>
 
               <button 
-                style={styles.ctaButton(plan.popular, loading)}
+                style={styles.ctaButton(plan.popular, checkoutLoading && checkoutPlan === plan.id)}
                 onClick={(e) => {
                   e.stopPropagation()
                   handleCheckout(plan.id)
                 }}
-                disabled={loading}
+                disabled={checkoutLoading && checkoutPlan === plan.id}
               >
-                {loading ? 'Procesando...' : `Elegir ${plan.name}`}
+                {checkoutLoading && checkoutPlan === plan.id 
+                  ? 'Preparando...' 
+                  : `Acceder por €${plan.price}`}
               </button>
             </div>
           ))}
         </div>
+
+        {/* Inline Checkout Section */}
+        {checkoutPlan && (
+          <div id="payment-section" style={{ marginTop: '48px', padding: '0 0 48px' }}>
+            <div style={{
+              background: 'rgba(99, 102, 241, 0.08)',
+              border: '2px solid rgba(99, 102, 241, 0.3)',
+              borderRadius: '24px',
+              padding: '40px',
+              maxWidth: '560px',
+              margin: '0 auto'
+            }}>
+              <div style={{ 
+                display: 'flex', 
+                justifyContent: 'space-between', 
+                alignItems: 'center', 
+                marginBottom: '24px' 
+              }}>
+                <h2 style={{ fontSize: '22px', fontWeight: '700', margin: 0 }}>
+                  Completa tu pago — {checkoutPlan === 'complete' ? 'Plan Completo €39' : 'Plan Básico €29'}
+                </h2>
+                <button 
+                  onClick={() => {
+                    setCheckoutPlan(null)
+                    setClientSecret(null)
+                    setStripePromise(null)
+                    setCheckoutError(null)
+                  }}
+                  style={{ 
+                    background: 'none', 
+                    border: 'none', 
+                    color: 'rgba(255,255,255,0.5)', 
+                    cursor: 'pointer', 
+                    fontSize: '24px',
+                    padding: '4px 8px',
+                    lineHeight: 1
+                  }}
+                >
+                  ×
+                </button>
+              </div>
+              
+              {checkoutLoading ? (
+                <div style={{ textAlign: 'center', padding: '40px' }}>
+                  <div style={{
+                    width: '40px',
+                    height: '40px',
+                    border: '3px solid rgba(255,255,255,0.1)',
+                    borderTopColor: '#6366f1',
+                    borderRadius: '50%',
+                    animation: 'spin 1s linear infinite',
+                    margin: '0 auto 20px'
+                  }} />
+                  <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
+                  <p style={{ color: 'rgba(255,255,255,0.7)' }}>Preparando formulario de pago...</p>
+                </div>
+              ) : checkoutError ? (
+                <div style={{ 
+                  color: '#f87171', 
+                  padding: '24px', 
+                  textAlign: 'center',
+                  background: 'rgba(239, 68, 68, 0.1)',
+                  borderRadius: '12px'
+                }}>
+                  <p style={{ marginBottom: '16px', fontSize: '15px' }}>⚠️ {checkoutError}</p>
+                  <button 
+                    onClick={() => handleCheckout(checkoutPlan)}
+                    style={{
+                      padding: '12px 24px',
+                      background: '#6366f1',
+                      color: '#fff',
+                      border: 'none',
+                      borderRadius: '8px',
+                      fontSize: '14px',
+                      fontWeight: '600',
+                      cursor: 'pointer'
+                    }}
+                  >
+                    Reintentar
+                  </button>
+                </div>
+              ) : clientSecret && stripePromise ? (
+                <Elements stripe={stripePromise} options={{ clientSecret, appearance, locale: 'es' }}>
+                  <InlinePaymentForm plan={checkoutPlan} userId={userId} />
+                </Elements>
+              ) : null}
+            </div>
+          </div>
+        )}
 
         {/* Guarantee */}
         <div style={styles.guarantee}>
@@ -394,7 +631,7 @@ function UpgradeContent() {
           </div>
         </div>
 
-        {/* ROI Calculator - NEW */}
+        {/* ROI Calculator */}
         <div style={{
           marginTop: '48px',
           padding: '32px',
