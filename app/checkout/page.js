@@ -54,7 +54,10 @@ function CheckoutContent() {
         }
 
         const { loadStripe } = await import('@stripe/stripe-js')
-        const stripe = await loadStripe(data.publishableKey)
+        // Fallback al env var del cliente si el API no devuelve la key
+        const pubKey = data.publishableKey || process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
+        if (!pubKey) throw new Error('Stripe publishable key not configured')
+        const stripe = await loadStripe(pubKey)
         stripeRef.current = stripe
 
         const elements = stripe.elements({
