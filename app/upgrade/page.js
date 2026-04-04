@@ -10,23 +10,21 @@ function UpgradeContent() {
   const [loading, setLoading] = useState(false)
   const [selectedPlan, setSelectedPlan] = useState('complete')
   const [timeLeft, setTimeLeft] = useState({ hours: 47, minutes: 59, seconds: 59 })
+  const [showTimer, setShowTimer] = useState(false)
   const [showTooltip, setShowTooltip] = useState(false)
 
   // Timer de expiración real (48h desde que se guardó el jobId)
+  // Solo mostrar si hay fecha guardada en localStorage
   useEffect(() => {
-    const jobId = typeof window !== 'undefined' ? localStorage.getItem('carrera_job_id') : null
     const jobCreated = typeof window !== 'undefined' ? localStorage.getItem('carrera_job_created') : null
     
-    let expiresAt
-    if (jobCreated) {
-      expiresAt = new Date(jobCreated).getTime() + (48 * 60 * 60 * 1000)
-    } else {
-      // Si no hay fecha guardada, asumir 48h desde ahora y guardarla
-      expiresAt = Date.now() + (48 * 60 * 60 * 1000)
-      if (typeof window !== 'undefined') {
-        localStorage.setItem('carrera_job_created', new Date().toISOString())
-      }
+    // Si no hay fecha guardada, NO mostrar el timer
+    if (!jobCreated) {
+      setShowTimer(false)
+      return
     }
+    
+    const expiresAt = new Date(jobCreated).getTime() + (48 * 60 * 60 * 1000)
 
     const updateTimer = () => {
       const now = Date.now()
@@ -34,6 +32,7 @@ function UpgradeContent() {
       
       if (diff <= 0) {
         setTimeLeft({ hours: 0, minutes: 0, seconds: 0 })
+        setShowTimer(false) // Ocultar si expiró
         return
       }
       
@@ -42,6 +41,7 @@ function UpgradeContent() {
       const seconds = Math.floor((diff % (1000 * 60)) / 1000)
       
       setTimeLeft({ hours, minutes, seconds })
+      setShowTimer(true)
     }
 
     updateTimer()
@@ -262,74 +262,76 @@ function UpgradeContent() {
   return (
     <div style={styles.container}>
       <div style={styles.inner}>
-        {/* Timer de expiración + sunk cost message */}
-        <div style={{
-          textAlign: 'center',
-          padding: '24px',
-          background: timeLeft.hours < 12 ? 'rgba(239, 68, 68, 0.15)' : 'rgba(251, 191, 36, 0.1)',
-          borderRadius: '16px',
-          border: timeLeft.hours < 12 ? '1px solid rgba(239, 68, 68, 0.4)' : '1px solid rgba(251, 191, 36, 0.3)',
-          marginBottom: '40px'
-        }}>
-          <div style={{ 
-            display: 'flex', 
-            justifyContent: 'center', 
-            alignItems: 'center', 
-            gap: '8px',
-            marginBottom: '12px' 
+        {/* Timer de expiración + sunk cost message - solo mostrar si hay fecha guardada */}
+        {showTimer && (
+          <div style={{
+            textAlign: 'center',
+            padding: '24px',
+            background: timeLeft.hours < 12 ? 'rgba(239, 68, 68, 0.15)' : 'rgba(251, 191, 36, 0.1)',
+            borderRadius: '16px',
+            border: timeLeft.hours < 12 ? '1px solid rgba(239, 68, 68, 0.4)' : '1px solid rgba(251, 191, 36, 0.3)',
+            marginBottom: '40px'
           }}>
-            <span style={{ fontSize: '24px' }}>⏰</span>
-            <span style={{ 
-              fontSize: '28px', 
-              fontWeight: '800',
-              fontFamily: 'monospace',
-              color: timeLeft.hours < 12 ? '#ef4444' : '#fbbf24'
+            <div style={{ 
+              display: 'flex', 
+              justifyContent: 'center', 
+              alignItems: 'center', 
+              gap: '8px',
+              marginBottom: '12px' 
             }}>
-              {String(timeLeft.hours).padStart(2, '0')}:{String(timeLeft.minutes).padStart(2, '0')}:{String(timeLeft.seconds).padStart(2, '0')}
-            </span>
-          </div>
-          <p style={{ 
-            fontSize: '15px', 
-            color: timeLeft.hours < 12 ? '#fca5a5' : '#fbbf24',
-            fontWeight: '500',
-            marginBottom: '8px'
-          }}>
-            Tu análisis expira en {timeLeft.hours}h — los datos de tu assessment se procesan en tiempo real
-          </p>
-          <p style={{
-            fontSize: '13px',
-            color: 'rgba(255,255,255,0.5)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: '6px'
-          }}>
-            <span 
-              style={{ cursor: 'pointer', textDecoration: 'underline' }}
-              onClick={() => setShowTooltip(!showTooltip)}
-            >
-              ¿Por qué 48h?
-            </span>
-            {showTooltip && (
-              <span style={{
-                position: 'absolute',
-                marginTop: '80px',
-                padding: '12px 16px',
-                background: '#1e293b',
-                border: '1px solid rgba(255,255,255,0.1)',
-                borderRadius: '8px',
-                fontSize: '12px',
-                color: 'rgba(255,255,255,0.8)',
-                maxWidth: '280px',
-                textAlign: 'left',
-                zIndex: 10
+              <span style={{ fontSize: '24px' }}>⏰</span>
+              <span style={{ 
+                fontSize: '28px', 
+                fontWeight: '800',
+                fontFamily: 'monospace',
+                color: timeLeft.hours < 12 ? '#ef4444' : '#fbbf24'
               }}>
-                Tu CV y respuestas se procesan con IA de Claude (cuesta ~€0.15). 
-                Mantenemos los resultados 48h — pasado ese tiempo, se eliminan y tendrías que repetir el assessment.
+                {String(timeLeft.hours).padStart(2, '0')}:{String(timeLeft.minutes).padStart(2, '0')}:{String(timeLeft.seconds).padStart(2, '0')}
               </span>
-            )}
-          </p>
-        </div>
+            </div>
+            <p style={{ 
+              fontSize: '15px', 
+              color: timeLeft.hours < 12 ? '#fca5a5' : '#fbbf24',
+              fontWeight: '500',
+              marginBottom: '8px'
+            }}>
+              Tu análisis expira en {timeLeft.hours}h — los datos de tu assessment se procesan en tiempo real
+            </p>
+            <p style={{
+              fontSize: '13px',
+              color: 'rgba(255,255,255,0.5)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '6px'
+            }}>
+              <span 
+                style={{ cursor: 'pointer', textDecoration: 'underline' }}
+                onClick={() => setShowTooltip(!showTooltip)}
+              >
+                ¿Por qué 48h?
+              </span>
+              {showTooltip && (
+                <span style={{
+                  position: 'absolute',
+                  marginTop: '80px',
+                  padding: '12px 16px',
+                  background: '#1e293b',
+                  border: '1px solid rgba(255,255,255,0.1)',
+                  borderRadius: '8px',
+                  fontSize: '12px',
+                  color: 'rgba(255,255,255,0.8)',
+                  maxWidth: '280px',
+                  textAlign: 'left',
+                  zIndex: 10
+                }}>
+                  Tu CV y respuestas se procesan con IA de Claude (cuesta ~€0.15). 
+                  Mantenemos los resultados 48h — pasado ese tiempo, se eliminan y tendrías que repetir el assessment.
+                </span>
+              )}
+            </p>
+          </div>
+        )}
 
         {/* Header */}
         <div style={styles.header}>

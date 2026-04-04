@@ -63,6 +63,409 @@ const appearance = {
   }
 }
 
+const checkoutStyles = `
+  .checkout-container {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    color: #f8fafc;
+    padding: 20px;
+  }
+  
+  .checkout-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  
+  .checkout-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0 40px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    margin-bottom: 40px;
+  }
+  
+  .checkout-logo {
+    font-size: 24px;
+    font-weight: 800;
+    color: #f8fafc;
+    text-decoration: none;
+  }
+  
+  .checkout-logo span {
+    color: #a5b4fc;
+  }
+  
+  .checkout-security-badge {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    color: #10b981;
+  }
+  
+  .checkout-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: start;
+  }
+  
+  @media (max-width: 768px) {
+    .checkout-grid {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+    .checkout-summary {
+      order: 2;
+    }
+    .checkout-payment {
+      order: 1;
+    }
+    .checkout-header {
+      padding: 16px 0 24px;
+      margin-bottom: 24px;
+    }
+    .checkout-container {
+      padding: 12px;
+    }
+  }
+  
+  .checkout-plan-card {
+    background: rgba(99, 102, 241, 0.08);
+    border: 1px solid rgba(99, 102, 241, 0.2);
+    border-radius: 20px;
+    padding: 32px;
+    position: relative;
+  }
+  
+  @media (max-width: 768px) {
+    .checkout-plan-card {
+      padding: 24px 20px;
+    }
+  }
+  
+  .checkout-popular-badge {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 6px 16px;
+    background: linear-gradient(135deg, #6366f1, #a855f7);
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+  
+  .checkout-plan-name {
+    font-size: 28px;
+    font-weight: 800;
+    margin-bottom: 16px;
+    margin-top: 8px;
+  }
+  
+  @media (max-width: 768px) {
+    .checkout-plan-name {
+      font-size: 24px;
+    }
+  }
+  
+  .checkout-price-container {
+    margin-bottom: 4px;
+  }
+  
+  .checkout-price-amount {
+    font-size: 48px;
+    font-weight: 900;
+  }
+  
+  @media (max-width: 768px) {
+    .checkout-price-amount {
+      font-size: 40px;
+    }
+  }
+  
+  .checkout-price-currency {
+    font-size: 20px;
+    color: rgba(255,255,255,0.6);
+  }
+  
+  .checkout-price-note {
+    font-size: 14px;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 24px;
+  }
+  
+  .checkout-divider {
+    height: 1px;
+    background: rgba(255,255,255,0.1);
+    margin: 24px 0;
+  }
+  
+  .checkout-features-title {
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 16px;
+  }
+  
+  .checkout-features-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .checkout-feature-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 12px;
+    font-size: 15px;
+    color: rgba(255,255,255,0.85);
+  }
+  
+  .checkout-check-icon {
+    color: #10b981;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  
+  .checkout-roi-box {
+    background: rgba(16, 185, 129, 0.08);
+    border: 1px solid rgba(16, 185, 129, 0.2);
+    border-radius: 16px;
+    padding: 24px;
+    margin-top: 24px;
+  }
+  
+  @media (max-width: 768px) {
+    .checkout-roi-box {
+      padding: 20px 16px;
+    }
+  }
+  
+  .checkout-roi-title {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: rgba(255,255,255,0.9);
+  }
+  
+  .checkout-roi-numbers {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  
+  @media (max-width: 768px) {
+    .checkout-roi-numbers {
+      flex-direction: column;
+      gap: 16px;
+    }
+    .checkout-roi-arrow {
+      transform: rotate(90deg);
+    }
+  }
+  
+  .checkout-roi-item {
+    text-align: center;
+  }
+  
+  .checkout-roi-label {
+    font-size: 12px;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 4px;
+  }
+  
+  .checkout-roi-value {
+    font-size: 24px;
+    font-weight: 800;
+  }
+  
+  .checkout-roi-value-green {
+    color: #10b981;
+  }
+  
+  .checkout-roi-value-big {
+    font-size: 28px;
+    color: #10b981;
+  }
+  
+  .checkout-roi-arrow {
+    font-size: 20px;
+    color: rgba(255,255,255,0.3);
+  }
+  
+  .checkout-payment-section {
+    margin-bottom: 24px;
+  }
+  
+  .checkout-section-title {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 16px;
+  }
+  
+  .checkout-error {
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin-bottom: 20px;
+    color: #f87171;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+  }
+  
+  .checkout-pay-button {
+    width: 100%;
+    padding: 20px;
+    border-radius: 12px;
+    border: none;
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: #fff;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 24px rgba(16, 185, 129, 0.4);
+    margin-bottom: 16px;
+    transition: all 0.2s;
+  }
+  
+  .checkout-pay-button:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 32px rgba(16, 185, 129, 0.5);
+  }
+  
+  .checkout-pay-button:disabled {
+    background: #4b5563;
+    cursor: wait;
+    box-shadow: none;
+  }
+  
+  .checkout-security-note {
+    text-align: center;
+    font-size: 13px;
+    color: rgba(255,255,255,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 24px;
+  }
+  
+  .checkout-guarantee {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    padding: 20px;
+    background: rgba(16, 185, 129, 0.08);
+    border: 1px solid rgba(16, 185, 129, 0.2);
+    border-radius: 14px;
+  }
+  
+  @media (max-width: 768px) {
+    .checkout-guarantee {
+      padding: 16px;
+    }
+  }
+  
+  .checkout-guarantee-icon {
+    font-size: 24px;
+    flex-shrink: 0;
+  }
+  
+  .checkout-guarantee-title {
+    color: #10b981;
+    font-weight: 700;
+    margin: 0 0 4px 0;
+  }
+  
+  .checkout-guarantee-text {
+    margin: 0;
+    font-size: 13px;
+    color: rgba(255,255,255,0.6);
+  }
+  
+  .checkout-loading-card {
+    background: rgba(255,255,255,0.03);
+    border-radius: 16px;
+    padding: 60px 40px;
+    text-align: center;
+    border: 1px solid rgba(255,255,255,0.05);
+  }
+  
+  .checkout-loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid rgba(255,255,255,0.1);
+    border-top-color: #6366f1;
+    border-radius: 50%;
+    animation: checkout-spin 1s linear infinite;
+    margin: 0 auto 20px;
+  }
+  
+  @keyframes checkout-spin {
+    to { transform: rotate(360deg); }
+  }
+  
+  .checkout-error-card {
+    background: rgba(239, 68, 68, 0.08);
+    border-radius: 16px;
+    padding: 40px;
+    text-align: center;
+    border: 1px solid rgba(239, 68, 68, 0.2);
+  }
+  
+  .checkout-retry-button {
+    margin-top: 20px;
+    padding: 12px 24px;
+    background: #6366f1;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  
+  .checkout-retry-button:hover {
+    background: #4f46e5;
+  }
+  
+  .checkout-change-plan {
+    text-align: center;
+    margin-top: 40px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+  }
+  
+  .checkout-change-plan-link {
+    color: rgba(255,255,255,0.5);
+    text-decoration: none;
+    font-size: 14px;
+  }
+  
+  .checkout-change-plan-link:hover {
+    color: rgba(255,255,255,0.7);
+  }
+  
+  .checkout-loading-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    color: #f8fafc;
+  }
+`
+
 function CheckoutForm({ plan, userId }) {
   const stripe = useStripe()
   const elements = useElements()
@@ -97,8 +500,8 @@ function CheckoutForm({ plan, userId }) {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div style={styles.paymentSection}>
-        <h2 style={styles.sectionTitle}>Método de pago</h2>
+      <div className="checkout-payment-section">
+        <h2 className="checkout-section-title">Método de pago</h2>
         <PaymentElement 
           options={{
             layout: { type: 'tabs', defaultCollapsed: false },
@@ -108,7 +511,7 @@ function CheckoutForm({ plan, userId }) {
       </div>
 
       {error && (
-        <div style={styles.error}>
+        <div className="checkout-error">
           <span>⚠️</span> {error}
         </div>
       )}
@@ -116,20 +519,20 @@ function CheckoutForm({ plan, userId }) {
       <button 
         type="submit" 
         disabled={!stripe || loading}
-        style={styles.payButton(loading)}
+        className="checkout-pay-button"
       >
         {loading ? 'Procesando...' : `Pagar €${planData.price} — Acceso inmediato`}
       </button>
 
-      <div style={styles.securityNote}>
+      <div className="checkout-security-note">
         <span>🔒</span> Pago seguro cifrado · Sin suscripción · Acceso permanente
       </div>
 
-      <div style={styles.guarantee}>
-        <span style={{ fontSize: '24px' }}>🛡️</span>
+      <div className="checkout-guarantee">
+        <span className="checkout-guarantee-icon">🛡️</span>
         <div>
-          <strong style={{ color: '#10b981' }}>Garantía 14 días</strong>
-          <p style={{ margin: '4px 0 0', fontSize: '13px', color: 'rgba(255,255,255,0.6)' }}>
+          <p className="checkout-guarantee-title">Garantía 14 días</p>
+          <p className="checkout-guarantee-text">
             Si no te convence, te devolvemos el dinero. Sin preguntas.
           </p>
         </div>
@@ -155,7 +558,6 @@ function CheckoutContent() {
       return
     }
 
-    // Fetch PaymentIntent
     const initPayment = async () => {
       try {
         const res = await fetch('/api/create-payment-intent', {
@@ -167,6 +569,11 @@ function CheckoutContent() {
         const data = await res.json()
         
         if (data.error) {
+          // Si el usuario no existe, redirigir silenciosamente
+          if (data.error.includes('Usuario no encontrado') || data.error.includes('not found')) {
+            router.push('/upgrade')
+            return
+          }
           setError(data.error)
           setLoading(false)
           return
@@ -189,391 +596,138 @@ function CheckoutContent() {
 
   if (!userId) {
     return (
-      <div style={styles.container}>
-        <div style={styles.loading}>Redirigiendo...</div>
-      </div>
+      <>
+        <style dangerouslySetInnerHTML={{ __html: checkoutStyles }} />
+        <div className="checkout-container">
+          <div className="checkout-loading-page">Redirigiendo...</div>
+        </div>
+      </>
     )
   }
 
   return (
-    <div style={styles.container}>
-      <div style={styles.inner}>
-        {/* Header */}
-        <div style={styles.header}>
-          <a href="https://carrera.negoia.com" style={styles.logo}>
-            carrera<span style={{ color: '#a5b4fc' }}>.</span>ia
-          </a>
-          <div style={styles.securityBadge}>
-            <span>🔒</span> Pago 100% seguro
-          </div>
-        </div>
-
-        <div style={styles.grid}>
-          {/* Izquierda: Resumen del plan */}
-          <div style={styles.summaryColumn}>
-            <div style={styles.planCard}>
-              {planData.popular && (
-                <div style={styles.popularBadge}>Más popular</div>
-              )}
-              <h1 style={styles.planName}>{planData.name}</h1>
-              <div style={styles.priceContainer}>
-                <span style={styles.priceAmount}>€{planData.price}</span>
-                <span style={styles.priceCurrency}> EUR</span>
-              </div>
-              <p style={styles.priceNote}>Pago único · Acceso permanente</p>
-
-              <div style={styles.divider}></div>
-
-              <h3 style={styles.featuresTitle}>Incluye:</h3>
-              <ul style={styles.featuresList}>
-                {planData.features.map((feature, i) => (
-                  <li key={i} style={styles.featureItem}>
-                    <span style={styles.checkIcon}>✓</span>
-                    <span>{feature}</span>
-                  </li>
-                ))}
-              </ul>
+    <>
+      <style dangerouslySetInnerHTML={{ __html: checkoutStyles }} />
+      <div className="checkout-container">
+        <div className="checkout-inner">
+          {/* Header */}
+          <div className="checkout-header">
+            <a href="https://carrera.negoia.com" className="checkout-logo">
+              carrera<span>.</span>ia
+            </a>
+            <div className="checkout-security-badge">
+              <span>🔒</span> Pago 100% seguro
             </div>
+          </div>
 
-            {/* ROI Calculator */}
-            <div style={styles.roiBox}>
-              <h4 style={styles.roiTitle}>💰 Si esto te ayuda a conseguir un trabajo con €5.000 más de salario...</h4>
-              <div style={styles.roiNumbers}>
-                <div style={styles.roiItem}>
-                  <div style={styles.roiLabel}>Inversión</div>
-                  <div style={styles.roiValue}>€{planData.price}</div>
+          <div className="checkout-grid">
+            {/* Izquierda: Resumen del plan */}
+            <div className="checkout-summary">
+              <div className="checkout-plan-card">
+                {planData.popular && (
+                  <div className="checkout-popular-badge">Más popular</div>
+                )}
+                <h1 className="checkout-plan-name">{planData.name}</h1>
+                <div className="checkout-price-container">
+                  <span className="checkout-price-amount">€{planData.price}</span>
+                  <span className="checkout-price-currency"> EUR</span>
                 </div>
-                <div style={styles.roiArrow}>→</div>
-                <div style={styles.roiItem}>
-                  <div style={styles.roiLabel}>Incremento</div>
-                  <div style={{ ...styles.roiValue, color: '#10b981' }}>€5.000</div>
-                </div>
-                <div style={styles.roiArrow}>=</div>
-                <div style={styles.roiItem}>
-                  <div style={styles.roiLabel}>ROI</div>
-                  <div style={{ ...styles.roiValue, color: '#10b981', fontSize: '28px' }}>
-                    {Math.round((5000 / planData.price) * 100)}%
+                <p className="checkout-price-note">Pago único · Acceso permanente</p>
+
+                <div className="checkout-divider"></div>
+
+                <h3 className="checkout-features-title">Incluye:</h3>
+                <ul className="checkout-features-list">
+                  {planData.features.map((feature, i) => (
+                    <li key={i} className="checkout-feature-item">
+                      <span className="checkout-check-icon">✓</span>
+                      <span>{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* ROI Calculator */}
+              <div className="checkout-roi-box">
+                <h4 className="checkout-roi-title">💰 Si esto te ayuda a conseguir un trabajo con €5.000 más de salario...</h4>
+                <div className="checkout-roi-numbers">
+                  <div className="checkout-roi-item">
+                    <div className="checkout-roi-label">Inversión</div>
+                    <div className="checkout-roi-value">€{planData.price}</div>
+                  </div>
+                  <div className="checkout-roi-arrow">→</div>
+                  <div className="checkout-roi-item">
+                    <div className="checkout-roi-label">Incremento</div>
+                    <div className="checkout-roi-value checkout-roi-value-green">€5.000</div>
+                  </div>
+                  <div className="checkout-roi-arrow">=</div>
+                  <div className="checkout-roi-item">
+                    <div className="checkout-roi-label">ROI</div>
+                    <div className="checkout-roi-value checkout-roi-value-big">
+                      {Math.round((5000 / planData.price) * 100)}%
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
 
-          {/* Derecha: Formulario de pago */}
-          <div style={styles.paymentColumn}>
-            {loading ? (
-              <div style={styles.loadingCard}>
-                <div style={styles.loadingSpinner}></div>
-                <p>Preparando formulario de pago...</p>
-              </div>
-            ) : error ? (
-              <div style={styles.errorCard}>
-                <p>❌ {error}</p>
-                <button 
-                  onClick={() => router.push(`/upgrade?userId=${userId}`)}
-                  style={styles.retryButton}
+            {/* Derecha: Formulario de pago */}
+            <div className="checkout-payment">
+              {loading ? (
+                <div className="checkout-loading-card">
+                  <div className="checkout-loading-spinner"></div>
+                  <p>Preparando formulario de pago...</p>
+                </div>
+              ) : error ? (
+                <div className="checkout-error-card">
+                  <p style={{ marginBottom: '16px' }}>😕 Algo salió mal</p>
+                  <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.6)', marginBottom: '20px' }}>
+                    {error.includes('Stripe') || error.includes('config') 
+                      ? 'Error de configuración de pago. Por favor, inténtalo de nuevo.'
+                      : error
+                    }
+                  </p>
+                  <button 
+                    onClick={() => router.push(`/upgrade?userId=${userId}`)}
+                    className="checkout-retry-button"
+                  >
+                    Volver a intentar
+                  </button>
+                </div>
+              ) : clientSecret && stripePromise ? (
+                <Elements 
+                  stripe={stripePromise} 
+                  options={{ clientSecret, appearance, locale: 'es' }}
                 >
-                  Volver a intentar
-                </button>
-              </div>
-            ) : clientSecret && stripePromise ? (
-              <Elements 
-                stripe={stripePromise} 
-                options={{ clientSecret, appearance, locale: 'es' }}
-              >
-                <CheckoutForm plan={plan} userId={userId} />
-              </Elements>
-            ) : null}
+                  <CheckoutForm plan={plan} userId={userId} />
+                </Elements>
+              ) : null}
+            </div>
           </div>
-        </div>
 
-        {/* Change plan link */}
-        <div style={styles.changePlan}>
-          <a href={`/upgrade?userId=${userId}`} style={styles.changePlanLink}>
-            ← Cambiar plan
-          </a>
+          {/* Change plan link */}
+          <div className="checkout-change-plan">
+            <a href={`/upgrade?userId=${userId}`} className="checkout-change-plan-link">
+              ← Cambiar plan
+            </a>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   )
 }
 
 export default function CheckoutPage() {
   return (
     <Suspense fallback={
-      <div style={styles.container}>
-        <div style={styles.loading}>Cargando...</div>
-      </div>
+      <>
+        <style dangerouslySetInnerHTML={{ __html: checkoutStyles }} />
+        <div className="checkout-container">
+          <div className="checkout-loading-page">Cargando...</div>
+        </div>
+      </>
     }>
       <CheckoutContent />
     </Suspense>
   )
-}
-
-const styles = {
-  container: {
-    minHeight: '100vh',
-    background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)',
-    color: '#f8fafc',
-    padding: '20px'
-  },
-  inner: {
-    maxWidth: '1100px',
-    margin: '0 auto'
-  },
-  header: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: '20px 0 40px',
-    borderBottom: '1px solid rgba(255,255,255,0.1)',
-    marginBottom: '40px'
-  },
-  logo: {
-    fontSize: '24px',
-    fontWeight: '800',
-    color: '#f8fafc',
-    textDecoration: 'none'
-  },
-  securityBadge: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '6px',
-    fontSize: '14px',
-    color: '#10b981'
-  },
-  grid: {
-    display: 'grid',
-    gridTemplateColumns: '1fr 1fr',
-    gap: '40px',
-    alignItems: 'start'
-  },
-  summaryColumn: {},
-  paymentColumn: {},
-  planCard: {
-    background: 'rgba(99, 102, 241, 0.08)',
-    border: '1px solid rgba(99, 102, 241, 0.2)',
-    borderRadius: '20px',
-    padding: '32px',
-    position: 'relative'
-  },
-  popularBadge: {
-    position: 'absolute',
-    top: '-12px',
-    left: '50%',
-    transform: 'translateX(-50%)',
-    padding: '6px 16px',
-    background: 'linear-gradient(135deg, #6366f1, #a855f7)',
-    borderRadius: '20px',
-    fontSize: '12px',
-    fontWeight: '700',
-    textTransform: 'uppercase'
-  },
-  planName: {
-    fontSize: '28px',
-    fontWeight: '800',
-    marginBottom: '16px',
-    marginTop: '8px'
-  },
-  priceContainer: {
-    marginBottom: '4px'
-  },
-  priceAmount: {
-    fontSize: '48px',
-    fontWeight: '900'
-  },
-  priceCurrency: {
-    fontSize: '20px',
-    color: 'rgba(255,255,255,0.6)'
-  },
-  priceNote: {
-    fontSize: '14px',
-    color: 'rgba(255,255,255,0.5)',
-    marginBottom: '24px'
-  },
-  divider: {
-    height: '1px',
-    background: 'rgba(255,255,255,0.1)',
-    margin: '24px 0'
-  },
-  featuresTitle: {
-    fontSize: '14px',
-    fontWeight: '700',
-    textTransform: 'uppercase',
-    letterSpacing: '0.05em',
-    color: 'rgba(255,255,255,0.6)',
-    marginBottom: '16px'
-  },
-  featuresList: {
-    listStyle: 'none',
-    padding: 0,
-    margin: 0
-  },
-  featureItem: {
-    display: 'flex',
-    alignItems: 'flex-start',
-    gap: '12px',
-    marginBottom: '12px',
-    fontSize: '15px',
-    color: 'rgba(255,255,255,0.85)'
-  },
-  checkIcon: {
-    color: '#10b981',
-    fontWeight: '700'
-  },
-  roiBox: {
-    background: 'rgba(16, 185, 129, 0.08)',
-    border: '1px solid rgba(16, 185, 129, 0.2)',
-    borderRadius: '16px',
-    padding: '24px',
-    marginTop: '24px'
-  },
-  roiTitle: {
-    fontSize: '15px',
-    fontWeight: '600',
-    marginBottom: '20px',
-    color: 'rgba(255,255,255,0.9)'
-  },
-  roiNumbers: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    gap: '12px'
-  },
-  roiItem: {
-    textAlign: 'center'
-  },
-  roiLabel: {
-    fontSize: '12px',
-    color: 'rgba(255,255,255,0.5)',
-    marginBottom: '4px'
-  },
-  roiValue: {
-    fontSize: '24px',
-    fontWeight: '800'
-  },
-  roiArrow: {
-    fontSize: '20px',
-    color: 'rgba(255,255,255,0.3)'
-  },
-  paymentSection: {
-    marginBottom: '24px'
-  },
-  sectionTitle: {
-    fontSize: '18px',
-    fontWeight: '700',
-    marginBottom: '16px'
-  },
-  error: {
-    background: 'rgba(239, 68, 68, 0.1)',
-    border: '1px solid rgba(239, 68, 68, 0.3)',
-    borderRadius: '12px',
-    padding: '14px 16px',
-    marginBottom: '20px',
-    color: '#f87171',
-    display: 'flex',
-    alignItems: 'center',
-    gap: '10px',
-    fontSize: '14px'
-  },
-  payButton: (loading) => ({
-    width: '100%',
-    padding: '20px',
-    borderRadius: '12px',
-    border: 'none',
-    background: loading ? '#4b5563' : 'linear-gradient(135deg, #10b981, #059669)',
-    color: '#fff',
-    fontSize: '18px',
-    fontWeight: '700',
-    cursor: loading ? 'wait' : 'pointer',
-    boxShadow: '0 4px 24px rgba(16, 185, 129, 0.4)',
-    marginBottom: '16px'
-  }),
-  securityNote: {
-    textAlign: 'center',
-    fontSize: '13px',
-    color: 'rgba(255,255,255,0.5)',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: '8px',
-    marginBottom: '24px'
-  },
-  guarantee: {
-    display: 'flex',
-    gap: '14px',
-    alignItems: 'flex-start',
-    padding: '20px',
-    background: 'rgba(16, 185, 129, 0.08)',
-    border: '1px solid rgba(16, 185, 129, 0.2)',
-    borderRadius: '14px'
-  },
-  loadingCard: {
-    background: 'rgba(255,255,255,0.03)',
-    borderRadius: '16px',
-    padding: '60px 40px',
-    textAlign: 'center',
-    border: '1px solid rgba(255,255,255,0.05)'
-  },
-  loadingSpinner: {
-    width: '40px',
-    height: '40px',
-    border: '3px solid rgba(255,255,255,0.1)',
-    borderTopColor: '#6366f1',
-    borderRadius: '50%',
-    animation: 'spin 1s linear infinite',
-    margin: '0 auto 20px'
-  },
-  errorCard: {
-    background: 'rgba(239, 68, 68, 0.08)',
-    borderRadius: '16px',
-    padding: '40px',
-    textAlign: 'center',
-    border: '1px solid rgba(239, 68, 68, 0.2)'
-  },
-  retryButton: {
-    marginTop: '20px',
-    padding: '12px 24px',
-    background: '#6366f1',
-    color: '#fff',
-    border: 'none',
-    borderRadius: '8px',
-    fontSize: '14px',
-    fontWeight: '600',
-    cursor: 'pointer'
-  },
-  changePlan: {
-    textAlign: 'center',
-    marginTop: '40px',
-    paddingTop: '24px',
-    borderTop: '1px solid rgba(255,255,255,0.1)'
-  },
-  changePlanLink: {
-    color: 'rgba(255,255,255,0.5)',
-    textDecoration: 'none',
-    fontSize: '14px'
-  },
-  loading: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    minHeight: '100vh',
-    color: '#f8fafc'
-  }
-}
-
-// Add global keyframes
-if (typeof document !== 'undefined') {
-  const style = document.createElement('style')
-  style.textContent = `
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-    @media (max-width: 768px) {
-      .checkout-grid {
-        grid-template-columns: 1fr !important;
-      }
-    }
-  `
-  document.head.appendChild(style)
 }
