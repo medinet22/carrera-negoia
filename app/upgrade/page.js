@@ -82,32 +82,14 @@ function UpgradeContent() {
     }
   }
 
-  const handleCheckout = async (plan) => {
+  const handleCheckout = (plan) => {
     if (!userId) {
       router.push('/start')
       return
     }
 
-    setLoading(true)
-    try {
-      const res = await fetch('/api/checkout-platform', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ userId, plan })
-      })
-
-      const data = await res.json()
-      if (data.url) {
-        window.location.href = data.url
-      } else {
-        alert('Error iniciando el pago. Inténtalo de nuevo.')
-      }
-    } catch (err) {
-      console.error('Checkout error:', err)
-      alert('Error de conexión')
-    } finally {
-      setLoading(false)
-    }
+    // Redirect to integrated checkout page
+    router.push(`/checkout?plan=${plan}&userId=${userId}`)
   }
 
   const styles = {

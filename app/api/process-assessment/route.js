@@ -74,6 +74,11 @@ async function runAnalysisInline(userId, profileId, jobId, cvText, intakeAnswers
       roles_matched: roleMatches.length,
       completed_at: new Date().toISOString()
     }).eq('id', jobId)
+
+    // Step 7b: Update user's profile_ready_at for abandonment tracking
+    await supabase.from('users').update({
+      profile_ready_at: new Date().toISOString()
+    }).eq('id', userId)
     
     // Step 8: Send email notification
     try {
