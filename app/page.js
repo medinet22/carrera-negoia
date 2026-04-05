@@ -129,14 +129,14 @@ export default function Home() {
 
           <div style={{ marginTop: '16px' }}>
             <Link
-              href="/como-saber-si-cambiar-de-trabajo?utm_source=owned&utm_medium=home&utm_campaign=growth_loop_apr01&utm_content=hero_guide"
+              href="/buscar-trabajo-sin-linkedin?utm_source=owned&utm_medium=home&utm_campaign=growth_loop_apr05&utm_content=hero_guide"
               style={{
                 color: '#c7d2fe',
                 fontSize: '13px',
                 textDecoration: 'underline'
               }}
             >
-              Nueva guía: 7 señales de que ya toca cambiar de trabajo (sin dramatizar)
+              Nueva guía: Buscar trabajo sin LinkedIn — 7 alternativas que funcionan
             </Link>
           </div>
         </div>
