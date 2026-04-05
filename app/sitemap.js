@@ -42,6 +42,8 @@ export default function sitemap() {
     '/cuanto-pedir-de-sueldo',
     '/entrevista-trabajo-despues-40',
     '/como-hacer-cv-cambio-carrera',
+    '/como-saber-trabajo-correcto',
+    '/buscar-trabajo-sin-linkedin',
   ]
 
   return routes.map((route) => ({

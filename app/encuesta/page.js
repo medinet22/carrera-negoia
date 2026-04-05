@@ -97,9 +97,9 @@ export default function Encuesta() {
     <div className={styles.surveyPage}>
       <div className={styles.surveyContainer}>
         <header className={styles.surveyHeader}>
-          <span className={styles.surveyBadge}>Encuesta rápida · 90 segundos</span>
-          <h1>Ayúdanos a personalizar tu beta</h1>
-          <p>Queremos darte valor real, no una encuesta genérica. Marca opciones y listo.</p>
+          <span className={styles.surveyBadge}>⏱️ 90 segundos · +340 profesionales ya lo hicieron</span>
+          <h1>Descubre qué roles encajan contigo</h1>
+          <p>Responde 3 preguntas y recibe recomendaciones personalizadas. Nada genérico.</p>
           {answers.email && <p className={styles.hint}>📩 Email detectado: <strong>{answers.email}</strong></p>}
         </header>
 
