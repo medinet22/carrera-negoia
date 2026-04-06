@@ -44,6 +44,7 @@ export default function sitemap() {
     '/como-hacer-cv-cambio-carrera',
     '/como-saber-trabajo-correcto',
     '/buscar-trabajo-sin-linkedin',
+    '/como-destacar-en-infojobs',
   ]
 
   return routes.map((route) => ({

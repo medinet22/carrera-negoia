@@ -209,7 +209,7 @@ function AnalisisCarreraContent() {
               color: '#a5b4fc'
             }}>
               <span style={{ fontSize: '14px' }}>📊</span>
-              <span>27 análisis completados en marzo</span>
+              <span>41 profesionales han completado su análisis</span>
             </div>
           </div>
 
@@ -430,6 +430,9 @@ function AnalisisCarreraContent() {
                       e.target.style.boxShadow = 'none'
                     }}
                   />
+                  <p style={{ margin: '6px 0 0 0', fontSize: '11px', color: '#64748b' }}>
+                    🔒 Solo usamos tu email para enviarte el análisis. Cero spam.
+                  </p>
                 </div>
 
                 {/* Situación actual */}
