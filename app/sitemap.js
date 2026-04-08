@@ -45,6 +45,7 @@ export default function sitemap() {
     '/como-saber-trabajo-correcto',
     '/buscar-trabajo-sin-linkedin',
     '/como-destacar-en-infojobs',
+    '/que-poner-en-cv-si-no-tienes-logros',
   ]
 
   return routes.map((route) => ({
