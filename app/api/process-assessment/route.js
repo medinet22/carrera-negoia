@@ -8,18 +8,54 @@ import {
   validateCvText,
   sanitizeForPrompt
 } from '../../../lib/validation'
-import { sendAnalysisCompleteNotification } from '../../../lib/email'
 
 const supabase = createClient(
   process.env.SUPABASE_URL,
   process.env.SUPABASE_SERVICE_KEY
 )
 
-// ========== MOTOR DE ANÁLISIS INLINE ==========
-// Análisis estático de alta calidad cuando no hay ANTHROPIC_API_KEY
-// Extrae skills, hace matching con roles, genera narrativa
+// ========== TRIGGER VPS WEBHOOK (Motor IA via OpenClaw/Opus) ==========
+// Patrón BriefIntel: API guarda job pending → trigger VPS webhook → 
+// OpenClaw system event → sub-agente Opus procesa → Supabase actualizado
 
-async function runAnalysisInline(userId, profileId, jobId, cvText, intakeAnswers, country) {
+async function triggerAnalysis(jobId, userId, profileId) {
+  const webhookUrl = process.env.CARRERA_WEBHOOK_URL || 'http://46.224.55.15:4243/trigger'
+  const webhookSecret = process.env.CARRERA_WEBHOOK_SECRET || 'carrera-negoia-2026'
+  
+  try {
+    const res = await fetch(webhookUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Webhook-Secret': webhookSecret
+      },
+      body: JSON.stringify({ jobId, userId, profileId })
+    })
+    
+    if (!res.ok) {
+      const errText = await res.text()
+      throw new Error(`Webhook failed: ${res.status} ${errText}`)
+    }
+    
+    if (process.env.NODE_ENV !== 'production') {
+      console.log(`✅ Triggered analysis: jobId=${jobId}`)
+    }
+    return true
+  } catch (err) {
+    if (process.env.NODE_ENV !== 'production') {
+      console.error('Trigger error:', err.message)
+    }
+    // Mark job as error so user sees feedback
+    await supabase.from('assessment_jobs').update({
+      status: 'error',
+      error_message: `Trigger failed: ${err.message}`
+    }).eq('id', jobId)
+    return false
+  }
+}
+
+// ========== LEGACY STATIC ENGINE (UNUSED - kept for emergency fallback) ==========
+async function runAnalysisInline_LEGACY(userId, profileId, jobId, cvText, intakeAnswers, country) {
   try {
     // Update job to processing
     await supabase.from('assessment_jobs').update({ 
@@ -416,17 +452,10 @@ export async function POST(request) {
       return Response.json({ error: 'Error creando job' }, { status: 500 })
     }
 
-    // 4. Run analysis INLINE (fire and forget)
-    // No await - returns immediately, analysis runs in background
-    runAnalysisInline(
-      user.id, 
-      profile.id, 
-      job.id, 
-      validatedCvText, 
-      { ...validatedIntake, name: validatedName }, 
-      validatedCountry
-    ).catch(err => {
-      if (process.env.NODE_ENV !== 'production') console.error('Background analysis error:', err)
+    // 4. Trigger real analysis via VPS webhook (Opus sub-agent)
+    // Fire and forget - webhook triggers openclaw system event, agent processes async
+    triggerAnalysis(job.id, user.id, profile.id).catch(err => {
+      if (process.env.NODE_ENV !== 'production') console.error('Trigger error:', err)
     })
 
     return Response.json({ 

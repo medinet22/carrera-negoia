@@ -112,7 +112,7 @@ async function main() {
     }
     
     const { data: profile, error: profileError } = await supabase
-      .from('profiles')
+      .from('carrera_profiles')
       .select('*')
       .eq('user_id', userId)
       .order('created_at', { ascending: false })
@@ -126,7 +126,7 @@ async function main() {
     log(`Loaded profile for ${user.name || user.email}`);
     
     // 2. Prepare data for prompts
-    const cvText = profile.cv_raw_text || 'No se proporcionó CV';
+    const cvText = profile.cv_text || 'No se proporcionó CV';
     const intakeAnswers = profile.intake_answers || {};
     const country = user.country || 'ES';
     const userName = user.name || 'Profesional';
