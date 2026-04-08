@@ -22,6 +22,8 @@ async function triggerAnalysis(jobId, userId, profileId) {
   const webhookUrl = process.env.CARRERA_WEBHOOK_URL || 'http://46.224.55.15:4243/trigger'
   const webhookSecret = process.env.CARRERA_WEBHOOK_SECRET || 'carrera-negoia-2026'
   
+  console.log(`[carrera] triggerAnalysis start: jobId=${jobId} url=${webhookUrl}`)
+  
   try {
     const res = await fetch(webhookUrl, {
       method: 'POST',
@@ -29,22 +31,20 @@ async function triggerAnalysis(jobId, userId, profileId) {
         'Content-Type': 'application/json',
         'X-Webhook-Secret': webhookSecret
       },
-      body: JSON.stringify({ jobId, userId, profileId })
+      body: JSON.stringify({ jobId, userId, profileId }),
+      signal: AbortSignal.timeout(15000)
     })
     
+    const responseText = await res.text()
+    console.log(`[carrera] webhook response: ${res.status} ${responseText}`)
+    
     if (!res.ok) {
-      const errText = await res.text()
-      throw new Error(`Webhook failed: ${res.status} ${errText}`)
+      throw new Error(`Webhook failed: ${res.status} ${responseText}`)
     }
     
-    if (process.env.NODE_ENV !== 'production') {
-      console.log(`✅ Triggered analysis: jobId=${jobId}`)
-    }
     return true
   } catch (err) {
-    if (process.env.NODE_ENV !== 'production') {
-      console.error('Trigger error:', err.message)
-    }
+    console.error(`[carrera] triggerAnalysis error: ${err.message}`)
     // Mark job as error so user sees feedback
     await supabase.from('assessment_jobs').update({
       status: 'error',
@@ -453,10 +453,8 @@ export async function POST(request) {
     }
 
     // 4. Trigger real analysis via VPS webhook (Opus sub-agent)
-    // Fire and forget - webhook triggers openclaw system event, agent processes async
-    triggerAnalysis(job.id, user.id, profile.id).catch(err => {
-      if (process.env.NODE_ENV !== 'production') console.error('Trigger error:', err)
-    })
+    // Awaited so trigger errors are captured before responding
+    await triggerAnalysis(job.id, user.id, profile.id)
 
     return Response.json({ 
       userId: user.id,
