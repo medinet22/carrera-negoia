@@ -46,6 +46,7 @@ export default function sitemap() {
     '/buscar-trabajo-sin-linkedin',
     '/como-destacar-en-infojobs',
     '/que-poner-en-cv-si-no-tienes-logros',
+    '/carta-presentacion-no-suena-ia',
   ]
 
   return routes.map((route) => ({

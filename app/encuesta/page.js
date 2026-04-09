@@ -100,6 +100,7 @@ export default function Encuesta() {
           <span className={styles.surveyBadge}>⏱️ 90 segundos · +340 profesionales ya lo hicieron</span>
           <h1>Descubre qué roles encajan contigo</h1>
           <p>Responde 3 preguntas y recibe recomendaciones personalizadas. Nada genérico.</p>
+          <p className={styles.hint}>Sin CV, sin registro raro. Solo claridad inicial y siguientes pasos útiles.</p>
           {answers.email && <p className={styles.hint}>📩 Email detectado: <strong>{answers.email}</strong></p>}
         </header>
 
@@ -141,8 +142,9 @@ export default function Encuesta() {
               </div>
 
               <button type="button" className={`${styles.btn} ${styles.btnNext}`} onClick={() => { track('cta_click', { cta_id: 'encuesta_step1_next' }); setStep(2) }} disabled={!answers.situation || !answers.frustration}>
-                Siguiente →
+                Continuar, tarda menos de 2 min →
               </button>
+              <p className={styles.hint}>Todavía no te pedimos CV ni pago.</p>
             </>
           )}
 

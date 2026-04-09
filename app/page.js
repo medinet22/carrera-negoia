@@ -129,14 +129,14 @@ export default function Home() {
 
           <div style={{ marginTop: '16px' }}>
             <Link
-              href="/que-poner-en-cv-si-no-tienes-logros?utm_source=owned&utm_medium=home&utm_campaign=growth_loop_apr08&utm_content=hero_guide"
+              href="/carta-presentacion-no-suena-ia?utm_source=owned&utm_medium=home&utm_campaign=growth_loop_apr09&utm_content=hero_guide"
               style={{
                 color: '#c7d2fe',
                 fontSize: '13px',
                 textDecoration: 'underline'
               }}
             >
-              Nueva guía: Qué poner en el CV cuando no tienes logros — guía práctica
+              Nueva guía: Carta de presentación que no suena a IA
             </Link>
           </div>
         </div>
