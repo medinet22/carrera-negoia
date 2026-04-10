@@ -129,14 +129,14 @@ export default function Home() {
 
           <div style={{ marginTop: '16px' }}>
             <Link
-              href="/carta-presentacion-no-suena-ia?utm_source=owned&utm_medium=home&utm_campaign=growth_loop_apr09&utm_content=hero_guide"
+              href="/como-preparar-entrevista-sin-experiencia?utm_source=owned&utm_medium=home&utm_campaign=growth_loop_apr10&utm_content=hero_guide"
               style={{
                 color: '#c7d2fe',
                 fontSize: '13px',
                 textDecoration: 'underline'
               }}
             >
-              Nueva guía: Carta de presentación que no suena a IA
+              Nueva guía: Cómo preparar una entrevista sin experiencia
             </Link>
           </div>
         </div>

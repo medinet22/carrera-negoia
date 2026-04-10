@@ -47,6 +47,7 @@ export default function sitemap() {
     '/como-destacar-en-infojobs',
     '/que-poner-en-cv-si-no-tienes-logros',
     '/carta-presentacion-no-suena-ia',
+    '/como-preparar-entrevista-sin-experiencia',
   ]
 
   return routes.map((route) => ({

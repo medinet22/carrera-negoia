@@ -101,6 +101,7 @@ export default function Encuesta() {
           <h1>Descubre qué roles encajan contigo</h1>
           <p>Responde 3 preguntas y recibe recomendaciones personalizadas. Nada genérico.</p>
           <p className={styles.hint}>Sin CV, sin registro raro. Solo claridad inicial y siguientes pasos útiles.</p>
+          <p className={styles.hint}>Antes de terminar te pediremos tu email para enviarte el resumen. No te vamos a pedir pago aquí.</p>
           {answers.email && <p className={styles.hint}>📩 Email detectado: <strong>{answers.email}</strong></p>}
         </header>
 
@@ -141,7 +142,7 @@ export default function Encuesta() {
                 ))}
               </div>
 
-              <button type="button" className={`${styles.btn} ${styles.btnNext}`} onClick={() => { track('cta_click', { cta_id: 'encuesta_step1_next' }); setStep(2) }} disabled={!answers.situation || !answers.frustration}>
+              <button type="button" className={`${styles.btn} ${styles.btnNext}`} onClick={() => { track('cta_click', { cta_id: 'encuesta_step1_next', cta_variant: 'apr10_ver_email_expectation' }); setStep(2) }} disabled={!answers.situation || !answers.frustration}>
                 Continuar, tarda menos de 2 min →
               </button>
               <p className={styles.hint}>Todavía no te pedimos CV ni pago.</p>
