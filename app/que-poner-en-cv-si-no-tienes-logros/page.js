@@ -40,6 +40,18 @@ export default function QuePoner() {
             Esto no es una guía motivacional. Es una guía técnica para extraer lo que ya tienes.
           </p>
 
+          <div className="bg-indigo-900/30 border border-indigo-700/50 rounded-xl p-6 my-8">
+            <h2 className="text-xl font-bold text-white mb-3">Si solo tienes 10 minutos, haz esto ahora</h2>
+            <ol className="text-slate-300 space-y-3 pl-5 list-decimal">
+              <li>Abre tu último puesto y apunta 3 situaciones concretas: una mejora, un problema que resolviste y una tarea que todo el mundo te acababa delegando.</li>
+              <li>Al lado de cada una, añade escala real: personas, volumen, frecuencia, tiempo o dinero. Aunque sea una estimación prudente.</li>
+              <li>Convierte cada frase en esta estructura: <span className="text-white">acción + contexto + impacto</span>. No busques sonar brillante, busca sonar creíble.</li>
+            </ol>
+            <p className="text-slate-400 text-sm mt-4">
+              Ejemplo rápido: “llevaba incidencias” pasa a “resolví unas 25 incidencias semanales de clientes clave y evité que escalaran a dirección en cierres de mes”.
+            </p>
+          </div>
+
           <h2 className="text-2xl font-bold text-white mt-12 mb-6">
             El error de base: confundir responsabilidad con logro
           </h2>
@@ -257,7 +269,7 @@ export default function QuePoner() {
             "author": { "@type": "Organization", "name": "Carrera NegoIA" },
             "publisher": { "@type": "Organization", "name": "Carrera NegoIA", "url": "https://carrera.negoia.com" },
             "datePublished": "2026-04-08",
-            "dateModified": "2026-04-08",
+            "dateModified": "2026-04-11",
             "mainEntityOfPage": "https://carrera.negoia.com/que-poner-en-cv-si-no-tienes-logros"
           })
         }}

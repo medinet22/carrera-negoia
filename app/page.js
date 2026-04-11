@@ -77,11 +77,19 @@ export default function Home() {
               color: '#fff',
               boxShadow: '0 8px 32px rgba(99, 102, 241, 0.4)',
               minHeight: '64px',
-              marginBottom: '16px'
+              marginBottom: '10px'
             }}
           >
-            Empezar análisis gratis — 15 minutos
+            Empezar gratis con 4 preguntas
           </Link>
+
+          <p style={{
+            fontSize: '13px',
+            color: '#94a3b8',
+            marginBottom: '16px'
+          }}>
+            Sin tarjeta. Entras, respondes 4 preguntas y ves si te merece la pena seguir.
+          </p>
 
           {/* Social proof inmediato */}
           <p style={{ 
@@ -129,14 +137,14 @@ export default function Home() {
 
           <div style={{ marginTop: '16px' }}>
             <Link
-              href="/como-preparar-entrevista-sin-experiencia?utm_source=owned&utm_medium=home&utm_campaign=growth_loop_apr10&utm_content=hero_guide"
+              href="/que-poner-en-cv-si-no-tienes-logros?utm_source=owned&utm_medium=home&utm_campaign=growth_loop_apr11&utm_content=hero_cv_logros"
               style={{
                 color: '#c7d2fe',
                 fontSize: '13px',
                 textDecoration: 'underline'
               }}
             >
-              Nueva guía: Cómo preparar una entrevista sin experiencia
+              Nueva guía: Qué poner en el CV cuando sientes que no tienes logros
             </Link>
           </div>
         </div>
