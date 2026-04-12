@@ -233,6 +233,7 @@ export default function Encuesta() {
               {!answers.email && (
                 <>
                   <h2>Tu email</h2>
+                  <p className={styles.hint}>Te mandamos el resumen para que no pierdas lo que acabas de responder. Si hoy no compras nada, no pasa nada.</p>
                   <input type="email" className={styles.input} placeholder="tu@email.com" value={answers.email} onChange={(e)=>{handleChange('email')(e); if(!e.target.value || isValidEmail(e.target.value)) setEmailError('')}} onBlur={()=>{ if(answers.email && !isValidEmail(answers.email)) setEmailError('Introduce un email válido (ejemplo@dominio.com)') }} />
                   {emailError && <p className={styles.hint} style={{color:'#f87171'}}>{emailError}</p>}
                 </>
@@ -241,8 +242,8 @@ export default function Encuesta() {
               <p className={styles.hint}>📬 Te enviaremos solo el resumen + siguientes pasos. Cero spam.</p>
               <div className={styles.btnGroup}>
                 <button type="button" className={`${styles.btn} ${styles.btnBack}`} onClick={() => { track('cta_click', { cta_id: 'encuesta_step3_back' }); setStep(2) }}>← Atrás</button>
-                <button type="button" className={`${styles.btn} ${styles.btnSubmit}`} onClick={() => { track('cta_click', { cta_id: 'encuesta_submit' }); handleSubmit() }} disabled={loading || !answers.would_pay || !answers.goal || !answers.email}>
-                  {loading ? 'Enviando...' : 'Enviar y recibir próximos pasos'}
+                <button type="button" className={`${styles.btn} ${styles.btnSubmit}`} onClick={() => { track('cta_click', { cta_id: 'encuesta_submit', cta_variant: 'apr12_resumen_sin_presion' }); handleSubmit() }} disabled={loading || !answers.would_pay || !answers.goal || !answers.email}>
+                  {loading ? 'Enviando...' : 'Recibir mi resumen y siguientes pasos'}
                 </button>
               </div>
             </>

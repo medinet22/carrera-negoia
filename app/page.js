@@ -137,14 +137,14 @@ export default function Home() {
 
           <div style={{ marginTop: '16px' }}>
             <Link
-              href="/que-poner-en-cv-si-no-tienes-logros?utm_source=owned&utm_medium=home&utm_campaign=growth_loop_apr11&utm_content=hero_cv_logros"
+              href="/que-preguntar-en-una-entrevista-de-trabajo?utm_source=owned&utm_medium=home&utm_campaign=growth_loop_apr12&utm_content=hero_entrevista_preguntas"
               style={{
                 color: '#c7d2fe',
                 fontSize: '13px',
                 textDecoration: 'underline'
               }}
             >
-              Nueva guía: Qué poner en el CV cuando sientes que no tienes logros
+              Nueva guía: Qué preguntar en una entrevista sin sonar improvisado
             </Link>
           </div>
         </div>

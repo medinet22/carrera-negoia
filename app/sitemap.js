@@ -48,6 +48,7 @@ export default function sitemap() {
     '/que-poner-en-cv-si-no-tienes-logros',
     '/carta-presentacion-no-suena-ia',
     '/como-preparar-entrevista-sin-experiencia',
+    '/que-preguntar-en-una-entrevista-de-trabajo',
   ]
 
   return routes.map((route) => ({
