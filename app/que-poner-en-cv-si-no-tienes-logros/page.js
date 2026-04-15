@@ -161,6 +161,50 @@ export default function QuePoner() {
           </p>
 
           <h2 className="text-2xl font-bold text-white mt-12 mb-6">
+            Tres ejemplos reales de frases flojas que puedes arreglar hoy
+          </h2>
+
+          <p className="text-slate-300 leading-relaxed">
+            Aquí es donde la mayoría se atasca. Sabe que su CV suena plano, pero no sabe cómo aterrizarlo sin exagerar. Mira estos tres casos. No son frases perfectas, son frases creíbles que un reclutador entiende en 5 segundos.
+          </p>
+
+          <div className="space-y-6 my-8">
+            <div className="bg-slate-800/50 border border-slate-700 rounded-lg p-6">
+              <p className="text-red-200 font-medium mb-2">❌ Antes</p>
+              <p className="text-slate-300 mb-4">"Apoyo administrativo al equipo comercial"</p>
+              <p className="text-green-200 font-medium mb-2">✅ Mejor</p>
+              <p className="text-white mb-3">"Di soporte diario a 6 comerciales, preparando ofertas y documentación para que las propuestas salieran en plazo incluso en cierres de mes"</p>
+              <p className="text-slate-400 text-sm">No hace falta inventar ventas cerradas. Basta con explicar qué sostenías y por qué importaba.</p>
+            </div>
+
+            <div className="bg-slate-800/50 border border-slate-700 rounded-lg p-6">
+              <p className="text-red-200 font-medium mb-2">❌ Antes</p>
+              <p className="text-slate-300 mb-4">"Gestión de incidencias de clientes"</p>
+              <p className="text-green-200 font-medium mb-2">✅ Mejor</p>
+              <p className="text-white mb-3">"Resolví incidencias de clientes con seguimiento de principio a fin, evitando escalados innecesarios y manteniendo la operativa diaria sin bloqueos"</p>
+              <p className="text-slate-400 text-sm">Si no tienes un porcentaje exacto, usa impacto operativo real: menos bloqueos, menos escalados, más continuidad.</p>
+            </div>
+
+            <div className="bg-slate-800/50 border border-slate-700 rounded-lg p-6">
+              <p className="text-red-200 font-medium mb-2">❌ Antes</p>
+              <p className="text-slate-300 mb-4">"Coordinación con diferentes departamentos"</p>
+              <p className="text-green-200 font-medium mb-2">✅ Mejor</p>
+              <p className="text-white mb-3">"Coordiné tareas entre operaciones, ventas y atención al cliente para que pedidos urgentes salieran sin errores en momentos de alta carga"</p>
+              <p className="text-slate-400 text-sm">Esto suena mucho mejor porque describe tensión real. Y la tensión real es lo que da valor a tu experiencia.</p>
+            </div>
+          </div>
+
+          <div className="bg-indigo-900/30 border border-indigo-700/50 rounded-xl p-6 my-8">
+            <h3 className="text-xl font-bold text-white mb-3">Checklist rápido antes de cerrar tu CV</h3>
+            <ul className="text-slate-300 space-y-3">
+              <li>1. Quita frases que podrían copiar 500 personas.</li>
+              <li>2. Añade una señal de contexto real: volumen, equipo, urgencia o tipo de cliente.</li>
+              <li>3. Lee la frase en voz alta. Si parece LinkedIn inflado, bájala medio nivel.</li>
+            </ul>
+            <p className="text-slate-400 text-sm mt-4">Ese último filtro funciona sorprendentemente bien. Si te da vergüenza decirlo en entrevista, no lo pongas así en el CV.</p>
+          </div>
+
+          <h2 className="text-2xl font-bold text-white mt-12 mb-6">
             Plantilla práctica: transforma tu experiencia en 3 pasos
           </h2>
 
@@ -251,7 +295,7 @@ export default function QuePoner() {
 
           <div className="border-t border-slate-700 pt-8 mt-12">
             <p className="text-slate-400 text-sm">
-              Última actualización: abril 2026 · Basado en análisis de perfiles reales y entrevistas con reclutadores españoles.
+              Última actualización: 13 abril 2026 · Basado en análisis de perfiles reales y entrevistas con reclutadores españoles.
             </p>
           </div>
 
@@ -269,7 +313,7 @@ export default function QuePoner() {
             "author": { "@type": "Organization", "name": "Carrera NegoIA" },
             "publisher": { "@type": "Organization", "name": "Carrera NegoIA", "url": "https://carrera.negoia.com" },
             "datePublished": "2026-04-08",
-            "dateModified": "2026-04-11",
+            "dateModified": "2026-04-13",
             "mainEntityOfPage": "https://carrera.negoia.com/que-poner-en-cv-si-no-tienes-logros"
           })
         }}
