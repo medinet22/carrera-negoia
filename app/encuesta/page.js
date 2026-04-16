@@ -142,10 +142,10 @@ export default function Encuesta() {
                 ))}
               </div>
 
-              <button type="button" className={`${styles.btn} ${styles.btnNext}`} onClick={() => { track('cta_click', { cta_id: 'encuesta_step1_next', cta_variant: 'apr13_sin_email_todavia' }); setStep(2) }} disabled={!answers.situation || !answers.frustration}>
-                Continuar, sin email todavía →
+              <button type="button" className={`${styles.btn} ${styles.btnNext}`} onClick={() => { track('cta_click', { cta_id: 'encuesta_step1_next', cta_variant: 'apr16_3_respuestas_sin_email' }); setStep(2) }} disabled={!answers.situation || !answers.frustration}>
+                Ver las siguientes 3 preguntas, sin email todavía →
               </button>
-              <p className={styles.hint}>Todavía no te pedimos CV, email ni pago.</p>
+              <p className={styles.hint}>Primero te ubicamos. El email llega al final, solo si quieres guardar el resumen.</p>
             </>
           )}
 

@@ -58,12 +58,12 @@ export default function Home() {
             maxWidth: '600px',
             margin: '0 auto 32px auto'
           }}>
-            En 15 minutos, la IA analiza toda tu experiencia y te dice con qué roles profesionales de 2026 ya encajas, con salarios reales y por qué.
+            Empiezas con 4 preguntas rápidas. Luego la IA analiza tu experiencia y te dice con qué roles profesionales de 2026 ya encajas, con salarios reales y por qué.
           </p>
 
           {/* CTA principal — Grande y prominente */}
           <Link
-            href="/start"
+            href="/start?utm_source=owned&utm_medium=home&utm_campaign=growth_loop_apr16&utm_content=hero_primary_4preguntas"
             style={{ 
               display: 'inline-flex',
               alignItems: 'center',
@@ -88,7 +88,7 @@ export default function Home() {
             color: '#94a3b8',
             marginBottom: '16px'
           }}>
-            Sin tarjeta. Entras, respondes 4 preguntas y ves si te merece la pena seguir.
+            Sin tarjeta. Primero respondes 4 preguntas y decides después si quieres ir más a fondo.
           </p>
 
           {/* Social proof inmediato */}
@@ -137,14 +137,14 @@ export default function Home() {
 
           <div style={{ marginTop: '16px' }}>
             <Link
-              href="/que-preguntar-en-una-entrevista-de-trabajo?utm_source=owned&utm_medium=home&utm_campaign=growth_loop_apr12&utm_content=hero_entrevista_preguntas"
+              href="/que-poner-en-cv-si-no-tienes-logros?utm_source=owned&utm_medium=home&utm_campaign=growth_loop_apr16&utm_content=hero_cv_logros_humano"
               style={{
                 color: '#c7d2fe',
                 fontSize: '13px',
                 textDecoration: 'underline'
               }}
             >
-              Nueva guía: Qué preguntar en una entrevista sin sonar improvisado
+              Nueva guía: qué poner en el CV cuando sientes que no tienes logros
             </Link>
           </div>
         </div>

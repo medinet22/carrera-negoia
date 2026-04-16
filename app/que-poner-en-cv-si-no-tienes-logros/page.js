@@ -20,7 +20,7 @@ export default function QuePoner() {
       <article className="max-w-3xl mx-auto px-4 py-16">
         <header className="mb-12">
           <span className="inline-block px-3 py-1 text-xs font-medium text-indigo-300 bg-indigo-900/50 rounded-full mb-4">
-            Guía práctica · 6 min lectura
+            Guía práctica · en 2 min sacas una frase útil
           </span>
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
             Qué poner en el CV cuando sientes que no tienes logros
@@ -41,15 +41,40 @@ export default function QuePoner() {
           </p>
 
           <div className="bg-indigo-900/30 border border-indigo-700/50 rounded-xl p-6 my-8">
-            <h2 className="text-xl font-bold text-white mb-3">Si solo tienes 10 minutos, haz esto ahora</h2>
+            <h2 className="text-xl font-bold text-white mb-3">Si solo tienes 2 minutos, haz esto ahora</h2>
             <ol className="text-slate-300 space-y-3 pl-5 list-decimal">
-              <li>Abre tu último puesto y apunta 3 situaciones concretas: una mejora, un problema que resolviste y una tarea que todo el mundo te acababa delegando.</li>
-              <li>Al lado de cada una, añade escala real: personas, volumen, frecuencia, tiempo o dinero. Aunque sea una estimación prudente.</li>
-              <li>Convierte cada frase en esta estructura: <span className="text-white">acción + contexto + impacto</span>. No busques sonar brillante, busca sonar creíble.</li>
+              <li>Escribe una tarea real que hacías mucho, sin adornarla.</li>
+              <li>Añade una señal concreta: volumen, urgencia, personas o tipo de cliente.</li>
+              <li>Cierra con el efecto: qué evitabas, qué acelerabas o qué hacías posible.</li>
             </ol>
             <p className="text-slate-400 text-sm mt-4">
-              Ejemplo rápido: “llevaba incidencias” pasa a “resolví unas 25 incidencias semanales de clientes clave y evité que escalaran a dirección en cierres de mes”.
+              Fórmula rápida: <span className="text-white">acción + contexto + impacto</span>. Ejemplo: “llevaba incidencias” pasa a “resolví incidencias de clientes clave en cierres de mes para que el equipo no llegara bloqueado al día siguiente”.
             </p>
+          </div>
+
+          <div className="bg-slate-800/60 border border-slate-700 rounded-xl p-6 my-8">
+            <h2 className="text-xl font-bold text-white mb-3">Tres frases que suenan planas y cómo arreglar una hoy</h2>
+            <div className="space-y-4 text-slate-300">
+              <div>
+                <p className="text-red-200 font-medium">Floja:</p>
+                <p>"Atención al cliente"</p>
+                <p className="text-green-200 font-medium mt-2">Mejor:</p>
+                <p className="text-white">"Atendí consultas de clientes en momentos de alta carga para que pedidos y reclamaciones no se quedaran parados."</p>
+              </div>
+              <div>
+                <p className="text-red-200 font-medium">Floja:</p>
+                <p>"Tareas administrativas"</p>
+                <p className="text-green-200 font-medium mt-2">Mejor:</p>
+                <p className="text-white">"Llevé la parte administrativa de varias áreas para que el equipo pudiera cerrar tareas sin perseguir papeles ni correos."</p>
+              </div>
+              <div>
+                <p className="text-red-200 font-medium">Floja:</p>
+                <p>"Coordinación con otros departamentos"</p>
+                <p className="text-green-200 font-medium mt-2">Mejor:</p>
+                <p className="text-white">"Coordiné ventas, operaciones y soporte cuando había urgencias para que los pedidos salieran sin errores."</p>
+              </div>
+            </div>
+            <p className="text-slate-400 text-sm mt-4">Si una frase la puede firmar cualquiera, todavía no sirve. Si describe una tensión real, ya empieza a vender tu experiencia.</p>
           </div>
 
           <h2 className="text-2xl font-bold text-white mt-12 mb-6">
@@ -279,23 +304,23 @@ export default function QuePoner() {
             </p>
             <div className="flex flex-col sm:flex-row gap-3">
               <a
-                href="/start?utm_source=seo&utm_medium=blog&utm_campaign=cv_sin_logros&utm_content=cta_principal"
+                href="/start?utm_source=seo&utm_medium=blog&utm_campaign=cv_sin_logros&utm_content=cta_principal_apr16"
                 className="inline-block bg-indigo-600 hover:bg-indigo-500 text-white font-semibold px-6 py-3 rounded-lg transition-colors text-center"
               >
-                Ver qué roles encajan con mi perfil →
+                Ver qué vender de mi perfil en roles reales →
               </a>
               <a
-                href="/encuesta?utm_source=seo&utm_medium=blog&utm_campaign=cv_sin_logros&utm_content=cta_encuesta"
+                href="/encuesta?utm_source=seo&utm_medium=blog&utm_campaign=cv_sin_logros&utm_content=cta_encuesta_apr16"
                 className="inline-block bg-slate-700 hover:bg-slate-600 text-white font-semibold px-6 py-3 rounded-lg transition-colors text-center"
               >
-                Empezar con encuesta rápida →
+                Hacer la encuesta y detectar mis puntos fuertes →
               </a>
             </div>
           </div>
 
           <div className="border-t border-slate-700 pt-8 mt-12">
             <p className="text-slate-400 text-sm">
-              Última actualización: 13 abril 2026 · Basado en análisis de perfiles reales y entrevistas con reclutadores españoles.
+              Última actualización: 16 abril 2026 · Basado en análisis de perfiles reales y entrevistas con reclutadores españoles.
             </p>
           </div>
 
@@ -313,7 +338,7 @@ export default function QuePoner() {
             "author": { "@type": "Organization", "name": "Carrera NegoIA" },
             "publisher": { "@type": "Organization", "name": "Carrera NegoIA", "url": "https://carrera.negoia.com" },
             "datePublished": "2026-04-08",
-            "dateModified": "2026-04-13",
+            "dateModified": "2026-04-16",
             "mainEntityOfPage": "https://carrera.negoia.com/que-poner-en-cv-si-no-tienes-logros"
           })
         }}
